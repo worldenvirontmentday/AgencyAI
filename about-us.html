@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AGENCY AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --glow-color: rgba(111, 76, 255, 0.8);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+        
+        .glow-border {
+            border: 1px solid rgba(111, 76, 255, 0.5);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        
+        .grid-bg {
+            background-image: radial-gradient(circle at 1px 1px, rgba(111, 76, 255, 0.15) 1px, transparent 0);
+            background-size: 30px 30px;
+        }
+        
+        .video-placeholder {
+            background: linear-gradient(45deg, #1a103d, #2d1b69);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-placeholder::after {
+            content: "Video Testimonial";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Orbitron', sans-serif;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .video-placeholder::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(111, 76, 255, 0.1) 0%,
+                rgba(111, 76, 255, 0.05) 40%,
+                rgba(0, 183, 255, 0.05) 60%,
+                rgba(0, 183, 255, 0.1) 100%
+            );
+            transform: rotate(30deg);
+            animation: shimmer 8s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(30deg) translateY(-100%); }
+            100% { transform: rotate(30deg) translateY(100%); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        .circle-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+        }
+        
+        .chart-bar {
+            transition: height 1s ease-out;
+        }
+        
+        input, textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(111, 76, 255, 0.3);
+            color: white;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: rgba(111, 76, 255, 0.8);
+            box-shadow: 0 0 10px rgba(111, 76, 255, 0.5);
+            outline: none;
+        }
+        
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 20px var(--glow-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-glow::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(111, 76, 255, 0) 0%,
+                rgba(111, 76, 255, 0.1) 40%,
+                rgba(0, 183, 255, 0.1) 60%,
+                rgba(0, 183, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, rgba(91, 33, 182, 0.2), rgba(67, 56, 202, 0.2));
+            border: 1px solid rgba(111, 76, 255, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 0 15px rgba(111, 76, 255, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(111, 76, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(111, 76, 255, 0.5);
+        }
+        
+        .iframe-container {
+            position: relative;
+            height: 629px;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.-bottom-8{bottom:-2rem}.-top-12{top:-3rem}.-top-4{top:-1rem}.-top-8{top:-2rem}.bottom-0{bottom:0px}.bottom-\[5\%\]{bottom:5%}.left-0{left:0px}.left-1\/2{left:50%}.left-\[-10\%\]{left:-10%}.left-\[20\%\]{left:20%}.right-0{right:0px}.right-\[-15\%\]{right:-15%}.top-0{top:0px}.top-\[10\%\]{top:10%}.top-\[40\%\]{top:40%}.z-10{z-index:10}.mx-4{margin-left:1rem;margin-right:1rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-2{margin-right:0.5rem}.mr-3{margin-right:0.75rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-2{margin-top:0.5rem}.mt-20{margin-top:5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.aspect-square{aspect-ratio:1 / 1}.aspect-video{aspect-ratio:16 / 9}.h-1{height:0.25rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-3{height:0.75rem}.h-4{height:1rem}.h-6{height:1.5rem}.h-\[15\.6\%\]{height:15.6%}.h-\[220px\]{height:220px}.h-\[300px\]{height:300px}.h-\[400px\]{height:400px}.h-\[500px\]{height:500px}.h-\[600px\]{height:600px}.h-\[64\%\]{height:64%}.h-auto{height:auto}.h-full{height:100%}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-3{width:0.75rem}.w-4{width:1rem}.w-6{width:1.5rem}.w-\[15\.6\%\]{width:15.6%}.w-\[400px\]{width:400px}.w-\[5\%\]{width:5%}.w-\[500px\]{width:500px}.w-\[600px\]{width:600px}.w-\[64\%\]{width:64%}.w-full{width:100%}.max-w-3xl{max-width:48rem}.max-w-md{max-width:28rem}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-6{--tw-translate-y:-1.5rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:0.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-t-md{border-top-left-radius:0.375rem;border-top-right-radius:0.375rem}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-purple-400{--tw-border-opacity:1;border-color:rgb(192 132 252 / var(--tw-border-opacity, 1))}.border-purple-500\/30{border-color:rgb(168 85 247 / 0.3)}.border-purple-500\/50{border-color:rgb(168 85 247 / 0.5)}.bg-black\/30{background-color:rgb(0 0 0 / 0.3)}.bg-black\/50{background-color:rgb(0 0 0 / 0.5)}.bg-black\/80{background-color:rgb(0 0 0 / 0.8)}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-blue-500\/20{background-color:rgb(59 130 246 / 0.2)}.bg-indigo-500{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.bg-indigo-600\/20{background-color:rgb(79 70 229 / 0.2)}.bg-purple-500{--tw-bg-opacity:1;background-color:rgb(168 85 247 / var(--tw-bg-opacity, 1))}.bg-purple-700\/20{background-color:rgb(126 34 206 / 0.2)}.bg-purple-900\/80{background-color:rgb(88 28 135 / 0.8)}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.bg-gradient-to-t{background-image:linear-gradient(to top, var(--tw-gradient-stops))}.from-purple-500{--tw-gradient-from:#a855f7 var(--tw-gradient-from-position);--tw-gradient-to:rgb(168 85 247 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-600{--tw-gradient-from:#9333ea var(--tw-gradient-from-position);--tw-gradient-to:rgb(147 51 234 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-600\/30{--tw-gradient-from:rgb(147 51 234 / 0.3) var(--tw-gradient-from-position);--tw-gradient-to:rgb(147 51 234 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-900\/20{--tw-gradient-from:rgb(88 28 135 / 0.2) var(--tw-gradient-from-position);--tw-gradient-to:rgb(88 28 135 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-900\/30{--tw-gradient-from:rgb(88 28 135 / 0.3) var(--tw-gradient-from-position);--tw-gradient-to:rgb(88 28 135 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-900\/50{--tw-gradient-from:rgb(88 28 135 / 0.5) var(--tw-gradient-from-position);--tw-gradient-to:rgb(88 28 135 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-blue-400{--tw-gradient-to:#60a5fa var(--tw-gradient-to-position)}.to-blue-500{--tw-gradient-to:#3b82f6 var(--tw-gradient-to-position)}.to-blue-600\/30{--tw-gradient-to:rgb(37 99 235 / 0.3) var(--tw-gradient-to-position)}.to-blue-900\/20{--tw-gradient-to:rgb(30 58 138 / 0.2) var(--tw-gradient-to-position)}.to-blue-900\/30{--tw-gradient-to:rgb(30 58 138 / 0.3) var(--tw-gradient-to-position)}.to-blue-900\/50{--tw-gradient-to:rgb(30 58 138 / 0.5) var(--tw-gradient-to-position)}.p-1{padding:0.25rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-1{padding-bottom:0.25rem}.pb-12{padding-bottom:3rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-light{font-weight:300}.font-semibold{font-weight:600}.italic{font-style:italic}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-fuchsia-400{--tw-text-opacity:1;color:rgb(232 121 249 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity, 1))}.text-pink-400{--tw-text-opacity:1;color:rgb(244 114 182 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-violet-400{--tw-text-opacity:1;color:rgb(167 139 250 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:from-purple-900\/30:hover{--tw-gradient-from:rgb(88 28 135 / 0.3) var(--tw-gradient-from-position);--tw-gradient-to:rgb(88 28 135 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:to-blue-900\/30:hover{--tw-gradient-to:rgb(30 58 138 / 0.3) var(--tw-gradient-to-position)}.hover\:text-purple-400:hover{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:opacity-100{opacity:1}@media (min-width: 768px){.md\:block{display:block}.md\:hidden{display:none}.md\:w-1\/2{width:50%}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:px-8{padding-left:2rem;padding-right:2rem}.md\:py-24{padding-top:6rem;padding-bottom:6rem}.md\:text-2xl{font-size:1.5rem;line-height:2rem}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}</style></head>
+<body class="grid-bg">
+    <!-- Background Glows -->
+    <div class="circle-glow bg-purple-700/20 w-[500px] h-[500px] top-[10%] left-[-10%]"></div>
+    <div class="circle-glow bg-blue-500/20 w-[600px] h-[600px] top-[40%] right-[-15%]"></div>
+    <div class="circle-glow bg-indigo-600/20 w-[400px] h-[400px] bottom-[5%] left-[20%]"></div>
+    
+    <!-- Header -->
+    <header class="relative z-10 py-6 px-4 md:px-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl md:text-3xl font-bold orbitron glow-text">
+                <span class="text-purple-400">AGENCY</span><span class="text-blue-400">AI</span>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#" class="hover:text-purple-400 transition-colors">Home</a></li>
+                    <li><a href="#" class="text-purple-400 border-b border-purple-400 pb-1">About Us</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors">Services</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 py-16 md:py-24">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold orbitron mb-6 glow-text">
+                <span class="text-purple-400">About</span> <span class="text-blue-400">Us</span>
+            </h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-300">
+                Kami adalah platform AI terdepan yang membantu bisnis Anda tumbuh dengan teknologi kecerdasan buatan terkini.
+            </p>
+            <div class="mt-10 inline-block glow-border rounded-full p-1">
+                <button id="scrollToComingSoon" class="btn-glow bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-full px-8 py-3">
+                    <span class="orbitron text-lg">SUPER AGENTIC AI</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="relative z-10 py-16 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold orbitron mb-12 text-center glow-text">
+                Apa yang mereka katakan tentang <span class="text-purple-400">Agency AI</span>?
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-6 glow-border">
+                    <div class="video-placeholder aspect-video rounded-lg mb-6"></div>
+                    <h3 class="text-xl font-semibold mb-2">Cafe Seasalt Rangkasbitung - Bu Jennifer</h3>
+                    <p class="text-gray-300">
+                        Bu Jennifer telah berhasil meningkatkan omzet usaha Cafe nya yang semula 120 juta rupiah meningkat menjadi 170 juta rupiah sejak menggunakan AI Agent Marketing dari Agency AI
+                    </p>
+                    <div class="mt-4 flex items-center">
+                        <div class="h-1 w-16 bg-purple-500 rounded-full mr-2"></div>
+                        <span class="text-purple-400 font-semibold">+41.7% Omzet</span>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-6 glow-border">
+                    <div class="video-placeholder aspect-video rounded-lg mb-6"></div>
+                    <h3 class="text-xl font-semibold mb-2">Barbershop milik pak Mughni Rangkasbitung</h3>
+                    <p class="text-gray-300">
+                        Pak Mughni telah berhasil meningkatkan omzet usaha barbershop nya yang semula 50 juta rupiah perbulan atau dalam 10 hari sekitar 17 juta, meningkat menjadi 20 juta rupiah per 10 hari sejak menggunakan AI Agent Marketing
+                    </p>
+                    <div class="mt-4 flex items-center">
+                        <div class="h-1 w-16 bg-purple-500 rounded-full mr-2"></div>
+                        <span class="text-purple-400 font-semibold">+17.6% Omzet</span>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-6 glow-border">
+                    <div class="video-placeholder aspect-video rounded-lg mb-6"></div>
+                    <h3 class="text-xl font-semibold mb-2">Ayam Geprek pak Rudi Rangkasbitung</h3>
+                    <p class="text-gray-300">
+                        Pak Rudi mengaku belum mengalami peningkatan omzet setelah menggunakan Agency AI. Menurut pengakuannya omzet usaha Ayam Geprek-nya masih stagnan di angka 3 juta perhari. Dengan itu kami contact Pak Rudi tersebut untuk mengevaluasi AI Super Agentic agar menjadi lebih baik lagi. Namun Pak Rudi juga mengaku terbantu dengan adanya sistem automasi dari Agency AI.
+                    </p>
+                    <div class="mt-4 flex items-center">
+                        <div class="h-1 w-16 bg-blue-500 rounded-full mr-2"></div>
+                        <span class="text-blue-400 font-semibold">Automasi Bisnis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="relative z-10 py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <div class="glow-border inline-block px-4 py-1 rounded-full mb-4">
+                        <span class="text-sm text-purple-400 orbitron">01</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold orbitron mb-6 glow-text">History</h2>
+                    <p class="text-gray-300 mb-6">
+                        Sebelum menjadi platform Artificial Intelligence (AI) #01 yang bisa bikin AI, kami sejak 2022 merupakan marketing agency dan penyedia jasa website development. Kami telah membantu ratusan usaha grow up.
+                    </p>
+                    
+                    <div class="mt-12 mb-8">
+                        <div class="h-[300px] relative glow-border p-6 rounded-xl bg-black/30">
+                            <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between h-[220px] px-6 pb-12">
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 10%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q1 2022: 3</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q1</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 16%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q2 2022: 5</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q2</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 35%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q3 2022: 11</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q3</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 41%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q4 2022: 13</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q4</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 44%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q1 2023: 14</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q1</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 69%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q2 2023: 22</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q2</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 75%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q3 2023: 24</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q3</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 91%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q4 2023: 29</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q4</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 100%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q1 2024: 32</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q1</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 109%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q2 2024: 35</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q2</div>
+                                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-6">
+                                        <div class="pulse">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 103%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q3 2024: 33</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q3</div>
+                                </div>
+                                <div class="chart-bar w-[5%] bg-gradient-to-t from-purple-600 to-blue-400 rounded-t-md relative group" style="height: 0%">
+                                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-900/80 px-2 py-1 rounded text-xs whitespace-nowrap">Q4 2024: 0</div>
+                                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs">Q4</div>
+                                </div>
+                            </div>
+                            <div class="absolute left-0 right-0 bottom-0 text-center text-sm text-gray-400">Tahun</div>
+                            <div class="absolute left-0 top-0 bottom-0 flex flex-col justify-between py-6 text-xs text-gray-400">
+                                <span>35</span>
+                                <span>25</span>
+                                <span>15</span>
+                                <span>5</span>
+                                <span>0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-6 rounded-xl glow-border mt-8">
+                        <h3 class="text-xl font-bold mb-2">Di tengah puncak kesuksesan kami pada Juli 2024, kami memutuskan untuk menutup agency kami!</h3>
+                        <p class="text-lg text-gray-300">Lah kok malah ditutup?</p>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-purple-900/20 to-blue-900/20 rounded-xl glow-border">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center mr-3">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 7H13V13H11V7ZM11 15H13V17H11V15Z" fill="#6366F1"></path>
+                                </svg>
+                            </div>
+                            <p class="italic text-gray-300">"Orang yang menolak AI akan bernasib sama seperti orang yang menolak internet tahun 2008"</p>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-400 mr-2">- ChatGPT</span>
+                                <span class="text-xs text-gray-500">Feb, 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <p class="text-gray-300 mb-6">
+                        Kini, kami kembali dengan bentuk yang lebih canggih: Agency AI. Dengan platform ini, siapa pun bisa membuat AI Agent dengan mudah, tanpa perlu keahlian coding, tanpa skill khusus, kapan saja dan di mana saja.
+                    </p>
+                    
+                    <div class="bg-gradient-to-r from-purple-900/20 to-blue-900/20 p-6 rounded-xl glow-border mb-8">
+                        <p class="text-gray-300">
+                            Teknologi kami telah terbukti: Sales AI yang kami kembangkan mampu memangkas biaya operasional bisnis hingga 70% dan meningkatkan closing rate sebesar 391%. Dengan kemampuan ini, solusi AI kami menjadi mitra yang sulit ditolak oleh berbagai bisnis.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            <div class="bg-black/30 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-purple-400 mb-1">-70%</div>
+                                <div class="text-sm text-gray-400">Biaya Operasional</div>
+                            </div>
+                            <div class="bg-black/30 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-blue-400 mb-1">+391%</div>
+                                <div class="text-sm text-gray-400">Closing Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="floating">
+                        <svg class="w-full h-auto" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M200 50C117.157 50 50 117.157 50 200C50 282.843 117.157 350 200 350C282.843 350 350 282.843 350 200C350 117.157 282.843 50 200 50Z" fill="url(#paint0_radial)" fill-opacity="0.2"></path>
+                            <path d="M200 75C130.964 75 75 130.964 75 200C75 269.036 130.964 325 200 325C269.036 325 325 269.036 325 200C325 130.964 269.036 75 200 75Z" stroke="#6D28D9" stroke-opacity="0.5" stroke-width="2"></path>
+                            <path d="M200 100C144.772 100 100 144.772 100 200C100 255.228 144.772 300 200 300C255.228 300 300 255.228 300 200C300 144.772 255.228 100 200 100Z" fill="url(#paint1_radial)" fill-opacity="0.1"></path>
+                            <path d="M200 125C158.579 125 125 158.579 125 200C125 241.421 158.579 275 200 275C241.421 275 275 241.421 275 200C275 158.579 241.421 125 200 125Z" stroke="#6D28D9" stroke-opacity="0.3" stroke-width="1"></path>
+                            <path d="M200 150C172.386 150 150 172.386 150 200C150 227.614 172.386 250 200 250C227.614 250 250 227.614 250 200C250 172.386 227.614 150 200 150Z" fill="url(#paint2_radial)" fill-opacity="0.2"></path>
+                            <path d="M200 175C186.193 175 175 186.193 175 200C175 213.807 186.193 225 200 225C213.807 225 225 213.807 225 200C225 186.193 213.807 175 200 175Z" fill="#6D28D9" fill-opacity="0.6"></path>
+                            <path d="M200 190C194.477 190 190 194.477 190 200C190 205.523 194.477 210 200 210C205.523 210 210 205.523 210 200C210 194.477 205.523 190 200 190Z" fill="white" fill-opacity="0.8"></path>
+                            <path d="M200 195C197.239 195 195 197.239 195 200C195 202.761 197.239 205 200 205C202.761 205 205 202.761 205 200C205 197.239 202.761 195 200 195Z" fill="white"></path>
+                            <path d="M200 50C117.157 50 50 117.157 50 200C50 282.843 117.157 350 200 350C282.843 350 350 282.843 350 200C350 117.157 282.843 50 200 50Z" stroke="#6D28D9" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="4 4"></path>
+                            <path d="M200 75C130.964 75 75 130.964 75 200C75 269.036 130.964 325 200 325C269.036 325 325 269.036 325 200C325 130.964 269.036 75 200 75Z" stroke="#6D28D9" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 100C144.772 100 100 144.772 100 200C100 255.228 144.772 300 200 300C255.228 300 300 255.228 300 200C300 144.772 255.228 100 200 100Z" stroke="#6D28D9" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 125C158.579 125 125 158.579 125 200C125 241.421 158.579 275 200 275C241.421 275 275 241.421 275 200C275 158.579 241.421 125 200 125Z" stroke="#6D28D9" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 150C172.386 150 150 172.386 150 200C150 227.614 172.386 250 200 250C227.614 250 250 227.614 250 200C250 172.386 227.614 150 200 150Z" stroke="#6D28D9" stroke-opacity="0.6" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 175C186.193 175 175 186.193 175 200C175 213.807 186.193 225 200 225C213.807 225 225 213.807 225 200C225 186.193 213.807 175 200 175Z" stroke="#6D28D9" stroke-opacity="0.7" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 190C194.477 190 190 194.477 190 200C190 205.523 194.477 210 200 210C205.523 210 210 205.523 210 200C210 194.477 205.523 190 200 190Z" stroke="#6D28D9" stroke-opacity="0.8" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 195C197.239 195 195 197.239 195 200C195 202.761 197.239 205 200 205C202.761 205 205 202.761 205 200C205 197.239 202.761 195 200 195Z" stroke="#6D28D9" stroke-opacity="0.9" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 50C117.157 50 50 117.157 50 200C50 282.843 117.157 350 200 350C282.843 350 350 282.843 350 200C350 117.157 282.843 50 200 50Z" stroke="#6D28D9" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="4 4"></path>
+                            <path d="M200 75C130.964 75 75 130.964 75 200C75 269.036 130.964 325 200 325C269.036 325 325 269.036 325 200C325 130.964 269.036 75 200 75Z" stroke="#6D28D9" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 100C144.772 100 100 144.772 100 200C100 255.228 144.772 300 200 300C255.228 300 300 255.228 300 200C300 144.772 255.228 100 200 100Z" stroke="#6D28D9" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 125C158.579 125 125 158.579 125 200C125 241.421 158.579 275 200 275C241.421 275 275 241.421 275 200C275 158.579 241.421 125 200 125Z" stroke="#6D28D9" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 150C172.386 150 150 172.386 150 200C150 227.614 172.386 250 200 250C227.614 250 250 227.614 250 200C250 172.386 227.614 150 200 150Z" stroke="#6D28D9" stroke-opacity="0.6" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 175C186.193 175 175 186.193 175 200C175 213.807 186.193 225 200 225C213.807 225 225 213.807 225 200C225 186.193 213.807 175 200 175Z" stroke="#6D28D9" stroke-opacity="0.7" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 190C194.477 190 190 194.477 190 200C190 205.523 194.477 210 200 210C205.523 210 210 205.523 210 200C210 194.477 205.523 190 200 190Z" stroke="#6D28D9" stroke-opacity="0.8" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <path d="M200 195C197.239 195 195 197.239 195 200C195 202.761 197.239 205 200 205C202.761 205 205 202.761 205 200C205 197.239 202.761 195 200 195Z" stroke="#6D28D9" stroke-opacity="0.9" stroke-width="1" stroke-dasharray="4 4"></path>
+                            <defs>
+                                <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 200) rotate(90) scale(150)">
+                                    <stop stop-color="#6D28D9"></stop>
+                                    <stop offset="1" stop-color="#6D28D9" stop-opacity="0"></stop>
+                                </radialGradient>
+                                <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 200) rotate(90) scale(100)">
+                                    <stop stop-color="#6D28D9"></stop>
+                                    <stop offset="1" stop-color="#6D28D9" stop-opacity="0"></stop>
+                                </radialGradient>
+                                <radialGradient id="paint2_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 200) rotate(90) scale(50)">
+                                    <stop stop-color="#6D28D9"></stop>
+                                    <stop offset="1" stop-color="#6D28D9" stop-opacity="0"></stop>
+                                </radialGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goal Section -->
+    <section id="goal" class="relative z-10 py-16 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="glow-border inline-block px-4 py-1 rounded-full mb-4">
+                <span class="text-sm text-purple-400 orbitron">02</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold orbitron mb-12 glow-text">Goal</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- VISI -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-6 glow-border">
+                    <h3 class="text-2xl font-bold orbitron mb-6 text-center">VISI</h3>
+                    
+                    <div class="relative w-full aspect-square max-w-md mx-auto">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-full h-full rounded-full border-4 border-purple-500/30 flex items-center justify-center">
+                                <div class="w-[64%] h-[64%] rounded-full border-4 border-purple-500/50 flex items-center justify-center relative">
+                                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-black/80 px-3 py-1 rounded-full text-xs">
+                                        64 juta UMKM Indonesia
+                                    </div>
+                                    
+                                    <div class="w-[15.6%] h-[15.6%] rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center relative">
+                                        <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-purple-900/80 px-3 py-1 rounded-full text-xs whitespace-nowrap">
+                                            Target 1% (640K usaha)
+                                        </div>
+                                        <div class="pulse">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4 mt-8">
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Market Cap</div>
+                            <div class="text-xl font-bold text-purple-400">$7.9B</div>
+                        </div>
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Revenue</div>
+                            <div class="text-xl font-bold text-blue-400">$32M</div>
+                        </div>
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Monthly Profit</div>
+                            <div class="text-xl font-bold text-indigo-400">$16M</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- MISI -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-6 glow-border flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold orbitron mb-6 text-center">MISI</h3>
+                    
+                    <div class="text-center">
+                        <p class="text-xl md:text-2xl font-light mb-6">
+                            <span class="text-purple-400 font-semibold">"meng-AI-kan"</span> usaha-usaha di Indonesia, membantu mereka tumbuh, bersaing, dan memenangkan pasar di era digital.
+                        </p>
+                        
+                        <div class="inline-flex items-center space-x-2 mt-4">
+                            <div class="w-3 h-3 rounded-full bg-purple-500 pulse"></div>
+                            <span class="text-gray-300">Transformasi Digital</span>
+                        </div>
+                        <div class="inline-flex items-center space-x-2 mt-2 mx-4">
+                            <div class="w-3 h-3 rounded-full bg-blue-500 pulse"></div>
+                            <span class="text-gray-300">Pertumbuhan Bisnis</span>
+                        </div>
+                        <div class="inline-flex items-center space-x-2 mt-2">
+                            <div class="w-3 h-3 rounded-full bg-indigo-500 pulse"></div>
+                            <span class="text-gray-300">Keunggulan Kompetitif</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Agency AI Section -->
+    <section id="why" class="relative z-10 py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="glow-border inline-block px-4 py-1 rounded-full mb-4">
+                <span class="text-sm text-purple-400 orbitron">03</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold orbitron mb-12 glow-text">Kenapa Agency AI?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Left Column -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-6 glow-border">
+                    <div class="aspect-video rounded-lg mb-6 bg-gradient-to-r from-purple-900/50 to-blue-900/50 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold orbitron mb-2 glow-text">SUPER AGENTIC CARD</div>
+                            <p class="text-gray-300 max-w-md mx-auto">Image placeholder for super_agentic_card.jpg</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-8">
+                        Agency AI adalah Artificial Intelligent Agentic terlengkap pertama yang akan memberi Anda pertumbuhan, otomisasi, dukungan, dan strategi yang Anda butuhkan untuk meraih keberhasilan dan mencapai sasaran pemasaran Anda. Saat ini telah melayani:
+                    </p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Costumer</div>
+                            <div class="text-xl font-bold text-purple-400">90,000+</div>
+                        </div>
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Messages</div>
+                            <div class="text-xl font-bold text-blue-400">1.37M</div>
+                        </div>
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Leads</div>
+                            <div class="text-xl font-bold text-indigo-400">194 Jt</div>
+                        </div>
+                        <div class="bg-black/30 rounded-lg p-4 text-center">
+                            <div class="text-sm text-gray-400 mb-1">Conversation</div>
+                            <div class="text-xl font-bold text-violet-400">19 Jt</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Feature Cards -->
+                <div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <!-- Feature Card 1 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-center">Fokus Omzet</h3>
+                            <p class="text-sm text-gray-300 text-center">
+                                Bukan sekedar AI untuk gaya-gayaan, fokus kami adalah peningkatan skala bisnis anda
+                            </p>
+                        </div>
+                        
+                        <!-- Feature Card 2 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-center">Chat Natural</h3>
+                            <p class="text-sm text-gray-300 text-center">
+                                Gaya bahasa manusiawi, ramah asyik diajak ngobrol, bisa bantu problem solving, sampai handle customer marah-marah.
+                            </p>
+                        </div>
+                        
+                        <!-- Feature Card 3 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-center">Kecerdasan Super</h3>
+                            <p class="text-sm text-gray-300 text-center">
+                                Merancang strategi terbaik untuk menjual dengan akurasi 98% tepat sasaran
+                            </p>
+                        </div>
+                        
+                        <!-- Feature Card 4 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-center">Automasi Tugas</h3>
+                            <p class="text-sm text-gray-300 text-center">
+                                Rekam catat chat &amp; telepon, auto input data customer, sajikan analitik performa bisnis
+                            </p>
+                        </div>
+                        
+                        <!-- Feature Card 5 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-fuchsia-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-center">Kategorisasi prospek</h3>
+                            <p class="text-sm text-gray-300 text-center">
+                                Kelompokkan data pelanggan berdasarkan demografi atau custom, auto #tagging nama pelanggan
+                            </p>
+                        </div>
+                        
+                        <!-- Feature Card 6 -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-center">Dashboard omnichannel</h3>
+                            <p class="text-sm text-gray-300 text-center">
+                                Gabungkan banyak platform sosmed, pantau semua chat dalam 1 dashboard.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coming Soon Section -->
+            <div id="coming-soon" class="mt-20">
+                <h3 class="text-2xl font-bold orbitron mb-6 glow-text">Coming soon</h3>
+                <p class="text-gray-300 mb-6">apa yang sedang kita kembangkan?</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-4 glow-border group hover:from-purple-900/30 hover:to-blue-900/30 transition-all duration-300">
+                        <div class="aspect-video rounded-lg mb-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 flex items-center justify-center overflow-hidden">
+                            <div class="text-center group-hover:scale-110 transition-transform duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-purple-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                <p class="text-gray-300 text-sm">AI Agent videocall</p>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold">AI Agent videocall</h4>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-4 glow-border group hover:from-purple-900/30 hover:to-blue-900/30 transition-all duration-300">
+                        <div class="aspect-video rounded-lg mb-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 flex items-center justify-center overflow-hidden">
+                            <div class="text-center group-hover:scale-110 transition-transform duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-blue-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                <p class="text-gray-300 text-sm">AI Agent Cloning Face</p>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold">AI Agent Cloning Face</h4>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-4 glow-border group hover:from-purple-900/30 hover:to-blue-900/30 transition-all duration-300">
+                        <div class="aspect-video rounded-lg mb-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 flex items-center justify-center overflow-hidden">
+                            <div class="text-center group-hover:scale-110 transition-transform duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-indigo-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p class="text-gray-300 text-sm">AI Agent Accounting &amp; Finance</p>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold">AI Agent Accounting &amp; Finance</h4>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-4 glow-border group hover:from-purple-900/30 hover:to-blue-900/30 transition-all duration-300">
+                        <div class="aspect-video rounded-lg mb-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 flex items-center justify-center overflow-hidden">
+                            <div class="text-center group-hover:scale-110 transition-transform duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-violet-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                                <p class="text-gray-300 text-sm">AI Agent yang bisa bikin AI Agent</p>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold">AI Agent yang bisa bikin AI Agent</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative z-10 py-16 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold orbitron mb-12 text-center glow-text">
+                Kirim Kritik, saran, permintaan, ataupun penawaran pada kami!
+            </h2>
+            
+            <div class="max-w-3xl mx-auto bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-xl p-8 glow-border">
+                <div class="iframe-container">
+                    <iframe src="https://api.leadconnectorhq.com/widget/form/P483HJOJkdwlxAtKU3e4" style="width:100%;height:100%;border:none;border-radius:3px" id="inline-P483HJOJkdwlxAtKU3e4" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form Contact Me" data-height="629" data-layout-iframe-id="inline-P483HJOJkdwlxAtKU3e4" data-form-id="P483HJOJkdwlxAtKU3e4" title="Form Contact Me">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 py-8 bg-black/80">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <div class="text-2xl font-bold orbitron mb-4 glow-text">
+                <span class="text-purple-400">AGENCY</span><span class="text-blue-400">AI</span>
+            </div>
+            <p class="text-gray-400 mb-6">Transformasi bisnis Anda dengan kekuatan AI</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.&lt;script&gt;(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML=" window.__cf$cv$params="{r:'94be9031c6aee9cf',t:'MTc0OTI4MjY3NS4wMDAwMDA='};var" a="document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);&quot;;b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var" if(window.addeventlistener)document.addeventlistener('domcontentloaded',c);else{var="" e="document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&amp;&amp;(document.onreadystatechange=e,c())}}}})();&lt;/script"></path></svg></a></div></div></footer></body><chatgpt-sidebar data-gpts-theme="light"></chatgpt-sidebar></html>
