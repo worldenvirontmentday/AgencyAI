@@ -1,0 +1,1448 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach AI - Jualan kelas lebih mudah dengan AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+        
+        /* Root Variables */
+        :root {
+            --primary: #8A2BE2;
+            --secondary: #4B0082;
+            --accent: #00BFFF;
+            --dark: #0A0A0A;
+            --light: #E0E0E0;
+            --purple-900: rgb(88, 28, 135);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #050505;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.7), 0 0 20px rgba(147, 51, 234, 0.5);
+        }
+        
+        .purple-glow {
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.5), 0 0 30px rgba(147, 51, 234, 0.3);
+        }
+        
+        .blue-glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .yellow-glow {
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.5), 0 0 30px rgba(234, 179, 8, 0.3);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .purple-gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+            background-color: #050505;
+        }
+        
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(147, 51, 234, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(147, 51, 234, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-slow {
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-fast {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 4s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Glowing particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particle-animation 15s infinite linear;
+        }
+        
+        @keyframes particle-animation {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Logo Container */
+        .logo-container {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-image {
+            height: 100%;
+            width: auto;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 50;
+            border-bottom: 1px solid var(--purple-900);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid var(--purple-900);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+            display: none;
+        }
+        
+        .mobile-menu-overlay.active {
+            display: block;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: right 0.3s ease;
+            border-left: 1px solid var(--primary);
+            box-shadow: -5px 0 15px rgba(138, 43, 226, 0.3);
+            padding: 80px 20px 20px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .mobile-menu-nav a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-nav a:hover {
+            color: var(--accent);
+        }
+        
+        /* Feature Card */
+        .feature-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: #8b5cf6;
+            font-size: 1.5rem;
+        }
+        
+        /* Pricing Card */
+        .pricing-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid #8b5cf6;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+        
+        .pricing-header {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-features {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .pricing-feature i {
+            margin-right: 0.5rem;
+        }
+        
+        .pricing-feature.included i {
+            color: #10b981;
+        }
+        
+        .pricing-feature.excluded i {
+            color: #ef4444;
+        }
+        
+        .pricing-button {
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pricing-button-silver {
+            background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+            color: #1e293b;
+        }
+        
+        .pricing-button-gold {
+            background: linear-gradient(90deg, #f59e0b, #eab308);
+            color: white;
+        }
+        
+        .pricing-button-diamond {
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            color: white;
+        }
+        
+        .pricing-button-emerald {
+            background: linear-gradient(90deg, #10b981, #34d399);
+            color: white;
+        }
+        
+        .pricing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Personality Card */
+        .personality-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .personality-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
+            background: rgba(20, 20, 20, 0.7);
+        }
+        
+        .personality-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        /* Diamond icons for pricing */
+        .diamond-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .diamond-silver {
+            color: #cbd5e1;
+            text-shadow: 0 0 10px rgba(203, 213, 225, 0.7);
+        }
+        
+        .diamond-gold {
+            color: #eab308;
+            text-shadow: 0 0 10px rgba(234, 179, 8, 0.7);
+        }
+        
+        .diamond-blue {
+            color: #3b82f6;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+        }
+        
+        .diamond-emerald {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+        }
+        
+        /* Buttons */
+        .primary-button {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .primary-button:hover {
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.7);
+            transform: translateY(-2px);
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid rgba(147, 51, 234, 0.7);
+        }
+        
+        .secondary-button:hover {
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.7);
+            transform: translateY(-2px);
+            background-color: rgba(147, 51, 234, 0.1);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background-color: #0a0a0a;
+            border: 2px solid rgba(147, 51, 234, 0.5);
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        /* Mobile adjustments for modal content */
+        @media (max-width: 640px) {
+            .modal-content {
+                width: 100%;
+                border-radius: 0;
+                padding: 1.5rem 0; /* Remove horizontal padding on mobile */
+                margin: 0;
+            }
+            
+            .modal-header, .order-summary {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .form-container {
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+            }
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(147, 51, 234, 0.5);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+        }
+        
+        /* Form Container */
+        .form-container {
+            border: 2px solid rgba(147, 51, 234, 0.5);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            height: 616px;
+            position: relative;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(147, 51, 234, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #8b5cf6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Personality colors */
+        .innocent-bg { background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(248, 250, 252, 0.2)); }
+        .explorer-bg { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2)); }
+        .sage-bg { background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(8, 145, 178, 0.2)); }
+        .hero-bg { background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(185, 28, 28, 0.2)); }
+        .rebel-bg { background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(31, 41, 55, 0.2)); }
+        .magician-bg { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.2)); }
+        .regular-bg { background: linear-gradient(135deg, rgba(75, 85, 99, 0.2), rgba(55, 65, 81, 0.2)); }
+        .lover-bg { background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(219, 39, 119, 0.2)); }
+        .jester-bg { background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2)); }
+        .caregiver-bg { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2)); }
+        .creator-bg { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(147, 51, 234, 0.2)); }
+        .ruler-bg { background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(202, 138, 4, 0.2)); }
+        
+        .innocent-text { color: #f8fafc; }
+        .explorer-text { color: #f59e0b; }
+        .sage-text { color: #06b6d4; }
+        .hero-text { color: #ef4444; }
+        .rebel-text { color: #4b5563; }
+        .magician-text { color: #8b5cf6; }
+        .regular-text { color: #9ca3af; }
+        .lover-text { color: #ec4899; }
+        .jester-text { color: #f97316; }
+        .caregiver-text { color: #10b981; }
+        .creator-text { color: #a855f7; }
+        .ruler-text { color: #eab308; }
+        
+        .innocent-border { border-color: rgba(248, 250, 252, 0.5); }
+        .explorer-border { border-color: rgba(245, 158, 11, 0.5); }
+        .sage-border { border-color: rgba(6, 182, 212, 0.5); }
+        .hero-border { border-color: rgba(239, 68, 68, 0.5); }
+        .rebel-border { border-color: rgba(75, 85, 99, 0.5); }
+        .magician-border { border-color: rgba(139, 92, 246, 0.5); }
+        .regular-border { border-color: rgba(156, 163, 175, 0.5); }
+        .lover-border { border-color: rgba(236, 72, 153, 0.5); }
+        .jester-border { border-color: rgba(249, 115, 22, 0.5); }
+        .caregiver-border { border-color: rgba(16, 185, 129, 0.5); }
+        .creator-border { border-color: rgba(168, 85, 247, 0.5); }
+        .ruler-border { border-color: rgba(234, 179, 8, 0.5); }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.absolute{position:absolute}.relative{position:relative}.bottom-1\/3{bottom:33.333333%}.bottom-1\/4{bottom:25%}.left-1\/3{left:33.333333%}.right-1\/3{right:33.333333%}.right-1\/4{right:25%}.top-1\/2{top:50%}.top-1\/3{top:33.333333%}.top-1\/4{top:25%}.z-10{z-index:10}.mx-auto{margin-left:auto;margin-right:auto}.mb-0{margin-bottom:0px}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-20{height:5rem}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-14{width:3.5rem}.w-16{width:4rem}.w-20{width:5rem}.max-w-3xl{max-width:48rem}.max-w-7xl{max-width:80rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.border-t{border-top-width:1px}.border-purple-900{--tw-border-opacity:1;border-color:rgb(88 28 135 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-opacity-30{--tw-bg-opacity:0.3}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.from-blue-600\/40{--tw-gradient-from:rgb(37 99 235 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(37 99 235 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-fuchsia-500\/40{--tw-gradient-from:rgb(217 70 239 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(217 70 239 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-indigo-500\/40{--tw-gradient-from:rgb(99 102 241 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-500\/40{--tw-gradient-from:rgb(168 85 247 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(168 85 247 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-600\/40{--tw-gradient-from:rgb(147 51 234 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(147 51 234 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-blue-500\/40{--tw-gradient-to:rgb(59 130 246 / 0.4) var(--tw-gradient-to-position)}.to-blue-600\/40{--tw-gradient-to:rgb(37 99 235 / 0.4) var(--tw-gradient-to-position)}.to-purple-500\/40{--tw-gradient-to:rgb(168 85 247 / 0.4) var(--tw-gradient-to-position)}.to-purple-600\/40{--tw-gradient-to:rgb(147 51 234 / 0.4) var(--tw-gradient-to-position)}.px-4{padding-left:1rem;padding-right:1rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-16{padding-top:4rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-5xl{font-size:3rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-blue-500{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:text-purple-300:hover{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}}@media (min-width: 768px){.md\:mb-0{margin-bottom:0px}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:text-right{text-align:right}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-2xl{font-size:1.5rem;line-height:2rem}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style><style type="text/css" id="embeddedIframes">.ep-header,.ep-iFrameContainer,.ep-overlay{display:none}.ep-iFrame{border:none}.ep-iFrameLarge{height:500px;overflow:auto}.ep-overflow{overflow:unset}.ep-overlay{z-index:10000;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);transition:opacity .2s;width:100%;justify-content:center;align-items:center}.ep-wrapper{width:100%}.ep-header{justify-content:flex-end;position:fixed;border-radius:5px;z-index:1}.ep-close-icon,.ep-minimize-icon{background:#e8e8e8;width:23px;height:23px;margin:3px 6px 0 0;z-index:999;color:#4a4a4a;transition:background .25s;text-align:center;cursor:pointer}.ep-minimize-icon{border-radius:50%;line-height:.3ch;font-size:22px;border:1px solid #ccc;font-family:sans-serif}.ep-close-icon{border-radius:50%;line-height:1.5ch;font-size:20px;border:1px solid #ccc;font-family:Montserrat}.ep-minimize-text-container{height:100%;text-align:center}.ep-minimize-tc-sticky{writing-mode:vertical-lr;justify-content:center}.ep-minimize-tc-sticky-left{transform:rotate(360deg)}.ep-minimize-tc-sticky-right{transform:rotate(180deg)}.ep-minimize-tc-polite{align-items:end;width:100%}.ep-minimize-tc-polite-left{justify-content:start}.ep-minimize-tc-polite-right{justify-content:end}.ep-minimize-text{background-color:#000;cursor:pointer;color:#fff;white-space:nowrap;overflow:hidden;max-width:380px;text-overflow:ellipsis}.ep-minimize-text-polite{margin-bottom:8px}.ep-minimize-text-polite-left{margin-left:25px;margin-right:8px}.ep-minimize-text-polite-right{margin-left:8px;margin-right:25px}.ep-sticky-sidebar{top:50%;z-index:9999;position:fixed}.ep-height,.ep-sticky-sidebar .ep-wrapper{height:100%}.ep-polite-slide-in{z-index:9999;position:fixed}.ep-inline,.ep-popup{position:relative;margin:auto}.ep-polite-slide-in .ep-wrapper{position:absolute}.ep-popup{z-index:9999}.ep-inline{overflow:unset;boxshadow:none}.ep-right{right:15px}.ep-left{left:15px}.ep-bottom{bottom:15px}@media only screen and (max-width:550px){.ep-iFrame,.ep-iFrameContainer{width:100%}.ep-popup{width:100%!important}.ep-right{right:0}.ep-left{left:0}.ep-bottom{bottom:0}}</style></head>
+<body class="grid-bg">
+    <!-- Particles -->
+    <div class="particles">
+        <script>
+            function createParticles() {
+                const particlesContainer = document.querySelector('.particles');
+                const particleCount = 30;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const size = Math.random() * 5 + 2;
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Randomly choose between purple and blue
+                    const color = Math.random() > 0.5 ? 
+                        `rgba(147, 51, 234, ${Math.random() * 0.5 + 0.2})` : 
+                        `rgba(59, 130, 246, ${Math.random() * 0.5 + 0.2})`;
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+                    
+                    // Random position
+                    particle.style.left = `${Math.random() * 100}vw`;
+                    particle.style.top = `${Math.random() * 100}vh`;
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 20 + 10;
+                    const delay = Math.random() * 10;
+                    particle.style.animationDuration = `${duration}s`;
+                    particle.style.animationDelay = `${delay}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                createParticles();
+                
+                // Mobile menu functionality
+                initMobileMenu();
+                initSmoothScroll();
+                
+                // Initialize pricing modals
+                initPricingModals();
+                
+                // Initialize iframe loading indicators
+                initIframeLoading();
+            });
+            
+            // Mobile menu functionality
+            function initMobileMenu() {
+                const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileMenuClose = document.getElementById('mobileMenuClose');
+                const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+                const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+                
+                // Open mobile menu
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.add('active');
+                    mobileMenuOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                });
+                
+                // Close mobile menu
+                function closeMenu() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                }
+                
+                mobileMenuClose.addEventListener('click', closeMenu);
+                mobileMenuOverlay.addEventListener('click', closeMenu);
+                
+                // Close menu when clicking on a link
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+
+            // Smooth scrolling for anchor links
+            function initSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Initialize pricing modals with smooth animations
+            function initPricingModals() {
+                // Silver Plan
+                document.getElementById('silverPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('silverPlanModal');
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                });
+                
+                document.getElementById('closeSilverModal').addEventListener('click', function() {
+                    closeModal('silverPlanModal');
+                });
+                
+                // Gold Plan
+                document.getElementById('goldPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('goldPlanModal');
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                });
+                
+                document.getElementById('closeGoldModal').addEventListener('click', function() {
+                    closeModal('goldPlanModal');
+                });
+                
+                // Diamond Plan
+                document.getElementById('diamondPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('diamondPlanModal');
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                });
+                
+                document.getElementById('closeDiamondModal').addEventListener('click', function() {
+                    closeModal('diamondPlanModal');
+                });
+                
+                // Emerald Plan
+                document.getElementById('emeraldPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('emeraldPlanModal');
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                });
+                
+                document.getElementById('closeEmeraldModal').addEventListener('click', function() {
+                    closeModal('emeraldPlanModal');
+                });
+                
+                // Close modals when clicking outside
+                window.addEventListener('click', function(event) {
+                    if (event.target.classList.contains('modal')) {
+                        closeModal(event.target.id);
+                    }
+                });
+            }
+            
+            // Function to close modal with animation
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.classList.remove('active');
+                
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+            
+            // Initialize iframe loading indicators
+            function initIframeLoading() {
+                const iframes = document.querySelectorAll('.form-iframe');
+                
+                iframes.forEach(iframe => {
+                    const container = iframe.closest('.form-container');
+                    const loadingSpinner = container.querySelector('.loading-spinner');
+                    
+                    // Show loading spinner initially
+                    if (loadingSpinner) {
+                        loadingSpinner.style.display = 'flex';
+                    }
+                    
+                    // Hide spinner when iframe is loaded
+                    iframe.addEventListener('load', function() {
+                        if (loadingSpinner) {
+                            loadingSpinner.style.display = 'none';
+                        }
+                    });
+                    
+                    // If iframe fails to load after 10 seconds, hide spinner anyway
+                    setTimeout(() => {
+                        if (loadingSpinner) {
+                            loadingSpinner.style.display = 'none';
+                        }
+                    }, 10000);
+                });
+            }
+        </script>
+    <div class="particle" style="width: 3.54167px; height: 3.54167px; background-color: rgba(59, 130, 246, 0.66); box-shadow: rgba(59, 130, 246, 0.66) 0px 0px 7.08334px; left: 85.1447vw; top: 32.1182vh; animation-duration: 24.1944s; animation-delay: 5.93628s;"></div><div class="particle" style="width: 4.48826px; height: 4.48826px; background-color: rgba(147, 51, 234, 0.325); box-shadow: rgba(147, 51, 234, 0.325) 0px 0px 8.97652px; left: 31.0004vw; top: 9.11232vh; animation-duration: 10.2747s; animation-delay: 5.7936s;"></div><div class="particle" style="width: 5.51246px; height: 5.51246px; background-color: rgba(59, 130, 246, 0.56); box-shadow: rgba(59, 130, 246, 0.56) 0px 0px 11.0249px; left: 42.9825vw; top: 58.3428vh; animation-duration: 13.702s; animation-delay: 0.210489s;"></div><div class="particle" style="width: 2.08974px; height: 2.08974px; background-color: rgba(147, 51, 234, 0.482); box-shadow: rgba(147, 51, 234, 0.482) 0px 0px 4.17948px; left: 58.8668vw; top: 11.7996vh; animation-duration: 29.5692s; animation-delay: 2.24482s;"></div><div class="particle" style="width: 5.96018px; height: 5.96018px; background-color: rgba(147, 51, 234, 0.47); box-shadow: rgba(147, 51, 234, 0.47) 0px 0px 11.9204px; left: 6.82519vw; top: 97.1212vh; animation-duration: 21.2708s; animation-delay: 7.58364s;"></div><div class="particle" style="width: 3.02067px; height: 3.02067px; background-color: rgba(147, 51, 234, 0.6); box-shadow: rgba(147, 51, 234, 0.6) 0px 0px 6.04133px; left: 19.6018vw; top: 62.3217vh; animation-duration: 25.8921s; animation-delay: 0.488857s;"></div><div class="particle" style="width: 4.08284px; height: 4.08284px; background-color: rgba(59, 130, 246, 0.5); box-shadow: rgba(59, 130, 246, 0.5) 0px 0px 8.16567px; left: 80.1197vw; top: 99.4417vh; animation-duration: 17.9425s; animation-delay: 7.56573s;"></div><div class="particle" style="width: 4.07172px; height: 4.07172px; background-color: rgba(147, 51, 234, 0.576); box-shadow: rgba(147, 51, 234, 0.576) 0px 0px 8.14345px; left: 50.7934vw; top: 32.5661vh; animation-duration: 21.4859s; animation-delay: 4.6595s;"></div><div class="particle" style="width: 2.84754px; height: 2.84754px; background-color: rgba(147, 51, 234, 0.424); box-shadow: rgba(147, 51, 234, 0.424) 0px 0px 5.69509px; left: 50.1798vw; top: 86.4796vh; animation-duration: 21.8151s; animation-delay: 5.5372s;"></div><div class="particle" style="width: 4.48622px; height: 4.48622px; background-color: rgba(147, 51, 234, 0.5); box-shadow: rgba(147, 51, 234, 0.5) 0px 0px 8.97243px; left: 77.5039vw; top: 25.0591vh; animation-duration: 18.2537s; animation-delay: 7.04942s;"></div><div class="particle" style="width: 3.75471px; height: 3.75471px; background-color: rgba(59, 130, 246, 0.557); box-shadow: rgba(59, 130, 246, 0.557) 0px 0px 7.50942px; left: 72.6441vw; top: 96.8737vh; animation-duration: 20.093s; animation-delay: 0.736161s;"></div><div class="particle" style="width: 2.62956px; height: 2.62956px; background-color: rgba(147, 51, 234, 0.32); box-shadow: rgba(147, 51, 234, 0.32) 0px 0px 5.25911px; left: 69.1894vw; top: 15.199vh; animation-duration: 18.3885s; animation-delay: 8.97296s;"></div><div class="particle" style="width: 4.76652px; height: 4.76652px; background-color: rgba(59, 130, 246, 0.25); box-shadow: rgba(59, 130, 246, 0.25) 0px 0px 9.53305px; left: 38.0435vw; top: 47.3371vh; animation-duration: 28.73s; animation-delay: 5.76778s;"></div><div class="particle" style="width: 3.61186px; height: 3.61186px; background-color: rgba(147, 51, 234, 0.208); box-shadow: rgba(147, 51, 234, 0.208) 0px 0px 7.22371px; left: 30.8448vw; top: 73.4353vh; animation-duration: 19.8563s; animation-delay: 8.93563s;"></div><div class="particle" style="width: 5.9824px; height: 5.9824px; background-color: rgba(59, 130, 246, 0.29); box-shadow: rgba(59, 130, 246, 0.29) 0px 0px 11.9648px; left: 71.5539vw; top: 45.7623vh; animation-duration: 10.9707s; animation-delay: 8.19417s;"></div><div class="particle" style="width: 5.61679px; height: 5.61679px; background-color: rgba(147, 51, 234, 0.396); box-shadow: rgba(147, 51, 234, 0.396) 0px 0px 11.2336px; left: 30.7108vw; top: 85.4247vh; animation-duration: 16.2786s; animation-delay: 5.31387s;"></div><div class="particle" style="width: 6.53795px; height: 6.53795px; background-color: rgba(59, 130, 246, 0.29); box-shadow: rgba(59, 130, 246, 0.29) 0px 0px 13.0759px; left: 15.9022vw; top: 82.7624vh; animation-duration: 13.5192s; animation-delay: 1.72864s;"></div><div class="particle" style="width: 3.29227px; height: 3.29227px; background-color: rgba(59, 130, 246, 0.36); box-shadow: rgba(59, 130, 246, 0.36) 0px 0px 6.58454px; left: 2.88638vw; top: 3.24799vh; animation-duration: 28.0422s; animation-delay: 2.71215s;"></div><div class="particle" style="width: 4.72663px; height: 4.72663px; background-color: rgba(147, 51, 234, 0.573); box-shadow: rgba(147, 51, 234, 0.573) 0px 0px 9.45326px; left: 6.99549vw; top: 72.7846vh; animation-duration: 26.7391s; animation-delay: 7.05956s;"></div><div class="particle" style="width: 6.47707px; height: 6.47707px; background-color: rgba(59, 130, 246, 0.44); box-shadow: rgba(59, 130, 246, 0.44) 0px 0px 12.9541px; left: 0.349796vw; top: 91.4368vh; animation-duration: 20.4915s; animation-delay: 6.60791s;"></div><div class="particle" style="width: 6.6977px; height: 6.6977px; background-color: rgba(147, 51, 234, 0.557); box-shadow: rgba(147, 51, 234, 0.557) 0px 0px 13.3954px; left: 68.0462vw; top: 79.6743vh; animation-duration: 22.727s; animation-delay: 7.93187s;"></div><div class="particle" style="width: 6.9546px; height: 6.9546px; background-color: rgba(147, 51, 234, 0.28); box-shadow: rgba(147, 51, 234, 0.28) 0px 0px 13.9092px; left: 13.2936vw; top: 39.8696vh; animation-duration: 10.7861s; animation-delay: 7.12322s;"></div><div class="particle" style="width: 4.29479px; height: 4.29479px; background-color: rgba(147, 51, 234, 0.27); box-shadow: rgba(147, 51, 234, 0.27) 0px 0px 8.58958px; left: 96.1656vw; top: 86.9312vh; animation-duration: 16.677s; animation-delay: 1.58728s;"></div><div class="particle" style="width: 6.60663px; height: 6.60663px; background-color: rgba(59, 130, 246, 0.627); box-shadow: rgba(59, 130, 246, 0.627) 0px 0px 13.2133px; left: 66.3297vw; top: 81.1761vh; animation-duration: 28.6121s; animation-delay: 7.19458s;"></div><div class="particle" style="width: 3.03157px; height: 3.03157px; background-color: rgba(59, 130, 246, 0.408); box-shadow: rgba(59, 130, 246, 0.408) 0px 0px 6.06314px; left: 93.8631vw; top: 21.9376vh; animation-duration: 18.1932s; animation-delay: 6.3686s;"></div><div class="particle" style="width: 3.2534px; height: 3.2534px; background-color: rgba(147, 51, 234, 0.553); box-shadow: rgba(147, 51, 234, 0.553) 0px 0px 6.50679px; left: 65.608vw; top: 53.2323vh; animation-duration: 16.7066s; animation-delay: 7.17916s;"></div><div class="particle" style="width: 6.04037px; height: 6.04037px; background-color: rgba(59, 130, 246, 0.26); box-shadow: rgba(59, 130, 246, 0.26) 0px 0px 12.0807px; left: 54.6879vw; top: 5.3719vh; animation-duration: 18.6757s; animation-delay: 8.08144s;"></div><div class="particle" style="width: 3.65823px; height: 3.65823px; background-color: rgba(59, 130, 246, 0.467); box-shadow: rgba(59, 130, 246, 0.467) 0px 0px 7.31646px; left: 36.0984vw; top: 6.21028vh; animation-duration: 25.6569s; animation-delay: 2.39213s;"></div><div class="particle" style="width: 4.56837px; height: 4.56837px; background-color: rgba(147, 51, 234, 0.455); box-shadow: rgba(147, 51, 234, 0.455) 0px 0px 9.13674px; left: 72.0041vw; top: 88.3806vh; animation-duration: 26.6562s; animation-delay: 5.68417s;"></div><div class="particle" style="width: 2.65492px; height: 2.65492px; background-color: rgba(59, 130, 246, 0.345); box-shadow: rgba(59, 130, 246, 0.345) 0px 0px 5.30983px; left: 0.395622vw; top: 49.4315vh; animation-duration: 21.3648s; animation-delay: 4.58932s;"></div></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        <nav class="mobile-menu-nav">
+            <a href="#home" class="mobile-nav-link">HOME</a>
+            <a href="#personalities" class="mobile-nav-link">PERSONALITIES</a>
+            <a href="#features" class="mobile-nav-link">FEATURES</a>
+            <a href="#pricing" class="mobile-nav-link">PRICING</a>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-container">
+                    <!-- Logo using the provided image source -->
+                    <img src="logo.png" alt="Coach AI Logo" class="logo-image">
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-purple-400 font-medium hover:text-purple-300 transition-colors orbitron">HOME</a>
+                <a href="#personalities" class="text-white font-medium hover:text-purple-300 transition-colors orbitron">PERSONALITIES</a>
+                <a href="#features" class="text-white font-medium hover:text-purple-300 transition-colors orbitron">FEATURES</a>
+                <a href="#pricing" class="text-white font-medium hover:text-purple-300 transition-colors orbitron">PRICING</a>
+            </nav>
+            <button id="mobileMenuToggle" class="md:hidden text-white text-2xl">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center hero-bg pt-16" id="home">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+            <div class="flex flex-col items-center justify-center text-center">
+                <h1 class="orbitron text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+                    <span class="gradient-text glow">Coach AI</span>
+                </h1>
+                <h2 class="orbitron text-lg md:text-xl lg:text-2xl text-white mb-10 max-w-3xl">Jualan kelas lebih mudah dengan AI</h2>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <a href="#pricing" class="primary-button orbitron">View Pricing</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-1/4 left-1/6 w-16 h-16 rounded-lg bg-gradient-to-br from-purple-600/40 to-blue-500/40 purple-glow floating-fast"></div>
+        <div class="absolute bottom-1/3 right-1/6 w-20 h-20 rounded-full bg-gradient-to-br from-blue-600/40 to-purple-500/40 blue-glow floating-slow"></div>
+        <div class="absolute top-1/2 left-1/3 w-12 h-12 rounded-md bg-gradient-to-br from-purple-500/40 to-blue-600/40 purple-glow floating"></div>
+        <div class="absolute bottom-1/4 right-1/3 w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500/40 to-purple-600/40 blue-glow floating-fast"></div>
+        <div class="absolute top-1/3 right-1/4 w-10 h-10 rounded-lg bg-gradient-to-br from-fuchsia-500/40 to-purple-600/40 purple-glow floating-slow"></div>
+    </section>
+
+    <!-- Personalities Section -->
+    <section class="py-16 relative z-10 bg-black bg-opacity-30" id="personalities">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="orbitron text-3xl md:text-4xl font-bold mb-6 text-center">
+                <span class="gradient-text">12 Pilihan Kepribadian Brand</span>
+            </h2>
+            <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                AI Coach memberikan fleksibilitas luar biasa dengan 12 kepribadian brand yang dapat dipilih
+            </p>
+            
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                <!-- Personality 1 -->
+                <div class="personality-card innocent-border">
+                    <div class="personality-icon innocent-bg">
+                        <i class="fas fa-dove innocent-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center innocent-text">The Innocent</h3>
+                </div>
+                
+                <!-- Personality 2 -->
+                <div class="personality-card explorer-border">
+                    <div class="personality-icon explorer-bg">
+                        <i class="fas fa-compass explorer-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center explorer-text">The Explorer</h3>
+                </div>
+                
+                <!-- Personality 3 -->
+                <div class="personality-card sage-border">
+                    <div class="personality-icon sage-bg">
+                        <i class="fas fa-book-open sage-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center sage-text">The Sage</h3>
+                </div>
+                
+                <!-- Personality 4 -->
+                <div class="personality-card hero-border">
+                    <div class="personality-icon hero-bg">
+                        <i class="fas fa-shield-alt hero-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center hero-text">The Hero</h3>
+                </div>
+                
+                <!-- Personality 5 -->
+                <div class="personality-card rebel-border">
+                    <div class="personality-icon rebel-bg">
+                        <i class="fas fa-bolt rebel-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center rebel-text">The Rebel</h3>
+                </div>
+                
+                <!-- Personality 6 -->
+                <div class="personality-card magician-border">
+                    <div class="personality-icon magician-bg">
+                        <i class="fas fa-hat-wizard magician-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center magician-text">The Magician</h3>
+                </div>
+                
+                <!-- Personality 7 -->
+                <div class="personality-card regular-border">
+                    <div class="personality-icon regular-bg">
+                        <i class="fas fa-user regular-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center regular-text">The Regular</h3>
+                </div>
+                
+                <!-- Personality 8 -->
+                <div class="personality-card lover-border">
+                    <div class="personality-icon lover-bg">
+                        <i class="fas fa-heart lover-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center lover-text">The Lover</h3>
+                </div>
+                
+                <!-- Personality 9 -->
+                <div class="personality-card jester-border">
+                    <div class="personality-icon jester-bg">
+                        <i class="fas fa-theater-masks jester-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center jester-text">The Jester</h3>
+                </div>
+                
+                <!-- Personality 10 -->
+                <div class="personality-card caregiver-border">
+                    <div class="personality-icon caregiver-bg">
+                        <i class="fas fa-hands-helping caregiver-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center caregiver-text">The Caregiver</h3>
+                </div>
+                
+                <!-- Personality 11 -->
+                <div class="personality-card creator-border">
+                    <div class="personality-icon creator-bg">
+                        <i class="fas fa-paint-brush creator-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center creator-text">The Creator</h3>
+                </div>
+                
+                <!-- Personality 12 -->
+                <div class="personality-card ruler-border">
+                    <div class="personality-icon ruler-bg">
+                        <i class="fas fa-crown ruler-text"></i>
+                    </div>
+                    <h3 class="orbitron text-sm font-bold text-center ruler-text">The Ruler</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 relative z-10" id="features">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3 class="orbitron text-xl font-bold mb-4">AI Cerdas Menjawab Semua Pertanyaan</h3>
+                    <p class="text-gray-300">
+                        AI Coach dibekali dengan teknologi cerdas yang mampu menjawab pertanyaan Anda secara cepat dan akurat, kapan pun dibutuhkan. Baik Anda memerlukan saran tentang strategi bisnis, pelatihan pengembangan diri, atau sekadar ingin mencari inspirasi.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="orbitron text-xl font-bold mb-4">Mempelajari Buku Anda Dalam Hitungan Detik!</h3>
+                    <p class="text-gray-300">
+                        Dengan kemampuan membaca dan memahami buku atau dokumen dalam waktu singkat, AI Coach dapat menyerap informasi dalam hitungan detik. Hal ini memungkinkan Anda untuk langsung mendapatkan insight, analisis, atau rekomendasi berdasarkan konten yang Anda berikan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-16 relative z-10" id="pricing">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="orbitron text-3xl md:text-4xl font-bold mb-16 text-center">
+                <span class="gradient-text">Pricing</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Silver Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header text-center">
+                        <i class="fas fa-gem diamond-icon diamond-silver"></i>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-gray-300">Silver</h3>
+                        <p class="text-gray-400 mb-4">Sebagai suvenir E-Book</p>
+                        <p class="text-2xl font-bold mb-0">Rp500K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Conversation</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>200 Pages KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Text Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Website Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instagram Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Number Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Coding Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Voice Note Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Discord Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>AI Whatsapp Group</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-silver" id="silverPlanButton">Consult Now</div>
+                </div>
+                
+                <!-- Gold Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header text-center">
+                        <i class="fas fa-gem diamond-icon diamond-gold"></i>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-yellow-500">Gold</h3>
+                        <p class="text-gray-300 mb-4">Asistant Coach</p>
+                        <p class="text-2xl font-bold mb-0">Rp1500K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Conversation</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>1000 Pages KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Text Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Website Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instagram Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Number Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Coding Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Voice Note Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Discord Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>AI Whatsapp Group</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-gold" id="goldPlanButton">Choose Plan</div>
+                </div>
+                
+                <!-- Diamond Plan -->
+                <div class="pricing-card popular">
+                    <div class="pricing-header text-center">
+                        <i class="fas fa-gem diamond-icon diamond-blue"></i>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-blue-500">Diamond</h3>
+                        <p class="text-gray-300 mb-4">Coach AI Profesional Trainner</p>
+                        <p class="text-2xl font-bold mb-0">Rp3000K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Conversation</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Text Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Website Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instagram Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Number Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Coding Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Voice Note Output</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Discord Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>AI Whatsapp Group</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-diamond" id="diamondPlanButton">Choose Plan</div>
+                </div>
+                
+                <!-- Emerald Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header text-center">
+                        <i class="fas fa-gem diamond-icon diamond-emerald"></i>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-emerald-500">Emerald</h3>
+                        <p class="text-gray-300 mb-4">Eksklusif Edukasi Masadepan</p>
+                        <p class="text-2xl font-bold mb-0">Rp6000K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Conversation</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Text Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Website Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instagram Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Number Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Voice Note Output</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Discord Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>AI Whatsapp Group</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-emerald" id="emeraldPlanButton">Choose Plan</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Silver Plan Modal -->
+    <div class="modal" id="silverPlanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeSilverModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-gray-300">Silver Plan</h3>
+                <p class="text-gray-300">Sebagai suvenir E-Book</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp500,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp55,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp555,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/VPmx8TYurb6L2udZyUL2" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-VPmx8TYurb6L2udZyUL2" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="coach silver" data-height="642" data-layout-iframe-id="inline-VPmx8TYurb6L2udZyUL2" data-form-id="VPmx8TYurb6L2udZyUL2" title="coach silver" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gold Plan Modal -->
+    <div class="modal" id="goldPlanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeGoldModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-yellow-500">Gold Plan</h3>
+                <p class="text-gray-300">Asistant Coach</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp1,500,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp165,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp1,665,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/u02LRWdjUINzxklbmeAE" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-u02LRWdjUINzxklbmeAE" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="coach gold" data-height="616" data-layout-iframe-id="inline-u02LRWdjUINzxklbmeAE" data-form-id="u02LRWdjUINzxklbmeAE" title="coach gold" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diamond Plan Modal -->
+    <div class="modal" id="diamondPlanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeDiamondModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-blue-500">Diamond Plan</h3>
+                <p class="text-gray-300">Coach AI Profesional Trainner</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp3,000,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp330,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp3,330,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/WrsC2ifUoOtplw1zcnVk" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-WrsC2ifUoOtplw1zcnVk" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="coach diamond" data-height="616" data-layout-iframe-id="inline-WrsC2ifUoOtplw1zcnVk" data-form-id="WrsC2ifUoOtplw1zcnVk" title="coach diamond" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Emerald Plan Modal -->
+    <div class="modal" id="emeraldPlanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeEmeraldModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-emerald-500">Emerald Plan</h3>
+                <p class="text-gray-300">Eksklusif Edukasi Masadepan</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp6,000,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp660,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp6,660,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/hD2pyfx4lynZPmWnuiJ7" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-hD2pyfx4lynZPmWnuiJ7" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="coach emerald" data-height="616" data-layout-iframe-id="inline-hD2pyfx4lynZPmWnuiJ7" data-form-id="hD2pyfx4lynZPmWnuiJ7" title="coach emerald" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-80 border-t border-purple-900 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="logo-container h-10">
+                        <img src="logo.png" alt="Coach AI Logo" class="logo-image">
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400">© 2023 AGENCY AI. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94e4a1d100c09a2b',t:'MTc0OTY4MTg1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+
+</body></html>
