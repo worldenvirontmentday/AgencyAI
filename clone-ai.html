@@ -234,6 +234,11 @@
             border-radius: 1rem;
             overflow: hidden;
             transition: all 0.3s ease;
+            max-width: 100%;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         
         .clone-card:hover {
@@ -241,10 +246,22 @@
             box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
         }
         
-        .clone-image {
+        /* Fixed 16:9 aspect ratio for all clone card images */
+        .clone-image-container {
+            position: relative;
             width: 100%;
-            height: 150px;
+            padding-top: 56.25%; /* Exact 16:9 aspect ratio (9/16 = 0.5625 = 56.25%) */
+            overflow: hidden;
+        }
+        
+        .clone-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
         }
         
         .coming-soon-badge {
@@ -257,6 +274,7 @@
             top: 10px;
             right: 10px;
             font-weight: bold;
+            z-index: 5;
         }
         
         .clone-button {
@@ -457,6 +475,7 @@
             border-radius: 0.5rem;
             overflow: hidden;
             height: 616px;
+            position: relative;
         }
         
         /* Modal */
@@ -471,6 +490,12 @@
             z-index: 1000;
             overflow-y: auto;
             padding: 2rem 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
         }
         
         .modal-content {
@@ -482,6 +507,35 @@
             margin: 0 auto;
             position: relative;
             padding: 2rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        /* Mobile adjustments for modal content */
+        @media (max-width: 640px) {
+            .modal-content {
+                width: 100%;
+                border-radius: 0;
+                padding: 1.5rem 0; /* Remove horizontal padding on mobile */
+                margin: 0;
+            }
+            
+            .modal-header, .order-summary {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .form-container {
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+            }
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .close-modal {
@@ -499,6 +553,33 @@
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(147, 51, 234, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #8b5cf6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.absolute{position:absolute}.relative{position:relative}.bottom-1\/3{bottom:33.333333%}.bottom-1\/4{bottom:25%}.left-1\/3{left:33.333333%}.right-1\/3{right:33.333333%}.right-1\/4{right:25%}.top-1\/2{top:50%}.top-1\/3{top:33.333333%}.top-1\/4{top:25%}.z-10{z-index:10}.mx-auto{margin-left:auto;margin-right:auto}.mb-0{margin-bottom:0px}.mb-10{margin-bottom:2.5rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-20{height:5rem}.h-8{height:2rem}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-14{width:3.5rem}.w-16{width:4rem}.w-20{width:5rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.border-t{border-top-width:1px}.border-purple-900{--tw-border-opacity:1;border-color:rgb(88 28 135 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.from-blue-600\/40{--tw-gradient-from:rgb(37 99 235 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(37 99 235 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-fuchsia-500\/40{--tw-gradient-from:rgb(217 70 239 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(217 70 239 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-indigo-500\/40{--tw-gradient-from:rgb(99 102 241 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-500\/40{--tw-gradient-from:rgb(168 85 247 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(168 85 247 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-600\/40{--tw-gradient-from:rgb(147 51 234 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(147 51 234 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-blue-500\/40{--tw-gradient-to:rgb(59 130 246 / 0.4) var(--tw-gradient-to-position)}.to-blue-600\/40{--tw-gradient-to:rgb(37 99 235 / 0.4) var(--tw-gradient-to-position)}.to-purple-500\/40{--tw-gradient-to:rgb(168 85 247 / 0.4) var(--tw-gradient-to-position)}.to-purple-600\/40{--tw-gradient-to:rgb(147 51 234 / 0.4) var(--tw-gradient-to-position)}.p-4{padding:1rem}.px-4{padding-left:1rem;padding-right:1rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-16{padding-top:4rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-5xl{font-size:3rem;line-height:1}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-blue-500{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:text-purple-300:hover{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}}@media (min-width: 768px){.md\:mb-0{margin-bottom:0px}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:text-right{text-align:right}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-2xl{font-size:1.5rem;line-height:2rem}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style><style type="text/css" id="embeddedIframes">.ep-header,.ep-iFrameContainer,.ep-overlay{display:none}.ep-iFrame{border:none}.ep-iFrameLarge{height:500px;overflow:auto}.ep-overflow{overflow:unset}.ep-overlay{z-index:10000;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);transition:opacity .2s;width:100%;justify-content:center;align-items:center}.ep-wrapper{width:100%}.ep-header{justify-content:flex-end;position:fixed;border-radius:5px;z-index:1}.ep-close-icon,.ep-minimize-icon{background:#e8e8e8;width:23px;height:23px;margin:3px 6px 0 0;z-index:999;color:#4a4a4a;transition:background .25s;text-align:center;cursor:pointer}.ep-minimize-icon{border-radius:50%;line-height:.3ch;font-size:22px;border:1px solid #ccc;font-family:sans-serif}.ep-close-icon{border-radius:50%;line-height:1.5ch;font-size:20px;border:1px solid #ccc;font-family:Montserrat}.ep-minimize-text-container{height:100%;text-align:center}.ep-minimize-tc-sticky{writing-mode:vertical-lr;justify-content:center}.ep-minimize-tc-sticky-left{transform:rotate(360deg)}.ep-minimize-tc-sticky-right{transform:rotate(180deg)}.ep-minimize-tc-polite{align-items:end;width:100%}.ep-minimize-tc-polite-left{justify-content:start}.ep-minimize-tc-polite-right{justify-content:end}.ep-minimize-text{background-color:#000;cursor:pointer;color:#fff;white-space:nowrap;overflow:hidden;max-width:380px;text-overflow:ellipsis}.ep-minimize-text-polite{margin-bottom:8px}.ep-minimize-text-polite-left{margin-left:25px;margin-right:8px}.ep-minimize-text-polite-right{margin-left:8px;margin-right:25px}.ep-sticky-sidebar{top:50%;z-index:9999;position:fixed}.ep-height,.ep-sticky-sidebar .ep-wrapper{height:100%}.ep-polite-slide-in{z-index:9999;position:fixed}.ep-inline,.ep-popup{position:relative;margin:auto}.ep-polite-slide-in .ep-wrapper{position:absolute}.ep-popup{z-index:9999}.ep-inline{overflow:unset;boxshadow:none}.ep-right{right:15px}.ep-left{left:15px}.ep-bottom{bottom:15px}@media only screen and (max-width:550px){.ep-iFrame,.ep-iFrameContainer{width:100%}.ep-popup{width:100%!important}.ep-right{right:0}.ep-left{left:0}.ep-bottom{bottom:0}}</style></head>
@@ -548,6 +629,9 @@
                 
                 // Initialize pricing modals
                 initPricingModals();
+                
+                // Initialize iframe loading indicators
+                initIframeLoading();
             });
             
             // Mobile menu functionality
@@ -601,51 +685,106 @@
                 });
             }
             
-            // Initialize pricing modals
+            // Initialize pricing modals with smooth animations
             function initPricingModals() {
                 // Gold Plan
                 document.getElementById('goldPlanButton').addEventListener('click', function() {
-                    document.getElementById('goldPlanModal').style.display = 'block';
+                    const modal = document.getElementById('goldPlanModal');
+                    modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
                 });
                 
                 document.getElementById('closeGoldModal').addEventListener('click', function() {
-                    document.getElementById('goldPlanModal').style.display = 'none';
-                    document.body.style.overflow = '';
+                    closeModal('goldPlanModal');
                 });
                 
                 // Diamond Plan
                 document.getElementById('diamondPlanButton').addEventListener('click', function() {
-                    document.getElementById('diamondPlanModal').style.display = 'block';
+                    const modal = document.getElementById('diamondPlanModal');
+                    modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
                 });
                 
                 document.getElementById('closeDiamondModal').addEventListener('click', function() {
-                    document.getElementById('diamondPlanModal').style.display = 'none';
-                    document.body.style.overflow = '';
+                    closeModal('diamondPlanModal');
                 });
                 
                 // Emerald Plan
                 document.getElementById('emeraldPlanButton').addEventListener('click', function() {
-                    document.getElementById('emeraldPlanModal').style.display = 'block';
+                    const modal = document.getElementById('emeraldPlanModal');
+                    modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
                 });
                 
                 document.getElementById('closeEmeraldModal').addEventListener('click', function() {
-                    document.getElementById('emeraldPlanModal').style.display = 'none';
-                    document.body.style.overflow = '';
+                    closeModal('emeraldPlanModal');
                 });
                 
                 // Close modals when clicking outside
                 window.addEventListener('click', function(event) {
                     if (event.target.classList.contains('modal')) {
-                        event.target.style.display = 'none';
-                        document.body.style.overflow = '';
+                        closeModal(event.target.id);
                     }
                 });
             }
+            
+            // Function to close modal with animation
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.classList.remove('active');
+                
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+            
+            // Initialize iframe loading indicators
+            function initIframeLoading() {
+                const iframes = document.querySelectorAll('.form-iframe');
+                
+                iframes.forEach(iframe => {
+                    const container = iframe.closest('.form-container');
+                    const loadingSpinner = container.querySelector('.loading-spinner');
+                    
+                    // Show loading spinner initially
+                    if (loadingSpinner) {
+                        loadingSpinner.style.display = 'flex';
+                    }
+                    
+                    // Hide spinner when iframe is loaded
+                    iframe.addEventListener('load', function() {
+                        if (loadingSpinner) {
+                            loadingSpinner.style.display = 'none';
+                        }
+                    });
+                    
+                    // If iframe fails to load after 10 seconds, hide spinner anyway
+                    setTimeout(() => {
+                        if (loadingSpinner) {
+                            loadingSpinner.style.display = 'none';
+                        }
+                    }, 10000);
+                });
+            }
         </script>
-    <div class="particle" style="width: 2.76929px; height: 2.76929px; background-color: rgba(59, 130, 246, 0.282); box-shadow: rgba(59, 130, 246, 0.282) 0px 0px 5.53857px; left: 65.2145vw; top: 42.14vh; animation-duration: 11.2223s; animation-delay: 6.18883s;"></div><div class="particle" style="width: 3.75332px; height: 3.75332px; background-color: rgba(59, 130, 246, 0.573); box-shadow: rgba(59, 130, 246, 0.573) 0px 0px 7.50664px; left: 51.5265vw; top: 45.3107vh; animation-duration: 16.9083s; animation-delay: 4.33703s;"></div><div class="particle" style="width: 4.07416px; height: 4.07416px; background-color: rgba(147, 51, 234, 0.42); box-shadow: rgba(147, 51, 234, 0.42) 0px 0px 8.14833px; left: 48.0872vw; top: 16.7181vh; animation-duration: 13.4275s; animation-delay: 2.37203s;"></div><div class="particle" style="width: 4.04445px; height: 4.04445px; background-color: rgba(59, 130, 246, 0.365); box-shadow: rgba(59, 130, 246, 0.365) 0px 0px 8.08889px; left: 56.3089vw; top: 39.6276vh; animation-duration: 22.7128s; animation-delay: 2.98757s;"></div><div class="particle" style="width: 5.34547px; height: 5.34547px; background-color: rgba(59, 130, 246, 0.482); box-shadow: rgba(59, 130, 246, 0.482) 0px 0px 10.6909px; left: 71.3752vw; top: 78.134vh; animation-duration: 27.5113s; animation-delay: 7.13678s;"></div><div class="particle" style="width: 5.41684px; height: 5.41684px; background-color: rgba(147, 51, 234, 0.35); box-shadow: rgba(147, 51, 234, 0.35) 0px 0px 10.8337px; left: 68.4198vw; top: 98.1065vh; animation-duration: 22.0838s; animation-delay: 3.18714s;"></div><div class="particle" style="width: 5.52707px; height: 5.52707px; background-color: rgba(147, 51, 234, 0.52); box-shadow: rgba(147, 51, 234, 0.52) 0px 0px 11.0541px; left: 69.3449vw; top: 83.475vh; animation-duration: 25.3454s; animation-delay: 3.99924s;"></div><div class="particle" style="width: 4.81507px; height: 4.81507px; background-color: rgba(59, 130, 246, 0.22); box-shadow: rgba(59, 130, 246, 0.22) 0px 0px 9.63015px; left: 44.0807vw; top: 1.09562vh; animation-duration: 27.7796s; animation-delay: 3.25245s;"></div><div class="particle" style="width: 4.48947px; height: 4.48947px; background-color: rgba(147, 51, 234, 0.365); box-shadow: rgba(147, 51, 234, 0.365) 0px 0px 8.97895px; left: 61.4679vw; top: 59.4376vh; animation-duration: 15.6907s; animation-delay: 2.5365s;"></div><div class="particle" style="width: 3.92754px; height: 3.92754px; background-color: rgba(147, 51, 234, 0.663); box-shadow: rgba(147, 51, 234, 0.663) 0px 0px 7.85507px; left: 66.3907vw; top: 92.6953vh; animation-duration: 24.6096s; animation-delay: 1.2995s;"></div><div class="particle" style="width: 2.8641px; height: 2.8641px; background-color: rgba(59, 130, 246, 0.243); box-shadow: rgba(59, 130, 246, 0.243) 0px 0px 5.72819px; left: 82.0547vw; top: 45.0362vh; animation-duration: 18.6956s; animation-delay: 9.50121s;"></div><div class="particle" style="width: 6.68518px; height: 6.68518px; background-color: rgba(59, 130, 246, 0.58); box-shadow: rgba(59, 130, 246, 0.58) 0px 0px 13.3704px; left: 65.321vw; top: 64.5582vh; animation-duration: 19.3606s; animation-delay: 8.18701s;"></div><div class="particle" style="width: 5.80665px; height: 5.80665px; background-color: rgba(147, 51, 234, 0.22); box-shadow: rgba(147, 51, 234, 0.22) 0px 0px 11.6133px; left: 62.196vw; top: 12.1416vh; animation-duration: 18.0825s; animation-delay: 7.1702s;"></div><div class="particle" style="width: 3.67096px; height: 3.67096px; background-color: rgba(59, 130, 246, 0.2); box-shadow: rgba(59, 130, 246, 0.2) 0px 0px 7.34192px; left: 27.7498vw; top: 56.807vh; animation-duration: 10.896s; animation-delay: 6.74161s;"></div><div class="particle" style="width: 4.71194px; height: 4.71194px; background-color: rgba(147, 51, 234, 0.22); box-shadow: rgba(147, 51, 234, 0.22) 0px 0px 9.42388px; left: 11.4068vw; top: 76.6197vh; animation-duration: 17.5488s; animation-delay: 2.87529s;"></div><div class="particle" style="width: 3.15047px; height: 3.15047px; background-color: rgba(59, 130, 246, 0.627); box-shadow: rgba(59, 130, 246, 0.627) 0px 0px 6.30094px; left: 4.80136vw; top: 58.0218vh; animation-duration: 13.0515s; animation-delay: 2.23554s;"></div><div class="particle" style="width: 3.0541px; height: 3.0541px; background-color: rgba(59, 130, 246, 0.376); box-shadow: rgba(59, 130, 246, 0.376) 0px 0px 6.1082px; left: 99.9632vw; top: 20.5907vh; animation-duration: 12.0685s; animation-delay: 7.7685s;"></div><div class="particle" style="width: 2.06437px; height: 2.06437px; background-color: rgba(59, 130, 246, 0.37); box-shadow: rgba(59, 130, 246, 0.37) 0px 0px 4.12874px; left: 86.2454vw; top: 35.6155vh; animation-duration: 27.9634s; animation-delay: 4.63386s;"></div><div class="particle" style="width: 2.14276px; height: 2.14276px; background-color: rgba(147, 51, 234, 0.396); box-shadow: rgba(147, 51, 234, 0.396) 0px 0px 4.28552px; left: 86.62vw; top: 51.5789vh; animation-duration: 25.835s; animation-delay: 5.60067s;"></div><div class="particle" style="width: 3.78015px; height: 3.78015px; background-color: rgba(147, 51, 234, 0.247); box-shadow: rgba(147, 51, 234, 0.247) 0px 0px 7.56031px; left: 12.8119vw; top: 78.7773vh; animation-duration: 12.3737s; animation-delay: 8.49095s;"></div><div class="particle" style="width: 6.35773px; height: 6.35773px; background-color: rgba(147, 51, 234, 0.235); box-shadow: rgba(147, 51, 234, 0.235) 0px 0px 12.7155px; left: 70.2873vw; top: 94.5189vh; animation-duration: 22.636s; animation-delay: 4.66133s;"></div><div class="particle" style="width: 2.85604px; height: 2.85604px; background-color: rgba(147, 51, 234, 0.267); box-shadow: rgba(147, 51, 234, 0.267) 0px 0px 5.71209px; left: 33.622vw; top: 93.0093vh; animation-duration: 17.9475s; animation-delay: 5.18422s;"></div><div class="particle" style="width: 3.29426px; height: 3.29426px; background-color: rgba(59, 130, 246, 0.41); box-shadow: rgba(59, 130, 246, 0.41) 0px 0px 6.58852px; left: 50.2856vw; top: 66.7363vh; animation-duration: 21.3138s; animation-delay: 3.76293s;"></div><div class="particle" style="width: 3.80775px; height: 3.80775px; background-color: rgba(59, 130, 246, 0.48); box-shadow: rgba(59, 130, 246, 0.48) 0px 0px 7.61549px; left: 56.1785vw; top: 29.0095vh; animation-duration: 10.3706s; animation-delay: 2.215s;"></div><div class="particle" style="width: 4.05617px; height: 4.05617px; background-color: rgba(147, 51, 234, 0.486); box-shadow: rgba(147, 51, 234, 0.486) 0px 0px 8.11233px; left: 47.0133vw; top: 4.62234vh; animation-duration: 25.8404s; animation-delay: 1.78691s;"></div><div class="particle" style="width: 4.62515px; height: 4.62515px; background-color: rgba(59, 130, 246, 0.28); box-shadow: rgba(59, 130, 246, 0.28) 0px 0px 9.2503px; left: 22.2913vw; top: 63.1638vh; animation-duration: 28.2675s; animation-delay: 2.8043s;"></div><div class="particle" style="width: 6.46865px; height: 6.46865px; background-color: rgba(59, 130, 246, 0.35); box-shadow: rgba(59, 130, 246, 0.35) 0px 0px 12.9373px; left: 33.3894vw; top: 78.8921vh; animation-duration: 25.5646s; animation-delay: 8.76997s;"></div><div class="particle" style="width: 6.57536px; height: 6.57536px; background-color: rgba(59, 130, 246, 0.2); box-shadow: rgba(59, 130, 246, 0.2) 0px 0px 13.1507px; left: 78.4208vw; top: 22.0204vh; animation-duration: 19.8601s; animation-delay: 2.9291s;"></div><div class="particle" style="width: 3.70907px; height: 3.70907px; background-color: rgba(147, 51, 234, 0.463); box-shadow: rgba(147, 51, 234, 0.463) 0px 0px 7.41814px; left: 60.8325vw; top: 57.9824vh; animation-duration: 13.4036s; animation-delay: 4.64455s;"></div><div class="particle" style="width: 2.73904px; height: 2.73904px; background-color: rgba(59, 130, 246, 0.57); box-shadow: rgba(59, 130, 246, 0.57) 0px 0px 5.47808px; left: 59.2863vw; top: 25.1753vh; animation-duration: 27.0091s; animation-delay: 5.59247s;"></div></div>
+    <div class="particle" style="width: 6.74578px; height: 6.74578px; background-color: rgba(59, 130, 246, 0.333); box-shadow: rgba(59, 130, 246, 0.333) 0px 0px 13.4916px; left: 24.3647vw; top: 70.8372vh; animation-duration: 23.6548s; animation-delay: 6.06293s;"></div><div class="particle" style="width: 4.64768px; height: 4.64768px; background-color: rgba(59, 130, 246, 0.235); box-shadow: rgba(59, 130, 246, 0.235) 0px 0px 9.29536px; left: 73.9365vw; top: 97.5841vh; animation-duration: 12.5659s; animation-delay: 8.59507s;"></div><div class="particle" style="width: 5.58333px; height: 5.58333px; background-color: rgba(59, 130, 246, 0.25); box-shadow: rgba(59, 130, 246, 0.25) 0px 0px 11.1667px; left: 25.1649vw; top: 73.9422vh; animation-duration: 13.6807s; animation-delay: 6.02155s;"></div><div class="particle" style="width: 3.66041px; height: 3.66041px; background-color: rgba(147, 51, 234, 0.404); box-shadow: rgba(147, 51, 234, 0.404) 0px 0px 7.32082px; left: 62.2533vw; top: 33.0094vh; animation-duration: 15.3849s; animation-delay: 1.00907s;"></div><div class="particle" style="width: 5.59551px; height: 5.59551px; background-color: rgba(147, 51, 234, 0.267); box-shadow: rgba(147, 51, 234, 0.267) 0px 0px 11.191px; left: 76.6628vw; top: 70.1302vh; animation-duration: 29.398s; animation-delay: 5.22453s;"></div><div class="particle" style="width: 6.97359px; height: 6.97359px; background-color: rgba(59, 130, 246, 0.255); box-shadow: rgba(59, 130, 246, 0.255) 0px 0px 13.9472px; left: 33.016vw; top: 26.3424vh; animation-duration: 11.7622s; animation-delay: 1.87317s;"></div><div class="particle" style="width: 6.83696px; height: 6.83696px; background-color: rgba(59, 130, 246, 0.235); box-shadow: rgba(59, 130, 246, 0.235) 0px 0px 13.6739px; left: 59.2588vw; top: 81.9052vh; animation-duration: 22.2389s; animation-delay: 4.11727s;"></div><div class="particle" style="width: 5.43578px; height: 5.43578px; background-color: rgba(147, 51, 234, 0.23); box-shadow: rgba(147, 51, 234, 0.23) 0px 0px 10.8716px; left: 9.22334vw; top: 36.1988vh; animation-duration: 18.1562s; animation-delay: 2.16909s;"></div><div class="particle" style="width: 2.50942px; height: 2.50942px; background-color: rgba(147, 51, 234, 0.584); box-shadow: rgba(147, 51, 234, 0.584) 0px 0px 5.01884px; left: 29.5128vw; top: 35.8867vh; animation-duration: 29.979s; animation-delay: 8.14776s;"></div><div class="particle" style="width: 4.92575px; height: 4.92575px; background-color: rgba(147, 51, 234, 0.58); box-shadow: rgba(147, 51, 234, 0.58) 0px 0px 9.85149px; left: 91.3839vw; top: 75.585vh; animation-duration: 23.7221s; animation-delay: 6.74675s;"></div><div class="particle" style="width: 2.10289px; height: 2.10289px; background-color: rgba(59, 130, 246, 0.424); box-shadow: rgba(59, 130, 246, 0.424) 0px 0px 4.20578px; left: 1.11417vw; top: 59.0603vh; animation-duration: 16.1162s; animation-delay: 3.91231s;"></div><div class="particle" style="width: 3.84486px; height: 3.84486px; background-color: rgba(59, 130, 246, 0.66); box-shadow: rgba(59, 130, 246, 0.66) 0px 0px 7.68973px; left: 58.8609vw; top: 96.2953vh; animation-duration: 10.0274s; animation-delay: 5.62867s;"></div><div class="particle" style="width: 3.02769px; height: 3.02769px; background-color: rgba(59, 130, 246, 0.42); box-shadow: rgba(59, 130, 246, 0.42) 0px 0px 6.05538px; left: 99.3905vw; top: 90.2004vh; animation-duration: 19.3598s; animation-delay: 9.57161s;"></div><div class="particle" style="width: 4.78009px; height: 4.78009px; background-color: rgba(59, 130, 246, 0.31); box-shadow: rgba(59, 130, 246, 0.31) 0px 0px 9.56019px; left: 60.044vw; top: 98.9992vh; animation-duration: 18.3933s; animation-delay: 5.4934s;"></div><div class="particle" style="width: 4.52856px; height: 4.52856px; background-color: rgba(59, 130, 246, 0.55); box-shadow: rgba(59, 130, 246, 0.55) 0px 0px 9.05713px; left: 91.7976vw; top: 37.7937vh; animation-duration: 17.2783s; animation-delay: 2.34463s;"></div><div class="particle" style="width: 6.17597px; height: 6.17597px; background-color: rgba(147, 51, 234, 0.443); box-shadow: rgba(147, 51, 234, 0.443) 0px 0px 12.3519px; left: 91.5598vw; top: 62.1626vh; animation-duration: 26.6699s; animation-delay: 5.12784s;"></div><div class="particle" style="width: 5.32437px; height: 5.32437px; background-color: rgba(59, 130, 246, 0.463); box-shadow: rgba(59, 130, 246, 0.463) 0px 0px 10.6487px; left: 92.0738vw; top: 8.89065vh; animation-duration: 16.8292s; animation-delay: 3.05155s;"></div><div class="particle" style="width: 2.91407px; height: 2.91407px; background-color: rgba(147, 51, 234, 0.424); box-shadow: rgba(147, 51, 234, 0.424) 0px 0px 5.82814px; left: 9.18097vw; top: 47.792vh; animation-duration: 19.5699s; animation-delay: 8.71664s;"></div><div class="particle" style="width: 4.43301px; height: 4.43301px; background-color: rgba(147, 51, 234, 0.36); box-shadow: rgba(147, 51, 234, 0.36) 0px 0px 8.86601px; left: 10.0412vw; top: 37.25vh; animation-duration: 19.8338s; animation-delay: 1.68861s;"></div><div class="particle" style="width: 2.0878px; height: 2.0878px; background-color: rgba(59, 130, 246, 0.553); box-shadow: rgba(59, 130, 246, 0.553) 0px 0px 4.1756px; left: 26.8264vw; top: 1.02506vh; animation-duration: 27.3008s; animation-delay: 3.9202s;"></div><div class="particle" style="width: 2.1982px; height: 2.1982px; background-color: rgba(147, 51, 234, 0.208); box-shadow: rgba(147, 51, 234, 0.208) 0px 0px 4.3964px; left: 62.9736vw; top: 2.2057vh; animation-duration: 12.0505s; animation-delay: 7.86703s;"></div><div class="particle" style="width: 2.65473px; height: 2.65473px; background-color: rgba(59, 130, 246, 0.243); box-shadow: rgba(59, 130, 246, 0.243) 0px 0px 5.30947px; left: 37.7639vw; top: 59.5096vh; animation-duration: 26.1952s; animation-delay: 5.43236s;"></div><div class="particle" style="width: 3.11475px; height: 3.11475px; background-color: rgba(59, 130, 246, 0.392); box-shadow: rgba(59, 130, 246, 0.392) 0px 0px 6.22951px; left: 14.5797vw; top: 74.9013vh; animation-duration: 15.851s; animation-delay: 0.755103s;"></div><div class="particle" style="width: 5.34054px; height: 5.34054px; background-color: rgba(147, 51, 234, 0.38); box-shadow: rgba(147, 51, 234, 0.38) 0px 0px 10.6811px; left: 70.2772vw; top: 77.4039vh; animation-duration: 18.3278s; animation-delay: 4.17875s;"></div><div class="particle" style="width: 4.57923px; height: 4.57923px; background-color: rgba(147, 51, 234, 0.5); box-shadow: rgba(147, 51, 234, 0.5) 0px 0px 9.15846px; left: 40.7568vw; top: 38.7325vh; animation-duration: 28.885s; animation-delay: 2.05571s;"></div><div class="particle" style="width: 2.3214px; height: 2.3214px; background-color: rgba(59, 130, 246, 0.56); box-shadow: rgba(59, 130, 246, 0.56) 0px 0px 4.6428px; left: 24.1493vw; top: 79.15vh; animation-duration: 11.7254s; animation-delay: 4.63214s;"></div><div class="particle" style="width: 6.06209px; height: 6.06209px; background-color: rgba(147, 51, 234, 0.21); box-shadow: rgba(147, 51, 234, 0.21) 0px 0px 12.1242px; left: 53.7169vw; top: 64.1451vh; animation-duration: 25.3228s; animation-delay: 4.07447s;"></div><div class="particle" style="width: 2.044px; height: 2.044px; background-color: rgba(147, 51, 234, 0.616); box-shadow: rgba(147, 51, 234, 0.616) 0px 0px 4.08801px; left: 98.5417vw; top: 34.6148vh; animation-duration: 28.7596s; animation-delay: 8.67535s;"></div><div class="particle" style="width: 5.3082px; height: 5.3082px; background-color: rgba(59, 130, 246, 0.533); box-shadow: rgba(59, 130, 246, 0.533) 0px 0px 10.6164px; left: 37.0467vw; top: 19.0533vh; animation-duration: 23.2572s; animation-delay: 1.6703s;"></div><div class="particle" style="width: 2.45512px; height: 2.45512px; background-color: rgba(59, 130, 246, 0.384); box-shadow: rgba(59, 130, 246, 0.384) 0px 0px 4.91024px; left: 39.3586vw; top: 43.5469vh; animation-duration: 19.4332s; animation-delay: 7.85556s;"></div></div>
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
@@ -714,7 +853,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <!-- Timothy Ronald AI Card -->
                 <div class="clone-card">
-                    <div class="relative">
+                    <div class="clone-image-container">
                         <img src="clone_1.jpg" alt="Timothy Ronald AI" class="clone-image">
                     </div>
                     <div class="p-4">
@@ -726,7 +865,7 @@
                 
                 <!-- Kang Dedi Mulyadi AI Card -->
                 <div class="clone-card">
-                    <div class="relative">
+                    <div class="clone-image-container">
                         <img src="clone_2.jpg" alt="Kang Dedi Mulyadi AI" class="clone-image">
                         <div class="coming-soon-badge text-xs">Coming Soon</div>
                     </div>
@@ -739,7 +878,7 @@
                 
                 <!-- Cak Lontong AI Card -->
                 <div class="clone-card">
-                    <div class="relative">
+                    <div class="clone-image-container">
                         <img src="clone_3.jpg" alt="Cak Lontong AI" class="clone-image">
                         <div class="coming-soon-badge text-xs">Coming Soon</div>
                     </div>
@@ -1042,7 +1181,11 @@
             </div>
             
             <div class="form-container">
-                <iframe src="https://api.leadconnectorhq.com/widget/form/c9ogKlx41L6SvQuKvWPF" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-c9ogKlx41L6SvQuKvWPF" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="gold clone" data-height="616" data-layout-iframe-id="inline-c9ogKlx41L6SvQuKvWPF" data-form-id="c9ogKlx41L6SvQuKvWPF" title="gold clone" scrolling="yes">
+                <div class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe class="form-iframe" src="https://api.leadconnectorhq.com/widget/form/c9ogKlx41L6SvQuKvWPF" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-c9ogKlx41L6SvQuKvWPF" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="gold clone" data-height="616" data-layout-iframe-id="inline-c9ogKlx41L6SvQuKvWPF" data-form-id="c9ogKlx41L6SvQuKvWPF" title="gold clone" scrolling="yes">
                 </iframe>
                 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
             </div>
@@ -1074,7 +1217,11 @@
             </div>
             
             <div class="form-container">
-                <iframe src="https://api.leadconnectorhq.com/widget/form/AzeyopZNWbIK69Dw8FO3" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-AzeyopZNWbIK69Dw8FO3" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="diamond clone" data-height="616" data-layout-iframe-id="inline-AzeyopZNWbIK69Dw8FO3" data-form-id="AzeyopZNWbIK69Dw8FO3" title="diamond clone" scrolling="yes">
+                <div class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe class="form-iframe" src="https://api.leadconnectorhq.com/widget/form/AzeyopZNWbIK69Dw8FO3" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-AzeyopZNWbIK69Dw8FO3" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="diamond clone" data-height="616" data-layout-iframe-id="inline-AzeyopZNWbIK69Dw8FO3" data-form-id="AzeyopZNWbIK69Dw8FO3" title="diamond clone" scrolling="yes">
                 </iframe>
                 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
             </div>
@@ -1106,7 +1253,11 @@
             </div>
             
             <div class="form-container">
-                <iframe src="https://api.leadconnectorhq.com/widget/form/4DFLzRouPFfnHMBnxOql" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-4DFLzRouPFfnHMBnxOql" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="emerald clone" data-height="616" data-layout-iframe-id="inline-4DFLzRouPFfnHMBnxOql" data-form-id="4DFLzRouPFfnHMBnxOql" title="emerald clone" scrolling="yes">
+                <div class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe class="form-iframe" src="https://api.leadconnectorhq.com/widget/form/4DFLzRouPFfnHMBnxOql" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-4DFLzRouPFfnHMBnxOql" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="emerald clone" data-height="616" data-layout-iframe-id="inline-4DFLzRouPFfnHMBnxOql" data-form-id="4DFLzRouPFfnHMBnxOql" title="emerald clone" scrolling="yes">
                 </iframe>
                 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
             </div>
@@ -1128,6 +1279,6 @@
             </div>
         </div>
     </footer>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94e39c9a83f981a4',t:'MTc0OTY3MTE1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94e3f7a5336b9fe5',t:'MTc0OTY3NDg4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
 
 </body></html>
