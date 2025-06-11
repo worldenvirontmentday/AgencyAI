@@ -1,0 +1,93 @@
+<section class="relative min-h-screen flex items-center justify-center hero-bg pt-16" id="home">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="orbitron text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                        <span class="block">Marketing Pakai</span>
+                        <span class="gradient-text glow">AI</span>
+                    </h1>
+                    <h2 class="orbitron text-2xl md:text-3xl text-white mb-6">Bersama Super Agentic</h2>
+                    <p class="text-gray-300 text-lg md:text-xl mb-8 max-w-lg">
+                        Robot dengan pengalaman lebih dari 90.000 usaha dan ratusan buku teknik marketing, Super Agentic mampu menyusun strategi serta mengimplementasikannya secara otomatis.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#pricing" class="bg-gradient-to-r from-purple-600 to-blue-500 text-white orbitron px-8 py-3 rounded-full hover:from-purple-700 hover:to-blue-600 transition duration-300 purple-glow text-center">
+                            Coba Gratis
+                        </a>
+                    </div>
+                    
+                    <!-- Stats Capsules -->
+                    <div class="stats-container flex flex-wrap gap-4 mt-8">
+                        <div class="stat-capsule purple-glow">
+                            <div class="text-xs text-gray-300">Pelanggan</div>
+                            <div class="text-lg font-bold">
+                                <span class="stat-counter" data-target="90000" data-suffix="+">90.000+</span>
+                            </div>
+                        </div>
+                        <div class="stat-capsule blue-glow">
+                            <div class="text-xs text-gray-300">Pesan</div>
+                            <div class="text-lg font-bold">
+                                <span class="stat-counter" data-target="1370000">1.370.000</span>
+                            </div>
+                        </div>
+                        <div class="stat-capsule purple-glow">
+                            <div class="text-xs text-gray-300">Leads</div>
+                            <div class="text-lg font-bold">
+                                <span class="stat-counter" data-target="194000000">194.000.000</span>
+                            </div>
+                        </div>
+                        <div class="stat-capsule blue-glow">
+                            <div class="text-xs text-gray-300">Percakapan</div>
+                            <div class="text-lg font-bold">
+                                <span class="stat-counter" data-target="19000000">19.000.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="w-full h-80 md:h-96 lg:h-[500px] relative">
+                        <!-- AI Visualization - Replace with super_agentic.png -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <!-- Placeholder for super_agentic.png with floating animation -->
+                            <div class="super-agentic-container floating">
+                                <!-- This is where you'll place your transparent PNG image -->
+                                <img src="super_agentic.png" alt="Super Agentic AI" class="super-agentic-image">
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Elements -->
+                        <div class="absolute top-10 left-10 w-12 h-12 rounded-lg bg-gradient-to-br from-purple-600/40 to-blue-500/40 purple-glow floating-fast"></div>
+                        <div class="absolute bottom-20 right-10 w-16 h-16 rounded-full bg-gradient-to-br from-blue-600/40 to-purple-500/40 blue-glow floating-slow"></div>
+                        <div class="absolute top-1/2 right-1/4 w-8 h-8 rounded-md bg-gradient-to-br from-purple-500/40 to-blue-600/40 purple-glow floating"></div>
+                        
+                        <!-- Connection Lines -->
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="250" y1="250" x2="100" y2="100" stroke="url(#purpleGradient)" stroke-width="1" stroke-dasharray="5,5" class="pulse">
+                                <animate attributeName="stroke-dashoffset" from="0" to="100" dur="10s" repeatCount="indefinite"></animate>
+                            </line>
+                            <line x1="250" y1="250" x2="400" y2="100" stroke="url(#blueGradient)" stroke-width="1" stroke-dasharray="5,5" class="pulse">
+                                <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="8s" repeatCount="indefinite"></animate>
+                            </line>
+                            <line x1="250" y1="250" x2="400" y2="400" stroke="url(#purpleGradient)" stroke-width="1" stroke-dasharray="5,5" class="pulse">
+                                <animate attributeName="stroke-dashoffset" from="0" to="100" dur="12s" repeatCount="indefinite"></animate>
+                            </line>
+                            <line x1="250" y1="250" x2="100" y2="400" stroke="url(#blueGradient)" stroke-width="1" stroke-dasharray="5,5" class="pulse">
+                                <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="9s" repeatCount="indefinite"></animate>
+                            </line>
+                            
+                            <defs>
+                                <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(147, 51, 234, 0.3)"></stop>
+                                    <stop offset="100%" stop-color="rgba(147, 51, 234, 0)"></stop>
+                                </linearGradient>
+                                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(59, 130, 246, 0.3)"></stop>
+                                    <stop offset="100%" stop-color="rgba(59, 130, 246, 0)"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
