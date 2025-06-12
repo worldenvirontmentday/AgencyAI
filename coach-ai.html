@@ -99,13 +99,14 @@
         
         /* Glowing particles */
         .particles {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
             z-index: 0;
+            pointer-events: none;
         }
         
         .particle {
@@ -117,7 +118,7 @@
         
         @keyframes particle-animation {
             0% {
-                transform: translateY(0) translateX(0);
+                transform: translateY(100vh) translateX(0);
                 opacity: 0.3;
             }
             50% {
@@ -126,6 +127,48 @@
             100% {
                 transform: translateY(-100vh) translateX(100px);
                 opacity: 0.3;
+            }
+        }
+        
+        /* Star particles */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Shooting star */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff);
+            border-radius: 50%;
+            animation: shooting 10s infinite linear;
+            opacity: 0;
+        }
+        
+        @keyframes shooting {
+            0% {
+                transform: translateX(0) translateY(0) rotate(315deg);
+                opacity: 0;
+            }
+            1% {
+                opacity: 1;
+            }
+            5% {
+                transform: translateX(-100px) translateY(100px) rotate(315deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(-100px) translateY(100px) rotate(315deg);
+                opacity: 0;
             }
         }
         
@@ -320,24 +363,15 @@
             cursor: pointer;
         }
         
-        .pricing-button-silver {
-            background: linear-gradient(90deg, #94a3b8, #cbd5e1);
-            color: #1e293b;
-        }
-        
-        .pricing-button-gold {
-            background: linear-gradient(90deg, #f59e0b, #eab308);
+        .pricing-button-purple {
+            background: linear-gradient(90deg, #8b5cf6, #6d28d9);
             color: white;
         }
         
-        .pricing-button-diamond {
-            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+        .pricing-button-popular {
+            background: linear-gradient(90deg, #a855f7, #7e22ce);
             color: white;
-        }
-        
-        .pricing-button-emerald {
-            background: linear-gradient(90deg, #10b981, #34d399);
-            color: white;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
         }
         
         .pricing-button:hover {
@@ -546,13 +580,24 @@
         /* Loading Spinner */
         .loading-spinner {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .loading-spinner.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         .spinner {
@@ -617,7 +662,7 @@
         <script>
             function createParticles() {
                 const particlesContainer = document.querySelector('.particles');
-                const particleCount = 30;
+                const particleCount = 80; // Increased particle count
                 
                 for (let i = 0; i < particleCount; i++) {
                     const size = Math.random() * 5 + 2;
@@ -636,7 +681,7 @@
                     
                     // Random position
                     particle.style.left = `${Math.random() * 100}vw`;
-                    particle.style.top = `${Math.random() * 100}vh`;
+                    particle.style.top = `${Math.random() * 200}vh`; // Extend beyond viewport height
                     
                     // Random animation duration and delay
                     const duration = Math.random() * 20 + 10;
@@ -645,6 +690,52 @@
                     particle.style.animationDelay = `${delay}s`;
                     
                     particlesContainer.appendChild(particle);
+                }
+                
+                // Add stars
+                const starCount = 150;
+                for (let i = 0; i < starCount; i++) {
+                    const size = Math.random() * 2 + 0.5;
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    
+                    // Random position
+                    star.style.left = `${Math.random() * 100}vw`;
+                    star.style.top = `${Math.random() * 200}vh`; // Extend beyond viewport height
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 4 + 2;
+                    const delay = Math.random() * 4;
+                    star.style.animationDuration = `${duration}s`;
+                    star.style.animationDelay = `${delay}s`;
+                    
+                    particlesContainer.appendChild(star);
+                }
+                
+                // Add shooting stars
+                const shootingStarCount = 10;
+                for (let i = 0; i < shootingStarCount; i++) {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.classList.add('shooting-star');
+                    
+                    // Random position
+                    shootingStar.style.left = `${Math.random() * 100}vw`;
+                    shootingStar.style.top = `${Math.random() * 100}vh`;
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 5 + 5;
+                    const delay = Math.random() * 15;
+                    shootingStar.style.animationDuration = `${duration}s`;
+                    shootingStar.style.animationDelay = `${delay}s`;
+                    
+                    // Random size
+                    const size = Math.random() * 40 + 20;
+                    shootingStar.style.width = `${size}px`;
+                    
+                    particlesContainer.appendChild(shootingStar);
                 }
             }
             
@@ -657,9 +748,6 @@
                 
                 // Initialize pricing modals
                 initPricingModals();
-                
-                // Initialize iframe loading indicators
-                initIframeLoading();
             });
             
             // Mobile menu functionality
@@ -718,6 +806,8 @@
                 // Silver Plan
                 document.getElementById('silverPlanButton').addEventListener('click', function() {
                     const modal = document.getElementById('silverPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                     
@@ -725,6 +815,14 @@
                     setTimeout(() => {
                         modal.classList.add('active');
                     }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
                 });
                 
                 document.getElementById('closeSilverModal').addEventListener('click', function() {
@@ -734,6 +832,8 @@
                 // Gold Plan
                 document.getElementById('goldPlanButton').addEventListener('click', function() {
                     const modal = document.getElementById('goldPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                     
@@ -741,6 +841,14 @@
                     setTimeout(() => {
                         modal.classList.add('active');
                     }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
                 });
                 
                 document.getElementById('closeGoldModal').addEventListener('click', function() {
@@ -750,6 +858,8 @@
                 // Diamond Plan
                 document.getElementById('diamondPlanButton').addEventListener('click', function() {
                     const modal = document.getElementById('diamondPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                     
@@ -757,6 +867,14 @@
                     setTimeout(() => {
                         modal.classList.add('active');
                     }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
                 });
                 
                 document.getElementById('closeDiamondModal').addEventListener('click', function() {
@@ -766,6 +884,8 @@
                 // Emerald Plan
                 document.getElementById('emeraldPlanButton').addEventListener('click', function() {
                     const modal = document.getElementById('emeraldPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                     
@@ -773,6 +893,14 @@
                     setTimeout(() => {
                         modal.classList.add('active');
                     }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
                 });
                 
                 document.getElementById('closeEmeraldModal').addEventListener('click', function() {
@@ -796,39 +924,16 @@
                 setTimeout(() => {
                     modal.style.display = 'none';
                     document.body.style.overflow = '';
+                    
+                    // Reset loading spinner state
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    if (loadingSpinner) {
+                        loadingSpinner.classList.remove('active');
+                    }
                 }, 300);
             }
-            
-            // Initialize iframe loading indicators
-            function initIframeLoading() {
-                const iframes = document.querySelectorAll('.form-iframe');
-                
-                iframes.forEach(iframe => {
-                    const container = iframe.closest('.form-container');
-                    const loadingSpinner = container.querySelector('.loading-spinner');
-                    
-                    // Show loading spinner initially
-                    if (loadingSpinner) {
-                        loadingSpinner.style.display = 'flex';
-                    }
-                    
-                    // Hide spinner when iframe is loaded
-                    iframe.addEventListener('load', function() {
-                        if (loadingSpinner) {
-                            loadingSpinner.style.display = 'none';
-                        }
-                    });
-                    
-                    // If iframe fails to load after 10 seconds, hide spinner anyway
-                    setTimeout(() => {
-                        if (loadingSpinner) {
-                            loadingSpinner.style.display = 'none';
-                        }
-                    }, 10000);
-                });
-            }
         </script>
-    <div class="particle" style="width: 3.41166px; height: 3.41166px; background-color: rgba(147, 51, 234, 0.56); box-shadow: rgba(147, 51, 234, 0.56) 0px 0px 6.82332px; left: 80.0814vw; top: 40.6078vh; animation-duration: 22.9515s; animation-delay: 0.194933s;"></div><div class="particle" style="width: 6.39259px; height: 6.39259px; background-color: rgba(147, 51, 234, 0.533); box-shadow: rgba(147, 51, 234, 0.533) 0px 0px 12.7852px; left: 26.1218vw; top: 58.7907vh; animation-duration: 28.1577s; animation-delay: 9.18627s;"></div><div class="particle" style="width: 6.6788px; height: 6.6788px; background-color: rgba(59, 130, 246, 0.36); box-shadow: rgba(59, 130, 246, 0.36) 0px 0px 13.3576px; left: 36.6562vw; top: 32.6085vh; animation-duration: 28.335s; animation-delay: 5.72153s;"></div><div class="particle" style="width: 3.65315px; height: 3.65315px; background-color: rgba(147, 51, 234, 0.263); box-shadow: rgba(147, 51, 234, 0.263) 0px 0px 7.30631px; left: 0.27407vw; top: 55.5441vh; animation-duration: 26.1125s; animation-delay: 9.45604s;"></div><div class="particle" style="width: 6.63328px; height: 6.63328px; background-color: rgba(147, 51, 234, 0.53); box-shadow: rgba(147, 51, 234, 0.53) 0px 0px 13.2666px; left: 25.1544vw; top: 79.695vh; animation-duration: 13.252s; animation-delay: 8.58294s;"></div><div class="particle" style="width: 6.35076px; height: 6.35076px; background-color: rgba(59, 130, 246, 0.204); box-shadow: rgba(59, 130, 246, 0.204) 0px 0px 12.7015px; left: 95.8487vw; top: 46.1333vh; animation-duration: 26.0938s; animation-delay: 6.89693s;"></div><div class="particle" style="width: 6.49052px; height: 6.49052px; background-color: rgba(59, 130, 246, 0.424); box-shadow: rgba(59, 130, 246, 0.424) 0px 0px 12.981px; left: 38.6685vw; top: 0.0387677vh; animation-duration: 28.6731s; animation-delay: 5.36079s;"></div><div class="particle" style="width: 5.12193px; height: 5.12193px; background-color: rgba(59, 130, 246, 0.533); box-shadow: rgba(59, 130, 246, 0.533) 0px 0px 10.2439px; left: 88.6874vw; top: 15.7538vh; animation-duration: 14.0922s; animation-delay: 9.95543s;"></div><div class="particle" style="width: 6.42623px; height: 6.42623px; background-color: rgba(59, 130, 246, 0.365); box-shadow: rgba(59, 130, 246, 0.365) 0px 0px 12.8525px; left: 72.6436vw; top: 28.5678vh; animation-duration: 19.3339s; animation-delay: 1.382s;"></div><div class="particle" style="width: 5.76338px; height: 5.76338px; background-color: rgba(59, 130, 246, 0.525); box-shadow: rgba(59, 130, 246, 0.525) 0px 0px 11.5268px; left: 41.0822vw; top: 60.9568vh; animation-duration: 26.2136s; animation-delay: 1.39392s;"></div><div class="particle" style="width: 2.62911px; height: 2.62911px; background-color: rgba(147, 51, 234, 0.216); box-shadow: rgba(147, 51, 234, 0.216) 0px 0px 5.25822px; left: 73.4338vw; top: 2.68703vh; animation-duration: 17.9853s; animation-delay: 5.55608s;"></div><div class="particle" style="width: 6.11611px; height: 6.11611px; background-color: rgba(59, 130, 246, 0.486); box-shadow: rgba(59, 130, 246, 0.486) 0px 0px 12.2322px; left: 88.3235vw; top: 10.1492vh; animation-duration: 11.4957s; animation-delay: 5.54031s;"></div><div class="particle" style="width: 2.05821px; height: 2.05821px; background-color: rgba(59, 130, 246, 0.365); box-shadow: rgba(59, 130, 246, 0.365) 0px 0px 4.11642px; left: 44.3703vw; top: 50.8119vh; animation-duration: 22.5583s; animation-delay: 3.3442s;"></div><div class="particle" style="width: 5.20523px; height: 5.20523px; background-color: rgba(59, 130, 246, 0.32); box-shadow: rgba(59, 130, 246, 0.32) 0px 0px 10.4105px; left: 79.6681vw; top: 69.1852vh; animation-duration: 29.3022s; animation-delay: 1.64416s;"></div><div class="particle" style="width: 6.72911px; height: 6.72911px; background-color: rgba(147, 51, 234, 0.467); box-shadow: rgba(147, 51, 234, 0.467) 0px 0px 13.4582px; left: 98.9324vw; top: 84.9341vh; animation-duration: 21.2187s; animation-delay: 1.65971s;"></div><div class="particle" style="width: 2.00409px; height: 2.00409px; background-color: rgba(147, 51, 234, 0.32); box-shadow: rgba(147, 51, 234, 0.32) 0px 0px 4.00819px; left: 36.5146vw; top: 0.784116vh; animation-duration: 24.4591s; animation-delay: 1.21216s;"></div><div class="particle" style="width: 6.18287px; height: 6.18287px; background-color: rgba(147, 51, 234, 0.627); box-shadow: rgba(147, 51, 234, 0.627) 0px 0px 12.3657px; left: 41.1595vw; top: 99.0698vh; animation-duration: 10.4588s; animation-delay: 8.91799s;"></div><div class="particle" style="width: 6.85939px; height: 6.85939px; background-color: rgba(59, 130, 246, 0.435); box-shadow: rgba(59, 130, 246, 0.435) 0px 0px 13.7188px; left: 58.1978vw; top: 45.4975vh; animation-duration: 18.6807s; animation-delay: 3.09034s;"></div><div class="particle" style="width: 3.57592px; height: 3.57592px; background-color: rgba(147, 51, 234, 0.41); box-shadow: rgba(147, 51, 234, 0.41) 0px 0px 7.15184px; left: 65.412vw; top: 32.2138vh; animation-duration: 25.7197s; animation-delay: 7.90944s;"></div><div class="particle" style="width: 2.9395px; height: 2.9395px; background-color: rgba(59, 130, 246, 0.43); box-shadow: rgba(59, 130, 246, 0.43) 0px 0px 5.879px; left: 39.7241vw; top: 47.2462vh; animation-duration: 14.7961s; animation-delay: 5.32498s;"></div><div class="particle" style="width: 4.57104px; height: 4.57104px; background-color: rgba(147, 51, 234, 0.267); box-shadow: rgba(147, 51, 234, 0.267) 0px 0px 9.14209px; left: 78.3535vw; top: 70.4322vh; animation-duration: 12.5146s; animation-delay: 5.45292s;"></div><div class="particle" style="width: 2.66833px; height: 2.66833px; background-color: rgba(147, 51, 234, 0.62); box-shadow: rgba(147, 51, 234, 0.62) 0px 0px 5.33667px; left: 89.2751vw; top: 64.5463vh; animation-duration: 14.1987s; animation-delay: 3.08823s;"></div><div class="particle" style="width: 4.2328px; height: 4.2328px; background-color: rgba(59, 130, 246, 0.51); box-shadow: rgba(59, 130, 246, 0.51) 0px 0px 8.4656px; left: 3.67566vw; top: 99.6932vh; animation-duration: 27.6763s; animation-delay: 8.80915s;"></div><div class="particle" style="width: 2.88413px; height: 2.88413px; background-color: rgba(147, 51, 234, 0.573); box-shadow: rgba(147, 51, 234, 0.573) 0px 0px 5.76826px; left: 91.9855vw; top: 66.4302vh; animation-duration: 28.2321s; animation-delay: 5.37084s;"></div><div class="particle" style="width: 2.09518px; height: 2.09518px; background-color: rgba(147, 51, 234, 0.208); box-shadow: rgba(147, 51, 234, 0.208) 0px 0px 4.19035px; left: 5.20969vw; top: 84.3728vh; animation-duration: 10.8811s; animation-delay: 0.0691424s;"></div><div class="particle" style="width: 4.46348px; height: 4.46348px; background-color: rgba(59, 130, 246, 0.604); box-shadow: rgba(59, 130, 246, 0.604) 0px 0px 8.92696px; left: 23.7182vw; top: 23.1401vh; animation-duration: 14.833s; animation-delay: 5.13923s;"></div><div class="particle" style="width: 6.59388px; height: 6.59388px; background-color: rgba(147, 51, 234, 0.227); box-shadow: rgba(147, 51, 234, 0.227) 0px 0px 13.1878px; left: 52.5899vw; top: 66.3347vh; animation-duration: 25.5965s; animation-delay: 8.35312s;"></div><div class="particle" style="width: 5.75963px; height: 5.75963px; background-color: rgba(59, 130, 246, 0.482); box-shadow: rgba(59, 130, 246, 0.482) 0px 0px 11.5193px; left: 98.1883vw; top: 3.64085vh; animation-duration: 13.4351s; animation-delay: 6.83351s;"></div><div class="particle" style="width: 5.2155px; height: 5.2155px; background-color: rgba(59, 130, 246, 0.48); box-shadow: rgba(59, 130, 246, 0.48) 0px 0px 10.431px; left: 31.0624vw; top: 74.1312vh; animation-duration: 13.2785s; animation-delay: 1.80887s;"></div><div class="particle" style="width: 6.59335px; height: 6.59335px; background-color: rgba(59, 130, 246, 0.416); box-shadow: rgba(59, 130, 246, 0.416) 0px 0px 13.1867px; left: 2.60876vw; top: 32.2105vh; animation-duration: 28.2384s; animation-delay: 2.54249s;"></div></div>
+    <div class="particle" style="width: 4.17986px; height: 4.17986px; background-color: rgba(59, 130, 246, 0.59); box-shadow: rgba(59, 130, 246, 0.59) 0px 0px 8.35973px; left: 85.624vw; top: 76.5005vh; animation-duration: 18.681s; animation-delay: 0.903037s;"></div><div class="particle" style="width: 3.37633px; height: 3.37633px; background-color: rgba(147, 51, 234, 0.69); box-shadow: rgba(147, 51, 234, 0.69) 0px 0px 6.75267px; left: 78.6746vw; top: 40.6313vh; animation-duration: 24.6685s; animation-delay: 2.90353s;"></div><div class="particle" style="width: 3.82396px; height: 3.82396px; background-color: rgba(147, 51, 234, 0.306); box-shadow: rgba(147, 51, 234, 0.306) 0px 0px 7.64793px; left: 81.1384vw; top: 5.85799vh; animation-duration: 13.5473s; animation-delay: 9.42129s;"></div><div class="particle" style="width: 2.12331px; height: 2.12331px; background-color: rgba(59, 130, 246, 0.294); box-shadow: rgba(59, 130, 246, 0.294) 0px 0px 4.24662px; left: 62.7117vw; top: 187.502vh; animation-duration: 26.5181s; animation-delay: 4.80819s;"></div><div class="particle" style="width: 3.70367px; height: 3.70367px; background-color: rgba(59, 130, 246, 0.494); box-shadow: rgba(59, 130, 246, 0.494) 0px 0px 7.40734px; left: 56.6729vw; top: 25.8277vh; animation-duration: 23.7389s; animation-delay: 3.27094s;"></div><div class="particle" style="width: 6.55597px; height: 6.55597px; background-color: rgba(147, 51, 234, 0.655); box-shadow: rgba(147, 51, 234, 0.655) 0px 0px 13.1119px; left: 29.5099vw; top: 120.091vh; animation-duration: 25.0428s; animation-delay: 8.70634s;"></div><div class="particle" style="width: 5.86063px; height: 5.86063px; background-color: rgba(59, 130, 246, 0.443); box-shadow: rgba(59, 130, 246, 0.443) 0px 0px 11.7213px; left: 0.379673vw; top: 56.8948vh; animation-duration: 16.5411s; animation-delay: 7.28083s;"></div><div class="particle" style="width: 2.08644px; height: 2.08644px; background-color: rgba(147, 51, 234, 0.486); box-shadow: rgba(147, 51, 234, 0.486) 0px 0px 4.17289px; left: 94.1947vw; top: 109.06vh; animation-duration: 22.6648s; animation-delay: 0.725264s;"></div><div class="particle" style="width: 6.75219px; height: 6.75219px; background-color: rgba(59, 130, 246, 0.694); box-shadow: rgba(59, 130, 246, 0.694) 0px 0px 13.5044px; left: 42.2727vw; top: 151.201vh; animation-duration: 21.5348s; animation-delay: 8.62846s;"></div><div class="particle" style="width: 2.7865px; height: 2.7865px; background-color: rgba(147, 51, 234, 0.247); box-shadow: rgba(147, 51, 234, 0.247) 0px 0px 5.573px; left: 18.1333vw; top: 98.8322vh; animation-duration: 20.9747s; animation-delay: 6.27418s;"></div><div class="particle" style="width: 6.98242px; height: 6.98242px; background-color: rgba(59, 130, 246, 0.333); box-shadow: rgba(59, 130, 246, 0.333) 0px 0px 13.9648px; left: 43.6398vw; top: 85.3667vh; animation-duration: 16.1944s; animation-delay: 0.667747s;"></div><div class="particle" style="width: 5.95227px; height: 5.95227px; background-color: rgba(59, 130, 246, 0.31); box-shadow: rgba(59, 130, 246, 0.31) 0px 0px 11.9045px; left: 77.9427vw; top: 91.9009vh; animation-duration: 11.873s; animation-delay: 3.30592s;"></div><div class="particle" style="width: 3.06587px; height: 3.06587px; background-color: rgba(147, 51, 234, 0.318); box-shadow: rgba(147, 51, 234, 0.318) 0px 0px 6.13173px; left: 52.9958vw; top: 81.3358vh; animation-duration: 27.9333s; animation-delay: 9.84047s;"></div><div class="particle" style="width: 2.32051px; height: 2.32051px; background-color: rgba(147, 51, 234, 0.325); box-shadow: rgba(147, 51, 234, 0.325) 0px 0px 4.64102px; left: 71.6661vw; top: 179.492vh; animation-duration: 27.4721s; animation-delay: 1.96225s;"></div><div class="particle" style="width: 5.25845px; height: 5.25845px; background-color: rgba(147, 51, 234, 0.596); box-shadow: rgba(147, 51, 234, 0.596) 0px 0px 10.5169px; left: 70.3598vw; top: 164.953vh; animation-duration: 23.0373s; animation-delay: 8.44073s;"></div><div class="particle" style="width: 6.83301px; height: 6.83301px; background-color: rgba(147, 51, 234, 0.67); box-shadow: rgba(147, 51, 234, 0.67) 0px 0px 13.666px; left: 75.5879vw; top: 169.504vh; animation-duration: 23.1214s; animation-delay: 5.39968s;"></div><div class="particle" style="width: 3.00399px; height: 3.00399px; background-color: rgba(59, 130, 246, 0.267); box-shadow: rgba(59, 130, 246, 0.267) 0px 0px 6.00798px; left: 77.4971vw; top: 97.7842vh; animation-duration: 12.4872s; animation-delay: 3.10043s;"></div><div class="particle" style="width: 6.41734px; height: 6.41734px; background-color: rgba(59, 130, 246, 0.49); box-shadow: rgba(59, 130, 246, 0.49) 0px 0px 12.8347px; left: 13.2418vw; top: 169.81vh; animation-duration: 19.6054s; animation-delay: 6.1892s;"></div><div class="particle" style="width: 6.98401px; height: 6.98401px; background-color: rgba(147, 51, 234, 0.23); box-shadow: rgba(147, 51, 234, 0.23) 0px 0px 13.968px; left: 17.1967vw; top: 153.175vh; animation-duration: 11.1129s; animation-delay: 0.650679s;"></div><div class="particle" style="width: 3.18765px; height: 3.18765px; background-color: rgba(59, 130, 246, 0.306); box-shadow: rgba(59, 130, 246, 0.306) 0px 0px 6.37529px; left: 47.1509vw; top: 12.2599vh; animation-duration: 11.2649s; animation-delay: 9.26901s;"></div><div class="particle" style="width: 2.03063px; height: 2.03063px; background-color: rgba(59, 130, 246, 0.596); box-shadow: rgba(59, 130, 246, 0.596) 0px 0px 4.06125px; left: 81.9659vw; top: 71.4819vh; animation-duration: 15.2966s; animation-delay: 2.03508s;"></div><div class="particle" style="width: 4.44947px; height: 4.44947px; background-color: rgba(59, 130, 246, 0.38); box-shadow: rgba(59, 130, 246, 0.38) 0px 0px 8.89894px; left: 42.445vw; top: 194.561vh; animation-duration: 29.3218s; animation-delay: 0.974408s;"></div><div class="particle" style="width: 3.16667px; height: 3.16667px; background-color: rgba(59, 130, 246, 0.37); box-shadow: rgba(59, 130, 246, 0.37) 0px 0px 6.33334px; left: 54.4989vw; top: 62.3704vh; animation-duration: 23.0681s; animation-delay: 3.08785s;"></div><div class="particle" style="width: 4.1299px; height: 4.1299px; background-color: rgba(147, 51, 234, 0.573); box-shadow: rgba(147, 51, 234, 0.573) 0px 0px 8.25979px; left: 52.4975vw; top: 11.7078vh; animation-duration: 23.4081s; animation-delay: 8.0078s;"></div><div class="particle" style="width: 3.67065px; height: 3.67065px; background-color: rgba(59, 130, 246, 0.58); box-shadow: rgba(59, 130, 246, 0.58) 0px 0px 7.3413px; left: 3.65975vw; top: 73.6811vh; animation-duration: 11.1533s; animation-delay: 6.2731s;"></div><div class="particle" style="width: 5.49412px; height: 5.49412px; background-color: rgba(59, 130, 246, 0.643); box-shadow: rgba(59, 130, 246, 0.643) 0px 0px 10.9882px; left: 55.7404vw; top: 181.965vh; animation-duration: 16.9261s; animation-delay: 7.63033s;"></div><div class="particle" style="width: 5.56891px; height: 5.56891px; background-color: rgba(59, 130, 246, 0.32); box-shadow: rgba(59, 130, 246, 0.32) 0px 0px 11.1378px; left: 56.2747vw; top: 121.897vh; animation-duration: 25.2245s; animation-delay: 0.520088s;"></div><div class="particle" style="width: 4.16145px; height: 4.16145px; background-color: rgba(59, 130, 246, 0.647); box-shadow: rgba(59, 130, 246, 0.647) 0px 0px 8.32291px; left: 84.7051vw; top: 138.392vh; animation-duration: 12.1631s; animation-delay: 8.15697s;"></div><div class="particle" style="width: 2.52438px; height: 2.52438px; background-color: rgba(59, 130, 246, 0.573); box-shadow: rgba(59, 130, 246, 0.573) 0px 0px 5.04877px; left: 97.3966vw; top: 55.3366vh; animation-duration: 16.8315s; animation-delay: 3.29401s;"></div><div class="particle" style="width: 6.49272px; height: 6.49272px; background-color: rgba(59, 130, 246, 0.447); box-shadow: rgba(59, 130, 246, 0.447) 0px 0px 12.9854px; left: 41.2304vw; top: 1.11091vh; animation-duration: 23.1581s; animation-delay: 6.97266s;"></div><div class="particle" style="width: 2.85636px; height: 2.85636px; background-color: rgba(147, 51, 234, 0.698); box-shadow: rgba(147, 51, 234, 0.698) 0px 0px 5.71272px; left: 53.3293vw; top: 181.135vh; animation-duration: 25.385s; animation-delay: 4.599s;"></div><div class="particle" style="width: 4.72509px; height: 4.72509px; background-color: rgba(147, 51, 234, 0.573); box-shadow: rgba(147, 51, 234, 0.573) 0px 0px 9.45018px; left: 54.801vw; top: 22.6692vh; animation-duration: 28.9469s; animation-delay: 0.993052s;"></div><div class="particle" style="width: 3.9707px; height: 3.9707px; background-color: rgba(147, 51, 234, 0.392); box-shadow: rgba(147, 51, 234, 0.392) 0px 0px 7.9414px; left: 28.4729vw; top: 181.578vh; animation-duration: 15.6789s; animation-delay: 2.53666s;"></div><div class="particle" style="width: 2.4019px; height: 2.4019px; background-color: rgba(147, 51, 234, 0.314); box-shadow: rgba(147, 51, 234, 0.314) 0px 0px 4.80381px; left: 95.1703vw; top: 61.2672vh; animation-duration: 29.6439s; animation-delay: 1.06383s;"></div><div class="particle" style="width: 3.69488px; height: 3.69488px; background-color: rgba(147, 51, 234, 0.56); box-shadow: rgba(147, 51, 234, 0.56) 0px 0px 7.38977px; left: 50.2691vw; top: 24.2038vh; animation-duration: 13.6606s; animation-delay: 5.52678s;"></div><div class="particle" style="width: 4.25868px; height: 4.25868px; background-color: rgba(147, 51, 234, 0.353); box-shadow: rgba(147, 51, 234, 0.353) 0px 0px 8.51735px; left: 37.7055vw; top: 177.203vh; animation-duration: 11.7349s; animation-delay: 0.448246s;"></div><div class="particle" style="width: 2.02699px; height: 2.02699px; background-color: rgba(147, 51, 234, 0.255); box-shadow: rgba(147, 51, 234, 0.255) 0px 0px 4.05397px; left: 40.4005vw; top: 35.7237vh; animation-duration: 28.0832s; animation-delay: 8.88042s;"></div><div class="particle" style="width: 3.29048px; height: 3.29048px; background-color: rgba(147, 51, 234, 0.208); box-shadow: rgba(147, 51, 234, 0.208) 0px 0px 6.58096px; left: 20.8181vw; top: 126.464vh; animation-duration: 20.4293s; animation-delay: 0.222269s;"></div><div class="particle" style="width: 3.25244px; height: 3.25244px; background-color: rgba(147, 51, 234, 0.67); box-shadow: rgba(147, 51, 234, 0.67) 0px 0px 6.50488px; left: 4.95746vw; top: 26.5738vh; animation-duration: 28.9681s; animation-delay: 6.38049s;"></div><div class="particle" style="width: 3.51062px; height: 3.51062px; background-color: rgba(147, 51, 234, 0.28); box-shadow: rgba(147, 51, 234, 0.28) 0px 0px 7.02124px; left: 24.5127vw; top: 102.74vh; animation-duration: 17.7057s; animation-delay: 4.81047s;"></div><div class="particle" style="width: 3.15331px; height: 3.15331px; background-color: rgba(59, 130, 246, 0.443); box-shadow: rgba(59, 130, 246, 0.443) 0px 0px 6.30662px; left: 82.6711vw; top: 138.191vh; animation-duration: 14.6841s; animation-delay: 9.47756s;"></div><div class="particle" style="width: 3.71886px; height: 3.71886px; background-color: rgba(147, 51, 234, 0.463); box-shadow: rgba(147, 51, 234, 0.463) 0px 0px 7.43773px; left: 79.4628vw; top: 158.883vh; animation-duration: 27.0712s; animation-delay: 8.57221s;"></div><div class="particle" style="width: 4.10354px; height: 4.10354px; background-color: rgba(59, 130, 246, 0.635); box-shadow: rgba(59, 130, 246, 0.635) 0px 0px 8.20708px; left: 21.5325vw; top: 52.6756vh; animation-duration: 10.0537s; animation-delay: 3.47613s;"></div><div class="particle" style="width: 5.6761px; height: 5.6761px; background-color: rgba(147, 51, 234, 0.576); box-shadow: rgba(147, 51, 234, 0.576) 0px 0px 11.3522px; left: 54.6076vw; top: 42.1258vh; animation-duration: 27.3184s; animation-delay: 1.4584s;"></div><div class="particle" style="width: 6.85907px; height: 6.85907px; background-color: rgba(147, 51, 234, 0.52); box-shadow: rgba(147, 51, 234, 0.52) 0px 0px 13.7181px; left: 76.016vw; top: 107.104vh; animation-duration: 14.8379s; animation-delay: 7.80106s;"></div><div class="particle" style="width: 3.57313px; height: 3.57313px; background-color: rgba(147, 51, 234, 0.49); box-shadow: rgba(147, 51, 234, 0.49) 0px 0px 7.14626px; left: 19.2079vw; top: 150.338vh; animation-duration: 15.6703s; animation-delay: 1.68126s;"></div><div class="particle" style="width: 5.36153px; height: 5.36153px; background-color: rgba(147, 51, 234, 0.61); box-shadow: rgba(147, 51, 234, 0.61) 0px 0px 10.7231px; left: 36.7282vw; top: 83.266vh; animation-duration: 27.7967s; animation-delay: 7.63278s;"></div><div class="particle" style="width: 4.53497px; height: 4.53497px; background-color: rgba(59, 130, 246, 0.404); box-shadow: rgba(59, 130, 246, 0.404) 0px 0px 9.06994px; left: 50.8188vw; top: 60.1417vh; animation-duration: 24.8332s; animation-delay: 8.3325s;"></div><div class="particle" style="width: 3.71631px; height: 3.71631px; background-color: rgba(59, 130, 246, 0.208); box-shadow: rgba(59, 130, 246, 0.208) 0px 0px 7.43261px; left: 26.2595vw; top: 102.523vh; animation-duration: 12.5023s; animation-delay: 0.839855s;"></div><div class="particle" style="width: 4.32861px; height: 4.32861px; background-color: rgba(147, 51, 234, 0.682); box-shadow: rgba(147, 51, 234, 0.682) 0px 0px 8.65723px; left: 13.185vw; top: 196.863vh; animation-duration: 17.0254s; animation-delay: 9.84315s;"></div><div class="particle" style="width: 6.87874px; height: 6.87874px; background-color: rgba(147, 51, 234, 0.32); box-shadow: rgba(147, 51, 234, 0.32) 0px 0px 13.7575px; left: 60.703vw; top: 75.557vh; animation-duration: 25.0692s; animation-delay: 6.30955s;"></div><div class="particle" style="width: 4.45036px; height: 4.45036px; background-color: rgba(59, 130, 246, 0.243); box-shadow: rgba(59, 130, 246, 0.243) 0px 0px 8.90072px; left: 63.4013vw; top: 128.151vh; animation-duration: 16.1544s; animation-delay: 7.57534s;"></div><div class="particle" style="width: 3.41825px; height: 3.41825px; background-color: rgba(59, 130, 246, 0.365); box-shadow: rgba(59, 130, 246, 0.365) 0px 0px 6.83649px; left: 93.5306vw; top: 108.525vh; animation-duration: 24.5864s; animation-delay: 0.133298s;"></div><div class="particle" style="width: 3.45686px; height: 3.45686px; background-color: rgba(147, 51, 234, 0.227); box-shadow: rgba(147, 51, 234, 0.227) 0px 0px 6.91372px; left: 87.1608vw; top: 109.509vh; animation-duration: 11.3765s; animation-delay: 5.78239s;"></div><div class="particle" style="width: 2.59964px; height: 2.59964px; background-color: rgba(147, 51, 234, 0.698); box-shadow: rgba(147, 51, 234, 0.698) 0px 0px 5.19928px; left: 43.2778vw; top: 54.8221vh; animation-duration: 28.3742s; animation-delay: 2.96951s;"></div><div class="particle" style="width: 6.76846px; height: 6.76846px; background-color: rgba(147, 51, 234, 0.627); box-shadow: rgba(147, 51, 234, 0.627) 0px 0px 13.5369px; left: 58.5309vw; top: 79.2437vh; animation-duration: 26.1102s; animation-delay: 9.76136s;"></div><div class="particle" style="width: 5.18489px; height: 5.18489px; background-color: rgba(147, 51, 234, 0.643); box-shadow: rgba(147, 51, 234, 0.643) 0px 0px 10.3698px; left: 29.3458vw; top: 7.46969vh; animation-duration: 22.8751s; animation-delay: 9.39908s;"></div><div class="particle" style="width: 2.73618px; height: 2.73618px; background-color: rgba(59, 130, 246, 0.416); box-shadow: rgba(59, 130, 246, 0.416) 0px 0px 5.47237px; left: 36.5784vw; top: 138.91vh; animation-duration: 25.2182s; animation-delay: 4.21475s;"></div><div class="particle" style="width: 3.70261px; height: 3.70261px; background-color: rgba(59, 130, 246, 0.58); box-shadow: rgba(59, 130, 246, 0.58) 0px 0px 7.40522px; left: 83.7784vw; top: 21.3309vh; animation-duration: 11.4759s; animation-delay: 4.78118s;"></div><div class="particle" style="width: 3.43669px; height: 3.43669px; background-color: rgba(59, 130, 246, 0.37); box-shadow: rgba(59, 130, 246, 0.37) 0px 0px 6.87338px; left: 85.1344vw; top: 66.2288vh; animation-duration: 13.2664s; animation-delay: 5.72069s;"></div><div class="particle" style="width: 5.74643px; height: 5.74643px; background-color: rgba(147, 51, 234, 0.682); box-shadow: rgba(147, 51, 234, 0.682) 0px 0px 11.4929px; left: 15.026vw; top: 78.1365vh; animation-duration: 26.8063s; animation-delay: 5.00932s;"></div><div class="particle" style="width: 4.17553px; height: 4.17553px; background-color: rgba(147, 51, 234, 0.337); box-shadow: rgba(147, 51, 234, 0.337) 0px 0px 8.35106px; left: 36.1815vw; top: 137.723vh; animation-duration: 23.5276s; animation-delay: 9.99194s;"></div><div class="particle" style="width: 2.63976px; height: 2.63976px; background-color: rgba(147, 51, 234, 0.525); box-shadow: rgba(147, 51, 234, 0.525) 0px 0px 5.27951px; left: 16.1987vw; top: 149.441vh; animation-duration: 10.6708s; animation-delay: 8.83756s;"></div><div class="particle" style="width: 6.32113px; height: 6.32113px; background-color: rgba(147, 51, 234, 0.498); box-shadow: rgba(147, 51, 234, 0.498) 0px 0px 12.6423px; left: 16.3994vw; top: 21.8455vh; animation-duration: 22.444s; animation-delay: 5.24943s;"></div><div class="particle" style="width: 3.45108px; height: 3.45108px; background-color: rgba(59, 130, 246, 0.69); box-shadow: rgba(59, 130, 246, 0.69) 0px 0px 6.90216px; left: 94.2451vw; top: 71.2813vh; animation-duration: 10.1045s; animation-delay: 0.61801s;"></div><div class="particle" style="width: 4.99146px; height: 4.99146px; background-color: rgba(147, 51, 234, 0.35); box-shadow: rgba(147, 51, 234, 0.35) 0px 0px 9.98293px; left: 46.8135vw; top: 1.58294vh; animation-duration: 29.5763s; animation-delay: 1.89241s;"></div><div class="particle" style="width: 3.3844px; height: 3.3844px; background-color: rgba(147, 51, 234, 0.498); box-shadow: rgba(147, 51, 234, 0.498) 0px 0px 6.76879px; left: 61.325vw; top: 61.3078vh; animation-duration: 14.9192s; animation-delay: 1.2196s;"></div><div class="particle" style="width: 5.2651px; height: 5.2651px; background-color: rgba(59, 130, 246, 0.655); box-shadow: rgba(59, 130, 246, 0.655) 0px 0px 10.5302px; left: 22.5433vw; top: 16.8949vh; animation-duration: 13.1843s; animation-delay: 9.9106s;"></div><div class="particle" style="width: 2.78071px; height: 2.78071px; background-color: rgba(59, 130, 246, 0.49); box-shadow: rgba(59, 130, 246, 0.49) 0px 0px 5.56143px; left: 54.1076vw; top: 81.6202vh; animation-duration: 27.8293s; animation-delay: 7.6177s;"></div><div class="particle" style="width: 6.1971px; height: 6.1971px; background-color: rgba(59, 130, 246, 0.62); box-shadow: rgba(59, 130, 246, 0.62) 0px 0px 12.3942px; left: 31.1641vw; top: 40.8577vh; animation-duration: 11.2046s; animation-delay: 9.54892s;"></div><div class="particle" style="width: 6.77901px; height: 6.77901px; background-color: rgba(147, 51, 234, 0.63); box-shadow: rgba(147, 51, 234, 0.63) 0px 0px 13.558px; left: 5.05935vw; top: 38.7901vh; animation-duration: 21.3222s; animation-delay: 5.17057s;"></div><div class="particle" style="width: 4.23698px; height: 4.23698px; background-color: rgba(147, 51, 234, 0.627); box-shadow: rgba(147, 51, 234, 0.627) 0px 0px 8.47397px; left: 90.5723vw; top: 91.234vh; animation-duration: 21.7787s; animation-delay: 7.29793s;"></div><div class="particle" style="width: 2.22915px; height: 2.22915px; background-color: rgba(59, 130, 246, 0.357); box-shadow: rgba(59, 130, 246, 0.357) 0px 0px 4.4583px; left: 20.4169vw; top: 118.003vh; animation-duration: 14.6927s; animation-delay: 9.99811s;"></div><div class="particle" style="width: 2.33105px; height: 2.33105px; background-color: rgba(147, 51, 234, 0.27); box-shadow: rgba(147, 51, 234, 0.27) 0px 0px 4.6621px; left: 91.4522vw; top: 176.435vh; animation-duration: 15.2058s; animation-delay: 9.27401s;"></div><div class="particle" style="width: 3.98067px; height: 3.98067px; background-color: rgba(59, 130, 246, 0.365); box-shadow: rgba(59, 130, 246, 0.365) 0px 0px 7.96134px; left: 77.9929vw; top: 101.071vh; animation-duration: 16.0023s; animation-delay: 4.64436s;"></div><div class="particle" style="width: 4.32921px; height: 4.32921px; background-color: rgba(147, 51, 234, 0.5); box-shadow: rgba(147, 51, 234, 0.5) 0px 0px 8.65841px; left: 55.2396vw; top: 71.8048vh; animation-duration: 25.9361s; animation-delay: 1.28949s;"></div><div class="particle" style="width: 2.12609px; height: 2.12609px; background-color: rgba(147, 51, 234, 0.498); box-shadow: rgba(147, 51, 234, 0.498) 0px 0px 4.25217px; left: 82.0077vw; top: 192.123vh; animation-duration: 22.7557s; animation-delay: 5.65499s;"></div><div class="particle" style="width: 5.7626px; height: 5.7626px; background-color: rgba(59, 130, 246, 0.25); box-shadow: rgba(59, 130, 246, 0.25) 0px 0px 11.5252px; left: 33.7803vw; top: 174.931vh; animation-duration: 16.2574s; animation-delay: 2.21782s;"></div><div class="particle" style="width: 5.20237px; height: 5.20237px; background-color: rgba(147, 51, 234, 0.37); box-shadow: rgba(147, 51, 234, 0.37) 0px 0px 10.4047px; left: 14.4219vw; top: 101.077vh; animation-duration: 24.1278s; animation-delay: 7.83452s;"></div><div class="particle" style="width: 2.89991px; height: 2.89991px; background-color: rgba(59, 130, 246, 0.514); box-shadow: rgba(59, 130, 246, 0.514) 0px 0px 5.79983px; left: 59.9481vw; top: 1.62694vh; animation-duration: 22.9769s; animation-delay: 8.38904s;"></div><div class="star" style="width: 1.46253px; height: 1.46253px; left: 2.01157vw; top: 102.343vh; animation-duration: 2.80067s; animation-delay: 0.5254s;"></div><div class="star" style="width: 1.52912px; height: 1.52912px; left: 9.08388vw; top: 199.71vh; animation-duration: 2.66981s; animation-delay: 1.25911s;"></div><div class="star" style="width: 1.93806px; height: 1.93806px; left: 60.2796vw; top: 191.116vh; animation-duration: 3.98093s; animation-delay: 0.919585s;"></div><div class="star" style="width: 1.87263px; height: 1.87263px; left: 93.149vw; top: 57.7001vh; animation-duration: 3.82335s; animation-delay: 3.29892s;"></div><div class="star" style="width: 0.875561px; height: 0.875561px; left: 61.1306vw; top: 75.731vh; animation-duration: 2.46531s; animation-delay: 0.15376s;"></div><div class="star" style="width: 1.60163px; height: 1.60163px; left: 65.4097vw; top: 177.151vh; animation-duration: 3.11272s; animation-delay: 0.187626s;"></div><div class="star" style="width: 1.02255px; height: 1.02255px; left: 33.0946vw; top: 19.6193vh; animation-duration: 4.36576s; animation-delay: 2.31024s;"></div><div class="star" style="width: 1.97604px; height: 1.97604px; left: 49.9567vw; top: 8.58523vh; animation-duration: 5.10909s; animation-delay: 3.6448s;"></div><div class="star" style="width: 2.18283px; height: 2.18283px; left: 61.7786vw; top: 114.594vh; animation-duration: 2.7045s; animation-delay: 1.92865s;"></div><div class="star" style="width: 1.92279px; height: 1.92279px; left: 97.2082vw; top: 101.38vh; animation-duration: 3.37596s; animation-delay: 0.181128s;"></div><div class="star" style="width: 1.97884px; height: 1.97884px; left: 46.1808vw; top: 109.273vh; animation-duration: 5.22326s; animation-delay: 0.194263s;"></div><div class="star" style="width: 2.29875px; height: 2.29875px; left: 80.9783vw; top: 9.78566vh; animation-duration: 3.92762s; animation-delay: 0.113666s;"></div><div class="star" style="width: 1.73216px; height: 1.73216px; left: 95.6885vw; top: 178.311vh; animation-duration: 5.3751s; animation-delay: 2.90129s;"></div><div class="star" style="width: 2.47652px; height: 2.47652px; left: 30.2858vw; top: 155.38vh; animation-duration: 3.90144s; animation-delay: 1.04509s;"></div><div class="star" style="width: 0.606217px; height: 0.606217px; left: 28.2477vw; top: 137.387vh; animation-duration: 3.69882s; animation-delay: 0.589824s;"></div><div class="star" style="width: 0.808054px; height: 0.808054px; left: 79.3618vw; top: 20.9089vh; animation-duration: 3.27583s; animation-delay: 2.88572s;"></div><div class="star" style="width: 0.835744px; height: 0.835744px; left: 89.3818vw; top: 153.721vh; animation-duration: 4.11804s; animation-delay: 1.45498s;"></div><div class="star" style="width: 1.24317px; height: 1.24317px; left: 18.415vw; top: 58.2525vh; animation-duration: 4.5721s; animation-delay: 1.58692s;"></div><div class="star" style="width: 0.653505px; height: 0.653505px; left: 59.7099vw; top: 160.583vh; animation-duration: 4.81886s; animation-delay: 0.805276s;"></div><div class="star" style="width: 1.07237px; height: 1.07237px; left: 19.2941vw; top: 52.3679vh; animation-duration: 5.47524s; animation-delay: 2.56572s;"></div><div class="star" style="width: 2.17926px; height: 2.17926px; left: 15.8786vw; top: 149.961vh; animation-duration: 5.40039s; animation-delay: 3.723s;"></div><div class="star" style="width: 0.667916px; height: 0.667916px; left: 0.128329vw; top: 74.1839vh; animation-duration: 5.75068s; animation-delay: 3.88683s;"></div><div class="star" style="width: 0.697442px; height: 0.697442px; left: 94.5503vw; top: 2.80735vh; animation-duration: 3.49048s; animation-delay: 0.545424s;"></div><div class="star" style="width: 0.756396px; height: 0.756396px; left: 15.9754vw; top: 149.676vh; animation-duration: 2.92005s; animation-delay: 0.115421s;"></div><div class="star" style="width: 1.37578px; height: 1.37578px; left: 90.1519vw; top: 159.501vh; animation-duration: 4.79914s; animation-delay: 3.86773s;"></div><div class="star" style="width: 2.34914px; height: 2.34914px; left: 3.90289vw; top: 109.162vh; animation-duration: 5.49952s; animation-delay: 0.240531s;"></div><div class="star" style="width: 2.35835px; height: 2.35835px; left: 8.34794vw; top: 72.78vh; animation-duration: 5.64559s; animation-delay: 3.95595s;"></div><div class="star" style="width: 0.696825px; height: 0.696825px; left: 85.5362vw; top: 157.337vh; animation-duration: 4.56574s; animation-delay: 2.45171s;"></div><div class="star" style="width: 0.839789px; height: 0.839789px; left: 99.1779vw; top: 133.685vh; animation-duration: 5.56397s; animation-delay: 0.0162422s;"></div><div class="star" style="width: 2.38555px; height: 2.38555px; left: 58.0618vw; top: 156.659vh; animation-duration: 3.09726s; animation-delay: 2.83302s;"></div><div class="star" style="width: 1.90443px; height: 1.90443px; left: 91.3084vw; top: 38.7534vh; animation-duration: 4.25769s; animation-delay: 2.12144s;"></div><div class="star" style="width: 1.66571px; height: 1.66571px; left: 29.7369vw; top: 137.633vh; animation-duration: 2.75743s; animation-delay: 2.12371s;"></div><div class="star" style="width: 0.863945px; height: 0.863945px; left: 62.8818vw; top: 0.366916vh; animation-duration: 2.64053s; animation-delay: 1.46519s;"></div><div class="star" style="width: 0.809314px; height: 0.809314px; left: 99.4188vw; top: 45.2848vh; animation-duration: 3.50386s; animation-delay: 1.83509s;"></div><div class="star" style="width: 1.35058px; height: 1.35058px; left: 30.3944vw; top: 169.418vh; animation-duration: 4.81589s; animation-delay: 3.08147s;"></div><div class="star" style="width: 1.50792px; height: 1.50792px; left: 33.3099vw; top: 49.793vh; animation-duration: 5.54739s; animation-delay: 0.0763711s;"></div><div class="star" style="width: 2.10135px; height: 2.10135px; left: 62.3959vw; top: 52.4497vh; animation-duration: 3.92656s; animation-delay: 1.98884s;"></div><div class="star" style="width: 1.3859px; height: 1.3859px; left: 20.003vw; top: 184.08vh; animation-duration: 5.98251s; animation-delay: 0.939553s;"></div><div class="star" style="width: 1.39211px; height: 1.39211px; left: 67.8944vw; top: 44.3896vh; animation-duration: 3.36583s; animation-delay: 2.09361s;"></div><div class="star" style="width: 2.48222px; height: 2.48222px; left: 46.0751vw; top: 181.226vh; animation-duration: 4.75718s; animation-delay: 0.234524s;"></div><div class="star" style="width: 1.88422px; height: 1.88422px; left: 1.34179vw; top: 41.3522vh; animation-duration: 5.08609s; animation-delay: 2.99354s;"></div><div class="star" style="width: 2.01025px; height: 2.01025px; left: 37.925vw; top: 88.2509vh; animation-duration: 3.73927s; animation-delay: 2.24171s;"></div><div class="star" style="width: 1.74673px; height: 1.74673px; left: 13.2839vw; top: 74.6301vh; animation-duration: 4.361s; animation-delay: 2.7183s;"></div><div class="star" style="width: 2.12076px; height: 2.12076px; left: 14.5926vw; top: 99.6249vh; animation-duration: 2.52359s; animation-delay: 2.1451s;"></div><div class="star" style="width: 1.30126px; height: 1.30126px; left: 83.6376vw; top: 101.376vh; animation-duration: 5.31904s; animation-delay: 0.33344s;"></div><div class="star" style="width: 1.16511px; height: 1.16511px; left: 3.265vw; top: 116.575vh; animation-duration: 5.27813s; animation-delay: 2.19441s;"></div><div class="star" style="width: 1.55904px; height: 1.55904px; left: 78.6913vw; top: 184.498vh; animation-duration: 3.44128s; animation-delay: 2.81159s;"></div><div class="star" style="width: 1.25293px; height: 1.25293px; left: 2.81722vw; top: 86.5827vh; animation-duration: 4.91658s; animation-delay: 1.44234s;"></div><div class="star" style="width: 1.22048px; height: 1.22048px; left: 77.6029vw; top: 143.288vh; animation-duration: 5.67265s; animation-delay: 2.80052s;"></div><div class="star" style="width: 1.32703px; height: 1.32703px; left: 65.8044vw; top: 114.54vh; animation-duration: 4.20416s; animation-delay: 3.55046s;"></div><div class="star" style="width: 0.835046px; height: 0.835046px; left: 44.1104vw; top: 152.623vh; animation-duration: 3.78934s; animation-delay: 2.21223s;"></div><div class="star" style="width: 0.673011px; height: 0.673011px; left: 91.7281vw; top: 195.261vh; animation-duration: 3.2184s; animation-delay: 1.56784s;"></div><div class="star" style="width: 1.18984px; height: 1.18984px; left: 72.0065vw; top: 26.7029vh; animation-duration: 4.10468s; animation-delay: 3.14221s;"></div><div class="star" style="width: 1.39728px; height: 1.39728px; left: 27.7303vw; top: 157.554vh; animation-duration: 3.36123s; animation-delay: 2.76914s;"></div><div class="star" style="width: 1.1313px; height: 1.1313px; left: 80.4318vw; top: 0.281372vh; animation-duration: 3.3206s; animation-delay: 0.852502s;"></div><div class="star" style="width: 1.70692px; height: 1.70692px; left: 18.9751vw; top: 163.737vh; animation-duration: 5.90531s; animation-delay: 1.9202s;"></div><div class="star" style="width: 1.44536px; height: 1.44536px; left: 24.013vw; top: 104.399vh; animation-duration: 2.8441s; animation-delay: 3.96923s;"></div><div class="star" style="width: 1.3242px; height: 1.3242px; left: 49.286vw; top: 49.4255vh; animation-duration: 2.10538s; animation-delay: 3.35556s;"></div><div class="star" style="width: 1.87885px; height: 1.87885px; left: 33.3132vw; top: 160.815vh; animation-duration: 2.74296s; animation-delay: 0.912317s;"></div><div class="star" style="width: 2.24608px; height: 2.24608px; left: 39.1323vw; top: 27.2158vh; animation-duration: 5.77838s; animation-delay: 0.394482s;"></div><div class="star" style="width: 0.647248px; height: 0.647248px; left: 67.2518vw; top: 99.4082vh; animation-duration: 4.55104s; animation-delay: 2.86899s;"></div><div class="star" style="width: 1.19541px; height: 1.19541px; left: 59.6344vw; top: 140.948vh; animation-duration: 5.29289s; animation-delay: 0.919006s;"></div><div class="star" style="width: 1.64583px; height: 1.64583px; left: 95.4037vw; top: 192.317vh; animation-duration: 2.67477s; animation-delay: 0.426094s;"></div><div class="star" style="width: 0.964983px; height: 0.964983px; left: 68.7578vw; top: 42.2981vh; animation-duration: 4.81841s; animation-delay: 3.45074s;"></div><div class="star" style="width: 2.10048px; height: 2.10048px; left: 56.4065vw; top: 156.357vh; animation-duration: 2.48113s; animation-delay: 3.12827s;"></div><div class="star" style="width: 0.78015px; height: 0.78015px; left: 87.4685vw; top: 148.746vh; animation-duration: 2.93872s; animation-delay: 2.99956s;"></div><div class="star" style="width: 1.77896px; height: 1.77896px; left: 48.4628vw; top: 126.898vh; animation-duration: 4.02012s; animation-delay: 0.250277s;"></div><div class="star" style="width: 1.19594px; height: 1.19594px; left: 79.9348vw; top: 33.8825vh; animation-duration: 3.5663s; animation-delay: 1.75906s;"></div><div class="star" style="width: 1.15455px; height: 1.15455px; left: 34.6952vw; top: 168.386vh; animation-duration: 5.61476s; animation-delay: 3.95437s;"></div><div class="star" style="width: 1.02066px; height: 1.02066px; left: 3.50032vw; top: 63.7242vh; animation-duration: 3.50544s; animation-delay: 0.810863s;"></div><div class="star" style="width: 1.01942px; height: 1.01942px; left: 29.8698vw; top: 15.9921vh; animation-duration: 5.84189s; animation-delay: 1.9885s;"></div><div class="star" style="width: 1.06141px; height: 1.06141px; left: 36.6153vw; top: 37.7597vh; animation-duration: 5.57932s; animation-delay: 2.33926s;"></div><div class="star" style="width: 1.02808px; height: 1.02808px; left: 80.1496vw; top: 17.7916vh; animation-duration: 5.54105s; animation-delay: 0.933952s;"></div><div class="star" style="width: 1.68012px; height: 1.68012px; left: 61.7251vw; top: 134.133vh; animation-duration: 4.49897s; animation-delay: 3.19597s;"></div><div class="star" style="width: 1.75541px; height: 1.75541px; left: 79.6321vw; top: 101.391vh; animation-duration: 4.47296s; animation-delay: 1.88728s;"></div><div class="star" style="width: 1.88087px; height: 1.88087px; left: 33.4233vw; top: 109.892vh; animation-duration: 2.29582s; animation-delay: 0.139739s;"></div><div class="star" style="width: 0.878995px; height: 0.878995px; left: 73.4261vw; top: 18.2911vh; animation-duration: 5.34879s; animation-delay: 2.79975s;"></div><div class="star" style="width: 1.24346px; height: 1.24346px; left: 8.28879vw; top: 120.821vh; animation-duration: 2.49866s; animation-delay: 1.45199s;"></div><div class="star" style="width: 1.68844px; height: 1.68844px; left: 69.7498vw; top: 57.7266vh; animation-duration: 4.79156s; animation-delay: 3.02176s;"></div><div class="star" style="width: 2.25823px; height: 2.25823px; left: 62.6604vw; top: 188.513vh; animation-duration: 4.19075s; animation-delay: 2.30189s;"></div><div class="star" style="width: 0.834868px; height: 0.834868px; left: 35.2206vw; top: 130.547vh; animation-duration: 3.3226s; animation-delay: 2.43838s;"></div><div class="star" style="width: 1.66443px; height: 1.66443px; left: 49.7837vw; top: 55.9326vh; animation-duration: 5.61931s; animation-delay: 1.41731s;"></div><div class="star" style="width: 1.45959px; height: 1.45959px; left: 93.1407vw; top: 135.402vh; animation-duration: 4.45114s; animation-delay: 2.3608s;"></div><div class="star" style="width: 2.26004px; height: 2.26004px; left: 64.715vw; top: 66.7352vh; animation-duration: 5.74329s; animation-delay: 0.0744189s;"></div><div class="star" style="width: 1.39451px; height: 1.39451px; left: 18.568vw; top: 47.2253vh; animation-duration: 2.26125s; animation-delay: 0.901181s;"></div><div class="star" style="width: 2.16926px; height: 2.16926px; left: 59.4559vw; top: 96.5443vh; animation-duration: 3.69962s; animation-delay: 1.15016s;"></div><div class="star" style="width: 1.46011px; height: 1.46011px; left: 74.5467vw; top: 13.6643vh; animation-duration: 2.67294s; animation-delay: 0.504068s;"></div><div class="star" style="width: 2.34636px; height: 2.34636px; left: 71.6775vw; top: 139.455vh; animation-duration: 2.28149s; animation-delay: 3.21873s;"></div><div class="star" style="width: 0.724541px; height: 0.724541px; left: 57.0291vw; top: 180.768vh; animation-duration: 3.12605s; animation-delay: 3.79099s;"></div><div class="star" style="width: 1.72016px; height: 1.72016px; left: 52.1414vw; top: 171.829vh; animation-duration: 4.73949s; animation-delay: 1.95438s;"></div><div class="star" style="width: 2.15844px; height: 2.15844px; left: 21.6335vw; top: 81.6584vh; animation-duration: 4.63233s; animation-delay: 3.8719s;"></div><div class="star" style="width: 1.46191px; height: 1.46191px; left: 63.6887vw; top: 169.733vh; animation-duration: 5.92456s; animation-delay: 0.506773s;"></div><div class="star" style="width: 1.00269px; height: 1.00269px; left: 67.7623vw; top: 13.1051vh; animation-duration: 3.48401s; animation-delay: 0.596768s;"></div><div class="star" style="width: 2.0992px; height: 2.0992px; left: 88.0127vw; top: 79.4976vh; animation-duration: 2.22851s; animation-delay: 0.0395758s;"></div><div class="star" style="width: 1.26136px; height: 1.26136px; left: 66.0261vw; top: 157.699vh; animation-duration: 4.14778s; animation-delay: 2.94139s;"></div><div class="star" style="width: 0.696653px; height: 0.696653px; left: 84.0175vw; top: 13.6581vh; animation-duration: 5.15201s; animation-delay: 1.472s;"></div><div class="star" style="width: 1.27292px; height: 1.27292px; left: 40.9477vw; top: 36.4938vh; animation-duration: 5.25381s; animation-delay: 2.16697s;"></div><div class="star" style="width: 0.892536px; height: 0.892536px; left: 42.567vw; top: 79.5794vh; animation-duration: 5.06414s; animation-delay: 2.27366s;"></div><div class="star" style="width: 2.41336px; height: 2.41336px; left: 0.993412vw; top: 6.2547vh; animation-duration: 2.83233s; animation-delay: 3.68816s;"></div><div class="star" style="width: 1.22599px; height: 1.22599px; left: 1.32005vw; top: 39.9763vh; animation-duration: 5.6335s; animation-delay: 1.03512s;"></div><div class="star" style="width: 0.881877px; height: 0.881877px; left: 62.7269vw; top: 185.151vh; animation-duration: 4.65932s; animation-delay: 2.83296s;"></div><div class="star" style="width: 2.43599px; height: 2.43599px; left: 65.8215vw; top: 114.014vh; animation-duration: 3.03472s; animation-delay: 3.24709s;"></div><div class="star" style="width: 1.87264px; height: 1.87264px; left: 63.4203vw; top: 73.1061vh; animation-duration: 5.71294s; animation-delay: 1.26424s;"></div><div class="star" style="width: 1.67629px; height: 1.67629px; left: 48.7048vw; top: 60.9634vh; animation-duration: 5.19296s; animation-delay: 3.912s;"></div><div class="star" style="width: 2.40503px; height: 2.40503px; left: 31.0177vw; top: 79.1123vh; animation-duration: 2.93268s; animation-delay: 3.16518s;"></div><div class="star" style="width: 2.23539px; height: 2.23539px; left: 59.9971vw; top: 120.31vh; animation-duration: 4.99213s; animation-delay: 1.7293s;"></div><div class="star" style="width: 2.10294px; height: 2.10294px; left: 0.658019vw; top: 103.103vh; animation-duration: 3.72167s; animation-delay: 3.88151s;"></div><div class="star" style="width: 1.34065px; height: 1.34065px; left: 20.2918vw; top: 121.092vh; animation-duration: 5.47037s; animation-delay: 1.86157s;"></div><div class="star" style="width: 0.911331px; height: 0.911331px; left: 92.2466vw; top: 44.6517vh; animation-duration: 2.40655s; animation-delay: 1.81868s;"></div><div class="star" style="width: 1.37898px; height: 1.37898px; left: 13.1277vw; top: 99.708vh; animation-duration: 3.55625s; animation-delay: 2.73924s;"></div><div class="star" style="width: 2.31426px; height: 2.31426px; left: 85.29vw; top: 21.2861vh; animation-duration: 5.41617s; animation-delay: 0.619552s;"></div><div class="star" style="width: 1.76913px; height: 1.76913px; left: 73.0516vw; top: 195.178vh; animation-duration: 3.85322s; animation-delay: 3.1497s;"></div><div class="star" style="width: 0.869321px; height: 0.869321px; left: 10.5262vw; top: 133.575vh; animation-duration: 4.8127s; animation-delay: 3.58991s;"></div><div class="star" style="width: 1.7557px; height: 1.7557px; left: 36.4191vw; top: 192.188vh; animation-duration: 3.07908s; animation-delay: 1.49763s;"></div><div class="star" style="width: 2.20992px; height: 2.20992px; left: 80.164vw; top: 169.016vh; animation-duration: 5.08039s; animation-delay: 0.379617s;"></div><div class="star" style="width: 0.835336px; height: 0.835336px; left: 69.0924vw; top: 24.6371vh; animation-duration: 2.58897s; animation-delay: 2.72297s;"></div><div class="star" style="width: 1.72209px; height: 1.72209px; left: 89.3529vw; top: 113.631vh; animation-duration: 3.80411s; animation-delay: 2.51518s;"></div><div class="star" style="width: 0.503294px; height: 0.503294px; left: 97.1489vw; top: 82.082vh; animation-duration: 2.35329s; animation-delay: 2.60462s;"></div><div class="star" style="width: 0.956049px; height: 0.956049px; left: 87.3462vw; top: 97.9343vh; animation-duration: 2.33838s; animation-delay: 2.08901s;"></div><div class="star" style="width: 2.06488px; height: 2.06488px; left: 75.9232vw; top: 169.48vh; animation-duration: 3.40755s; animation-delay: 1.98716s;"></div><div class="star" style="width: 1.48079px; height: 1.48079px; left: 70.0116vw; top: 36.233vh; animation-duration: 3.12141s; animation-delay: 0.301296s;"></div><div class="star" style="width: 1.39718px; height: 1.39718px; left: 64.9396vw; top: 97.4414vh; animation-duration: 4.26984s; animation-delay: 2.10072s;"></div><div class="star" style="width: 2.20977px; height: 2.20977px; left: 20.1172vw; top: 187.08vh; animation-duration: 2.52268s; animation-delay: 1.35642s;"></div><div class="star" style="width: 2.14505px; height: 2.14505px; left: 86.2966vw; top: 8.02805vh; animation-duration: 4.95916s; animation-delay: 3.99827s;"></div><div class="star" style="width: 1.20692px; height: 1.20692px; left: 1.05804vw; top: 169.868vh; animation-duration: 4.89288s; animation-delay: 0.919622s;"></div><div class="star" style="width: 1.46086px; height: 1.46086px; left: 65.3315vw; top: 189.032vh; animation-duration: 5.53584s; animation-delay: 3.43144s;"></div><div class="star" style="width: 1.85888px; height: 1.85888px; left: 3.14471vw; top: 65.2218vh; animation-duration: 2.57357s; animation-delay: 1.90461s;"></div><div class="star" style="width: 1.18195px; height: 1.18195px; left: 11.5175vw; top: 16.7523vh; animation-duration: 2.65542s; animation-delay: 2.81836s;"></div><div class="star" style="width: 1.34834px; height: 1.34834px; left: 67.1687vw; top: 90.5852vh; animation-duration: 4.24916s; animation-delay: 1.19159s;"></div><div class="star" style="width: 2.13696px; height: 2.13696px; left: 61.0416vw; top: 67.1875vh; animation-duration: 4.72548s; animation-delay: 1.59544s;"></div><div class="star" style="width: 0.76293px; height: 0.76293px; left: 18.672vw; top: 133.861vh; animation-duration: 5.88366s; animation-delay: 3.47021s;"></div><div class="star" style="width: 1.77387px; height: 1.77387px; left: 69.4776vw; top: 57.2562vh; animation-duration: 5.0386s; animation-delay: 2.43919s;"></div><div class="star" style="width: 1.40365px; height: 1.40365px; left: 16.4812vw; top: 27.6779vh; animation-duration: 5.60358s; animation-delay: 2.12285s;"></div><div class="star" style="width: 0.583694px; height: 0.583694px; left: 93.0672vw; top: 20.5014vh; animation-duration: 4.33046s; animation-delay: 3.68669s;"></div><div class="star" style="width: 1.3216px; height: 1.3216px; left: 48.4414vw; top: 157.271vh; animation-duration: 5.23583s; animation-delay: 1.23991s;"></div><div class="star" style="width: 1.85486px; height: 1.85486px; left: 31.6663vw; top: 57.7599vh; animation-duration: 2.19581s; animation-delay: 1.3186s;"></div><div class="star" style="width: 0.77469px; height: 0.77469px; left: 2.94935vw; top: 6.32008vh; animation-duration: 5.74757s; animation-delay: 0.0629129s;"></div><div class="star" style="width: 1.64207px; height: 1.64207px; left: 4.82996vw; top: 50.6062vh; animation-duration: 2.36546s; animation-delay: 1.84652s;"></div><div class="star" style="width: 1.49843px; height: 1.49843px; left: 14.8315vw; top: 59.0909vh; animation-duration: 2.68978s; animation-delay: 0.26052s;"></div><div class="star" style="width: 2.30983px; height: 2.30983px; left: 90.9746vw; top: 155.14vh; animation-duration: 3.00909s; animation-delay: 2.09792s;"></div><div class="star" style="width: 2.41964px; height: 2.41964px; left: 11.7381vw; top: 31.2245vh; animation-duration: 5.42s; animation-delay: 2.45162s;"></div><div class="star" style="width: 0.62169px; height: 0.62169px; left: 65.711vw; top: 66.2231vh; animation-duration: 3.96638s; animation-delay: 1.78209s;"></div><div class="star" style="width: 1.36776px; height: 1.36776px; left: 60.4426vw; top: 63.7615vh; animation-duration: 3.30631s; animation-delay: 2.11273s;"></div><div class="star" style="width: 1.34629px; height: 1.34629px; left: 54.5332vw; top: 154.511vh; animation-duration: 2.63206s; animation-delay: 3.13088s;"></div><div class="star" style="width: 2.47726px; height: 2.47726px; left: 94.3653vw; top: 28.5504vh; animation-duration: 5.80056s; animation-delay: 0.730183s;"></div><div class="star" style="width: 0.97122px; height: 0.97122px; left: 73.3772vw; top: 89.7456vh; animation-duration: 2.80847s; animation-delay: 1.13962s;"></div><div class="star" style="width: 0.786447px; height: 0.786447px; left: 14.4667vw; top: 130.005vh; animation-duration: 2.92511s; animation-delay: 1.35664s;"></div><div class="star" style="width: 0.908533px; height: 0.908533px; left: 81.6417vw; top: 9.66205vh; animation-duration: 5.16421s; animation-delay: 0.0510315s;"></div><div class="star" style="width: 1.68404px; height: 1.68404px; left: 77.5151vw; top: 58.2518vh; animation-duration: 4.2576s; animation-delay: 1.53953s;"></div><div class="star" style="width: 2.13971px; height: 2.13971px; left: 63.3996vw; top: 78.4612vh; animation-duration: 4.75232s; animation-delay: 2.07367s;"></div><div class="shooting-star" style="left: 29.9569vw; top: 32.6735vh; animation-duration: 7.37846s; animation-delay: 9.27412s; width: 20.4889px;"></div><div class="shooting-star" style="left: 76.2438vw; top: 48.5483vh; animation-duration: 7.68052s; animation-delay: 0.470533s; width: 47.5146px;"></div><div class="shooting-star" style="left: 86.5076vw; top: 27.5731vh; animation-duration: 5.3004s; animation-delay: 1.47745s; width: 51.4655px;"></div><div class="shooting-star" style="left: 64.9424vw; top: 80.4963vh; animation-duration: 9.20429s; animation-delay: 14.6737s; width: 42.8903px;"></div><div class="shooting-star" style="left: 55.8157vw; top: 28.8749vh; animation-duration: 5.1813s; animation-delay: 14.2955s; width: 52.123px;"></div><div class="shooting-star" style="left: 7.35802vw; top: 82.2138vh; animation-duration: 6.60199s; animation-delay: 0.80846s; width: 38.6135px;"></div><div class="shooting-star" style="left: 2.84813vw; top: 62.3852vh; animation-duration: 6.0355s; animation-delay: 8.19874s; width: 54.6887px;"></div><div class="shooting-star" style="left: 85.8614vw; top: 15.7169vh; animation-duration: 7.35305s; animation-delay: 7.51778s; width: 44.3792px;"></div><div class="shooting-star" style="left: 96.5139vw; top: 65.6035vh; animation-duration: 6.82301s; animation-delay: 8.05452s; width: 24.5212px;"></div><div class="shooting-star" style="left: 47.7445vw; top: 45.3558vh; animation-duration: 7.06491s; animation-delay: 3.65672s; width: 39.3279px;"></div></div>
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
@@ -1093,7 +1198,7 @@
                         </div>
                     </div>
                     
-                    <div class="pricing-button pricing-button-silver" id="silverPlanButton">Consult Now</div>
+                    <div class="pricing-button pricing-button-purple" id="silverPlanButton">Consult Now</div>
                 </div>
                 
                 <!-- Gold Plan -->
@@ -1156,7 +1261,7 @@
                         </div>
                     </div>
                     
-                    <div class="pricing-button pricing-button-gold" id="goldPlanButton">Choose Plan</div>
+                    <div class="pricing-button pricing-button-purple" id="goldPlanButton">Choose Plan</div>
                 </div>
                 
                 <!-- Diamond Plan -->
@@ -1219,7 +1324,7 @@
                         </div>
                     </div>
                     
-                    <div class="pricing-button pricing-button-diamond" id="diamondPlanButton">Choose Plan</div>
+                    <div class="pricing-button pricing-button-popular" id="diamondPlanButton">Choose Plan</div>
                 </div>
                 
                 <!-- Emerald Plan -->
@@ -1278,7 +1383,7 @@
                         </div>
                     </div>
                     
-                    <div class="pricing-button pricing-button-emerald" id="emeraldPlanButton">Choose Plan</div>
+                    <div class="pricing-button pricing-button-purple" id="emeraldPlanButton">Choose Plan</div>
                 </div>
             </div>
         </div>
@@ -1443,6 +1548,6 @@
             </div>
         </div>
     </footer>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94e74db11258b59f',t:'MTc0OTcwOTg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94e762b8230cb5d6',t:'MTc0OTcxMDcyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
 
 </body></html>
