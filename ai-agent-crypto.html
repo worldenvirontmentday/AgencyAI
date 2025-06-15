@@ -1,0 +1,1456 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Cryptocurrency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+        
+        /* Root Variables */
+        :root {
+            --primary: #8A2BE2;
+            --secondary: #4B0082;
+            --accent: #00BFFF;
+            --dark: #0A0A0A;
+            --light: #E0E0E0;
+            --purple-900: rgb(88, 28, 135);
+            --bitcoin: #f7931a;
+            --ethereum: #627eea;
+            --gold: #FFD700;
+            --diamond-blue: #3b82f6;
+            --emerald: #10b981;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #050505;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.7), 0 0 20px rgba(147, 51, 234, 0.5);
+        }
+        
+        .purple-glow {
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.5), 0 0 30px rgba(147, 51, 234, 0.3);
+        }
+        
+        .blue-glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .yellow-glow {
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.5), 0 0 30px rgba(234, 179, 8, 0.3);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .crypto-gradient-text {
+            background: linear-gradient(90deg, #f7931a, #627eea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .purple-gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-bg {
+            /* Transparent background to make particles visible */
+            background-image: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+        }
+        
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(147, 51, 234, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(147, 51, 234, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-slow {
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-fast {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 4s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Free website builder animation */
+        .free-website-builder {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            color: #f7931a;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.7);
+            animation: pulse-scale 3s infinite;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Glowing particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particle-animation 15s infinite linear;
+        }
+        
+        @keyframes particle-animation {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Star particles */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Shooting star */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff);
+            border-radius: 50%;
+            animation: shooting 10s infinite linear;
+            opacity: 0;
+        }
+        
+        @keyframes shooting {
+            0% {
+                transform: translateX(0) translateY(0) rotate(315deg);
+                opacity: 0;
+            }
+            1% {
+                opacity: 1;
+            }
+            5% {
+                transform: translateX(-100px) translateY(100px) rotate(315deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(-100px) translateY(100px) rotate(315deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Logo Container */
+        .logo-container {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-image {
+            height: 100%;
+            width: auto;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid var(--purple-900);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+            display: none;
+        }
+        
+        .mobile-menu-overlay.active {
+            display: block;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: right 0.3s ease;
+            border-left: 1px solid var(--primary);
+            box-shadow: -5px 0 15px rgba(138, 43, 226, 0.3);
+            padding: 80px 20px 20px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .mobile-menu-nav a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-nav a:hover {
+            color: var(--accent);
+        }
+        
+        /* Feature Card */
+        .feature-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(247, 147, 26, 0.2), rgba(98, 126, 234, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: #f7931a;
+            font-size: 1.5rem;
+        }
+        
+        /* Pricing Card */
+        .pricing-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid #8b5cf6;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+        
+        .pricing-header {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-features {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .pricing-feature i {
+            margin-right: 0.5rem;
+        }
+        
+        .pricing-feature.included i {
+            color: #10b981;
+        }
+        
+        .pricing-feature.excluded i {
+            color: #ef4444;
+        }
+        
+        .pricing-button {
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pricing-button-purple {
+            background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+            color: white;
+        }
+        
+        .pricing-button-popular {
+            background: linear-gradient(90deg, #a855f7, #7e22ce);
+            color: white;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+        
+        .pricing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Crypto icons */
+        .crypto-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .bitcoin-color {
+            color: #f7931a;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.7);
+        }
+        
+        .ethereum-color {
+            color: #627eea;
+            text-shadow: 0 0 10px rgba(98, 126, 234, 0.7);
+        }
+        
+        .ethereum-gold {
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+        
+        .ethereum-blue {
+            color: var(--diamond-blue);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+        }
+        
+        .ethereum-emerald {
+            color: var(--emerald);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+        }
+        
+        /* Buttons */
+        .primary-button {
+            background: linear-gradient(90deg, #f7931a, #627eea);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .primary-button:hover {
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.7);
+            transform: translateY(-2px);
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid rgba(247, 147, 26, 0.7);
+        }
+        
+        .secondary-button:hover {
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.7);
+            transform: translateY(-2px);
+            background-color: rgba(247, 147, 26, 0.1);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background-color: #0a0a0a;
+            border: 2px solid rgba(147, 51, 234, 0.5);
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        /* Mobile adjustments for modal content */
+        @media (max-width: 640px) {
+            .modal-content {
+                width: 100%;
+                border-radius: 0;
+                padding: 1.5rem 0; /* Remove horizontal padding on mobile */
+                margin: 0;
+            }
+            
+            .modal-header, .order-summary {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .form-container {
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+            }
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(147, 51, 234, 0.5);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+        }
+        
+        /* Form Container */
+        .form-container {
+            border: 2px solid rgba(147, 51, 234, 0.5);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            height: 729px; /* Updated for gold form */
+            position: relative;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .loading-spinner.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(247, 147, 26, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #f7931a;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Description text container - COMPLETELY REDESIGNED */
+        .description-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 80px;
+            padding: 0 15px;
+        }
+        
+        /* Typing animation for description - FIXED */
+        .typing-text {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #fff;
+            overflow: visible;
+            white-space: normal;
+            margin: 0;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        
+        .typing-text::after {
+            content: '|';
+            position: absolute;
+            right: -8px;
+            color: #f7931a;
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Futuristic elements */
+        .futuristic-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .futuristic-dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(247, 147, 26, 0.5);
+            border-radius: 50%;
+        }
+        
+        /* Responsive hero section improvements */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+            
+            .description-container {
+                padding: 0 20px;
+            }
+            
+            .typing-text {
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem !important;
+            }
+            
+            .hero-section {
+                padding-top: 100px !important;
+                padding-bottom: 60px !important;
+            }
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.relative{position:relative}.z-10{z-index:10}.mx-auto{margin-left:auto;margin-right:auto}.mb-0{margin-bottom:0px}.mb-10{margin-bottom:2.5rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-12{height:3rem}.h-10{height:2.5rem}.min-h-screen{min-height:100vh}.w-12{width:3rem}.max-w-7xl{max-width:80rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.border-t{border-top-width:1px}.border-purple-900{--tw-border-opacity:1;border-color:rgb(88 28 135 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-opacity-80{--tw-bg-opacity:0.8}.px-4{padding-left:1rem;padding-right:1rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-16{padding-bottom:4rem}.pt-24{padding-top:6rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-blue-500{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:text-yellow-300:hover{--tw-text-opacity:1;color:rgb(253 224 71 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}}@media (min-width: 768px){.md\:mb-0{margin-bottom:0px}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:py-24{padding-top:6rem;padding-bottom:6rem}.md\:pt-16{padding-top:4rem}.md\:text-right{text-align:right}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-5xl{font-size:3rem;line-height:1}}@media (min-width: 1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style><style type="text/css" id="embeddedIframes">.ep-header,.ep-iFrameContainer,.ep-overlay{display:none}.ep-iFrame{border:none}.ep-iFrameLarge{height:500px;overflow:auto}.ep-overflow{overflow:unset}.ep-overlay{z-index:10000;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);transition:opacity .2s;width:100%;justify-content:center;align-items:center}.ep-wrapper{width:100%}.ep-header{justify-content:flex-end;position:fixed;border-radius:5px;z-index:1}.ep-close-icon,.ep-minimize-icon{background:#e8e8e8;width:23px;height:23px;margin:3px 6px 0 0;z-index:999;color:#4a4a4a;transition:background .25s;text-align:center;cursor:pointer}.ep-minimize-icon{border-radius:50%;line-height:.3ch;font-size:22px;border:1px solid #ccc;font-family:sans-serif}.ep-close-icon{border-radius:50%;line-height:1.5ch;font-size:20px;border:1px solid #ccc;font-family:Montserrat}.ep-minimize-text-container{height:100%;text-align:center}.ep-minimize-tc-sticky{writing-mode:vertical-lr;justify-content:center}.ep-minimize-tc-sticky-left{transform:rotate(360deg)}.ep-minimize-tc-sticky-right{transform:rotate(180deg)}.ep-minimize-tc-polite{align-items:end;width:100%}.ep-minimize-tc-polite-left{justify-content:start}.ep-minimize-tc-polite-right{justify-content:end}.ep-minimize-text{background-color:#000;cursor:pointer;color:#fff;white-space:nowrap;overflow:hidden;max-width:380px;text-overflow:ellipsis}.ep-minimize-text-polite{margin-bottom:8px}.ep-minimize-text-polite-left{margin-left:25px;margin-right:8px}.ep-minimize-text-polite-right{margin-left:8px;margin-right:25px}.ep-sticky-sidebar{top:50%;z-index:9999;position:fixed}.ep-height,.ep-sticky-sidebar .ep-wrapper{height:100%}.ep-polite-slide-in{z-index:9999;position:fixed}.ep-inline,.ep-popup{position:relative;margin:auto}.ep-polite-slide-in .ep-wrapper{position:absolute}.ep-popup{z-index:9999}.ep-inline{overflow:unset;boxshadow:none}.ep-right{right:15px}.ep-left{left:15px}.ep-bottom{bottom:15px}@media only screen and (max-width:550px){.ep-iFrame,.ep-iFrameContainer{width:100%}.ep-popup{width:100%!important}.ep-right{right:0}.ep-left{left:0}.ep-bottom{bottom:0}}</style></head>
+<body class="grid-bg" style="">
+    <!-- Particles -->
+    <div class="particles">
+        <script>
+            function createParticles() {
+                const particlesContainer = document.querySelector('.particles');
+                const particleCount = 80; // Increased particle count
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const size = Math.random() * 5 + 2;
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Randomly choose between bitcoin orange and ethereum blue
+                    const color = Math.random() > 0.5 ? 
+                        `rgba(247, 147, 26, ${Math.random() * 0.5 + 0.2})` : 
+                        `rgba(98, 126, 234, ${Math.random() * 0.5 + 0.2})`;
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+                    
+                    // Random position
+                    particle.style.left = `${Math.random() * 100}vw`;
+                    particle.style.top = `${Math.random() * 200}vh`; // Extend beyond viewport height
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 20 + 10;
+                    const delay = Math.random() * 10;
+                    particle.style.animationDuration = `${duration}s`;
+                    particle.style.animationDelay = `${delay}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+                
+                // Add stars
+                const starCount = 150;
+                for (let i = 0; i < starCount; i++) {
+                    const size = Math.random() * 2 + 0.5;
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    
+                    // Random position
+                    star.style.left = `${Math.random() * 100}vw`;
+                    star.style.top = `${Math.random() * 200}vh`; // Extend beyond viewport height
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 4 + 2;
+                    const delay = Math.random() * 4;
+                    star.style.animationDuration = `${duration}s`;
+                    star.style.animationDelay = `${delay}s`;
+                    
+                    particlesContainer.appendChild(star);
+                }
+                
+                // Add shooting stars
+                const shootingStarCount = 10;
+                for (let i = 0; i < shootingStarCount; i++) {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.classList.add('shooting-star');
+                    
+                    // Random position
+                    shootingStar.style.left = `${Math.random() * 100}vw`;
+                    shootingStar.style.top = `${Math.random() * 100}vh`;
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 5 + 5;
+                    const delay = Math.random() * 15;
+                    shootingStar.style.animationDuration = `${duration}s`;
+                    shootingStar.style.animationDelay = `${delay}s`;
+                    
+                    // Random size
+                    const size = Math.random() * 40 + 20;
+                    shootingStar.style.width = `${size}px`;
+                    
+                    particlesContainer.appendChild(shootingStar);
+                }
+                
+                // Create futuristic dots
+                createFuturisticDots();
+            }
+            
+            function createFuturisticDots() {
+                const dotsContainer = document.querySelector('.futuristic-dots');
+                if (!dotsContainer) return;
+                
+                const dotCount = 50;
+                
+                for (let i = 0; i < dotCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('futuristic-dot');
+                    
+                    // Random position
+                    dot.style.left = `${Math.random() * 100}%`;
+                    dot.style.top = `${Math.random() * 100}%`;
+                    
+                    // Random size
+                    const size = Math.random() * 2 + 1;
+                    dot.style.width = `${size}px`;
+                    dot.style.height = `${size}px`;
+                    
+                    // Random opacity
+                    dot.style.opacity = Math.random() * 0.5 + 0.2;
+                    
+                    dotsContainer.appendChild(dot);
+                }
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                createParticles();
+                
+                // Mobile menu functionality
+                initMobileMenu();
+                initSmoothScroll();
+                
+                // Initialize pricing modals
+                initPricingModals();
+                
+                // Initialize typing animation
+                initTypingAnimation();
+            });
+            
+            // Typing animation function - COMPLETELY REWRITTEN
+            function initTypingAnimation() {
+                const text = "Bayangkan karakter seperti doge atau shiba inu yang bisa bicara seperti mimpi yang menjadi nyata. Dengan AI agent Cryptocurrency, anda bisa membuat AI Agent yang mewakili koin anda yang dapat meningkatkan keterlibatan komunitas dan memperkuat brand koin tersebut.";
+                const typingElement = document.querySelector('.typing-text');
+                
+                if (!typingElement) return;
+                
+                let i = 0;
+                typingElement.textContent = '';
+                
+                function typeWriter() {
+                    if (i < text.length) {
+                        typingElement.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 30); // Adjust typing speed here
+                    } else {
+                        // Remove cursor when typing is complete
+                        typingElement.classList.add('typing-complete');
+                    }
+                }
+                
+                // Start the typing animation
+                typeWriter();
+            }
+            
+            // Mobile menu functionality
+            function initMobileMenu() {
+                const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileMenuClose = document.getElementById('mobileMenuClose');
+                const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+                const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+                
+                // Open mobile menu
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.add('active');
+                    mobileMenuOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                });
+                
+                // Close mobile menu
+                function closeMenu() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                }
+                
+                mobileMenuClose.addEventListener('click', closeMenu);
+                mobileMenuOverlay.addEventListener('click', closeMenu);
+                
+                // Close menu when clicking on a link
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+
+            // Smooth scrolling for anchor links
+            function initSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Initialize pricing modals with smooth animations
+            function initPricingModals() {
+                // Gold Plan
+                document.getElementById('goldPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('goldPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
+                });
+                
+                document.getElementById('closeGoldModal').addEventListener('click', function() {
+                    closeModal('goldPlanModal');
+                });
+                
+                // Diamond Plan
+                document.getElementById('diamondPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('diamondPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
+                });
+                
+                document.getElementById('closeDiamondModal').addEventListener('click', function() {
+                    closeModal('diamondPlanModal');
+                });
+                
+                // Emerald Plan
+                document.getElementById('emeraldPlanButton').addEventListener('click', function() {
+                    const modal = document.getElementById('emeraldPlanModal');
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.add('active');
+                    
+                    // Hide loading spinner after 4 seconds
+                    setTimeout(() => {
+                        loadingSpinner.classList.remove('active');
+                    }, 4000);
+                });
+                
+                document.getElementById('closeEmeraldModal').addEventListener('click', function() {
+                    closeModal('emeraldPlanModal');
+                });
+                
+                // Close modals when clicking outside
+                window.addEventListener('click', function(event) {
+                    if (event.target.classList.contains('modal')) {
+                        closeModal(event.target.id);
+                    }
+                });
+            }
+            
+            // Function to close modal with animation
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.classList.remove('active');
+                
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    
+                    // Reset loading spinner state
+                    const loadingSpinner = modal.querySelector('.loading-spinner');
+                    if (loadingSpinner) {
+                        loadingSpinner.classList.remove('active');
+                    }
+                }, 300);
+            }
+        </script>
+    <div class="particle" style="width: 6.55969px; height: 6.55969px; background-color: rgba(98, 126, 234, 0.62); box-shadow: rgba(98, 126, 234, 0.62) 0px 0px 13.1194px; left: 9.40411vw; top: 17.974vh; animation-duration: 19.656s; animation-delay: 4.57168s;"></div><div class="particle" style="width: 4.06211px; height: 4.06211px; background-color: rgba(98, 126, 234, 0.514); box-shadow: rgba(98, 126, 234, 0.514) 0px 0px 8.12422px; left: 38.3266vw; top: 187.09vh; animation-duration: 18.3454s; animation-delay: 8.59168s;"></div><div class="particle" style="width: 4.42904px; height: 4.42904px; background-color: rgba(247, 147, 26, 0.486); box-shadow: rgba(247, 147, 26, 0.486) 0px 0px 8.85809px; left: 34.0012vw; top: 164.695vh; animation-duration: 21.4732s; animation-delay: 3.97101s;"></div><div class="particle" style="width: 6.80511px; height: 6.80511px; background-color: rgba(247, 147, 26, 0.26); box-shadow: rgba(247, 147, 26, 0.26) 0px 0px 13.6102px; left: 14.4035vw; top: 20.2884vh; animation-duration: 20.939s; animation-delay: 6.13069s;"></div><div class="particle" style="width: 5.63599px; height: 5.63599px; background-color: rgba(98, 126, 234, 0.47); box-shadow: rgba(98, 126, 234, 0.47) 0px 0px 11.272px; left: 38.744vw; top: 97.3933vh; animation-duration: 13.5503s; animation-delay: 1.66325s;"></div><div class="particle" style="width: 4.95619px; height: 4.95619px; background-color: rgba(247, 147, 26, 0.694); box-shadow: rgba(247, 147, 26, 0.694) 0px 0px 9.91239px; left: 5.226vw; top: 24.7872vh; animation-duration: 18.2121s; animation-delay: 3.2856s;"></div><div class="particle" style="width: 3.1239px; height: 3.1239px; background-color: rgba(98, 126, 234, 0.247); box-shadow: rgba(98, 126, 234, 0.247) 0px 0px 6.2478px; left: 31.0545vw; top: 34.6664vh; animation-duration: 29.9044s; animation-delay: 8.49804s;"></div><div class="particle" style="width: 6.79312px; height: 6.79312px; background-color: rgba(98, 126, 234, 0.67); box-shadow: rgba(98, 126, 234, 0.67) 0px 0px 13.5862px; left: 15.0601vw; top: 196.26vh; animation-duration: 23.5108s; animation-delay: 1.55909s;"></div><div class="particle" style="width: 2.47385px; height: 2.47385px; background-color: rgba(247, 147, 26, 0.282); box-shadow: rgba(247, 147, 26, 0.282) 0px 0px 4.9477px; left: 47.9522vw; top: 192.094vh; animation-duration: 10.5588s; animation-delay: 9.29288s;"></div><div class="particle" style="width: 2.69111px; height: 2.69111px; background-color: rgba(247, 147, 26, 0.36); box-shadow: rgba(247, 147, 26, 0.36) 0px 0px 5.38221px; left: 67.9362vw; top: 71.7136vh; animation-duration: 27.9252s; animation-delay: 3.14497s;"></div><div class="particle" style="width: 2.97755px; height: 2.97755px; background-color: rgba(98, 126, 234, 0.694); box-shadow: rgba(98, 126, 234, 0.694) 0px 0px 5.95509px; left: 75.5153vw; top: 23.5816vh; animation-duration: 29.9354s; animation-delay: 9.95907s;"></div><div class="particle" style="width: 5.91658px; height: 5.91658px; background-color: rgba(98, 126, 234, 0.28); box-shadow: rgba(98, 126, 234, 0.28) 0px 0px 11.8332px; left: 79.5505vw; top: 1.84357vh; animation-duration: 13.3433s; animation-delay: 4.3024s;"></div><div class="particle" style="width: 3.99005px; height: 3.99005px; background-color: rgba(247, 147, 26, 0.624); box-shadow: rgba(247, 147, 26, 0.624) 0px 0px 7.98009px; left: 31.6167vw; top: 30.4409vh; animation-duration: 20.9009s; animation-delay: 7.81907s;"></div><div class="particle" style="width: 6.48136px; height: 6.48136px; background-color: rgba(98, 126, 234, 0.545); box-shadow: rgba(98, 126, 234, 0.545) 0px 0px 12.9627px; left: 89.9649vw; top: 122.924vh; animation-duration: 27.9038s; animation-delay: 8.5803s;"></div><div class="particle" style="width: 2.72173px; height: 2.72173px; background-color: rgba(98, 126, 234, 0.208); box-shadow: rgba(98, 126, 234, 0.208) 0px 0px 5.44346px; left: 86.9933vw; top: 32.8261vh; animation-duration: 27.0128s; animation-delay: 0.651028s;"></div><div class="particle" style="width: 4.15806px; height: 4.15806px; background-color: rgba(98, 126, 234, 0.54); box-shadow: rgba(98, 126, 234, 0.54) 0px 0px 8.31611px; left: 69.0333vw; top: 176.047vh; animation-duration: 18.9558s; animation-delay: 2.30662s;"></div><div class="particle" style="width: 6.13136px; height: 6.13136px; background-color: rgba(98, 126, 234, 0.698); box-shadow: rgba(98, 126, 234, 0.698) 0px 0px 12.2627px; left: 82.7747vw; top: 50.1221vh; animation-duration: 24.9099s; animation-delay: 4.78172s;"></div><div class="particle" style="width: 4.76579px; height: 4.76579px; background-color: rgba(98, 126, 234, 0.286); box-shadow: rgba(98, 126, 234, 0.286) 0px 0px 9.53159px; left: 41.8213vw; top: 60.8998vh; animation-duration: 17.1001s; animation-delay: 7.12638s;"></div><div class="particle" style="width: 2.41363px; height: 2.41363px; background-color: rgba(247, 147, 26, 0.698); box-shadow: rgba(247, 147, 26, 0.698) 0px 0px 4.82727px; left: 91.0485vw; top: 0.854041vh; animation-duration: 26.7788s; animation-delay: 5.22373s;"></div><div class="particle" style="width: 2.39627px; height: 2.39627px; background-color: rgba(247, 147, 26, 0.404); box-shadow: rgba(247, 147, 26, 0.404) 0px 0px 4.79255px; left: 88.3917vw; top: 90.1677vh; animation-duration: 19.7955s; animation-delay: 7.99317s;"></div><div class="particle" style="width: 3.05555px; height: 3.05555px; background-color: rgba(247, 147, 26, 0.267); box-shadow: rgba(247, 147, 26, 0.267) 0px 0px 6.11109px; left: 43.4328vw; top: 127.351vh; animation-duration: 20.347s; animation-delay: 2.59532s;"></div><div class="particle" style="width: 6.41893px; height: 6.41893px; background-color: rgba(247, 147, 26, 0.416); box-shadow: rgba(247, 147, 26, 0.416) 0px 0px 12.8379px; left: 89.7028vw; top: 77.5784vh; animation-duration: 23.0523s; animation-delay: 3.98461s;"></div><div class="particle" style="width: 3.00895px; height: 3.00895px; background-color: rgba(247, 147, 26, 0.345); box-shadow: rgba(247, 147, 26, 0.345) 0px 0px 6.01789px; left: 88.8479vw; top: 127.03vh; animation-duration: 28.3036s; animation-delay: 7.47383s;"></div><div class="particle" style="width: 4.71012px; height: 4.71012px; background-color: rgba(98, 126, 234, 0.443); box-shadow: rgba(98, 126, 234, 0.443) 0px 0px 9.42023px; left: 49.9638vw; top: 137.91vh; animation-duration: 17.2595s; animation-delay: 4.14872s;"></div><div class="particle" style="width: 3.38202px; height: 3.38202px; background-color: rgba(98, 126, 234, 0.682); box-shadow: rgba(98, 126, 234, 0.682) 0px 0px 6.76404px; left: 15.6106vw; top: 17.4592vh; animation-duration: 13.0134s; animation-delay: 7.42115s;"></div><div class="particle" style="width: 6.28804px; height: 6.28804px; background-color: rgba(98, 126, 234, 0.263); box-shadow: rgba(98, 126, 234, 0.263) 0px 0px 12.5761px; left: 35.3517vw; top: 76.8834vh; animation-duration: 29.5794s; animation-delay: 1.3624s;"></div><div class="particle" style="width: 5.1063px; height: 5.1063px; background-color: rgba(98, 126, 234, 0.65); box-shadow: rgba(98, 126, 234, 0.65) 0px 0px 10.2126px; left: 47.9312vw; top: 99.1318vh; animation-duration: 20.7354s; animation-delay: 9.87648s;"></div><div class="particle" style="width: 6.00434px; height: 6.00434px; background-color: rgba(98, 126, 234, 0.525); box-shadow: rgba(98, 126, 234, 0.525) 0px 0px 12.0087px; left: 40.207vw; top: 42.1756vh; animation-duration: 16.2422s; animation-delay: 1.15758s;"></div><div class="particle" style="width: 5.75865px; height: 5.75865px; background-color: rgba(247, 147, 26, 0.67); box-shadow: rgba(247, 147, 26, 0.67) 0px 0px 11.5173px; left: 45.5345vw; top: 32.3908vh; animation-duration: 13.1092s; animation-delay: 0.421809s;"></div><div class="particle" style="width: 5.03563px; height: 5.03563px; background-color: rgba(98, 126, 234, 0.533); box-shadow: rgba(98, 126, 234, 0.533) 0px 0px 10.0713px; left: 90.5709vw; top: 127.51vh; animation-duration: 27.7226s; animation-delay: 2.38446s;"></div><div class="particle" style="width: 5.29824px; height: 5.29824px; background-color: rgba(98, 126, 234, 0.227); box-shadow: rgba(98, 126, 234, 0.227) 0px 0px 10.5965px; left: 75.5749vw; top: 162.874vh; animation-duration: 25.7571s; animation-delay: 4.25694s;"></div><div class="particle" style="width: 6.99734px; height: 6.99734px; background-color: rgba(247, 147, 26, 0.29); box-shadow: rgba(247, 147, 26, 0.29) 0px 0px 13.9947px; left: 56.6863vw; top: 175.263vh; animation-duration: 11.0749s; animation-delay: 4.33795s;"></div><div class="particle" style="width: 6.09323px; height: 6.09323px; background-color: rgba(247, 147, 26, 0.34); box-shadow: rgba(247, 147, 26, 0.34) 0px 0px 12.1865px; left: 40.4508vw; top: 153.958vh; animation-duration: 16.4284s; animation-delay: 2.42852s;"></div><div class="particle" style="width: 2.71955px; height: 2.71955px; background-color: rgba(247, 147, 26, 0.67); box-shadow: rgba(247, 147, 26, 0.67) 0px 0px 5.43911px; left: 18.7827vw; top: 14.6644vh; animation-duration: 10.9015s; animation-delay: 7.53063s;"></div><div class="particle" style="width: 6.97823px; height: 6.97823px; background-color: rgba(98, 126, 234, 0.224); box-shadow: rgba(98, 126, 234, 0.224) 0px 0px 13.9565px; left: 36.6283vw; top: 64.8364vh; animation-duration: 10.1698s; animation-delay: 6.52161s;"></div><div class="particle" style="width: 5.12031px; height: 5.12031px; background-color: rgba(98, 126, 234, 0.576); box-shadow: rgba(98, 126, 234, 0.576) 0px 0px 10.2406px; left: 19.5779vw; top: 111.146vh; animation-duration: 13.6965s; animation-delay: 7.04297s;"></div><div class="particle" style="width: 3.84543px; height: 3.84543px; background-color: rgba(247, 147, 26, 0.498); box-shadow: rgba(247, 147, 26, 0.498) 0px 0px 7.69086px; left: 12.6393vw; top: 67.7904vh; animation-duration: 22.2092s; animation-delay: 5.73197s;"></div><div class="particle" style="width: 5.54835px; height: 5.54835px; background-color: rgba(247, 147, 26, 0.39); box-shadow: rgba(247, 147, 26, 0.39) 0px 0px 11.0967px; left: 0.252815vw; top: 43.5896vh; animation-duration: 17.6925s; animation-delay: 7.47294s;"></div><div class="particle" style="width: 6.06266px; height: 6.06266px; background-color: rgba(247, 147, 26, 0.506); box-shadow: rgba(247, 147, 26, 0.506) 0px 0px 12.1253px; left: 18.1382vw; top: 53.7577vh; animation-duration: 24.3681s; animation-delay: 5.39847s;"></div><div class="particle" style="width: 3.76452px; height: 3.76452px; background-color: rgba(98, 126, 234, 0.565); box-shadow: rgba(98, 126, 234, 0.565) 0px 0px 7.52903px; left: 67.2541vw; top: 176.581vh; animation-duration: 12.6851s; animation-delay: 5.19019s;"></div><div class="particle" style="width: 2.62045px; height: 2.62045px; background-color: rgba(247, 147, 26, 0.24); box-shadow: rgba(247, 147, 26, 0.24) 0px 0px 5.2409px; left: 11.0436vw; top: 4.57523vh; animation-duration: 13.1924s; animation-delay: 1.40415s;"></div><div class="particle" style="width: 6.6836px; height: 6.6836px; background-color: rgba(98, 126, 234, 0.49); box-shadow: rgba(98, 126, 234, 0.49) 0px 0px 13.3672px; left: 33.7606vw; top: 122.111vh; animation-duration: 15.129s; animation-delay: 8.52997s;"></div><div class="particle" style="width: 2.50765px; height: 2.50765px; background-color: rgba(247, 147, 26, 0.604); box-shadow: rgba(247, 147, 26, 0.604) 0px 0px 5.01531px; left: 70.8214vw; top: 91.9919vh; animation-duration: 21.6163s; animation-delay: 6.70657s;"></div><div class="particle" style="width: 6.40207px; height: 6.40207px; background-color: rgba(247, 147, 26, 0.5); box-shadow: rgba(247, 147, 26, 0.5) 0px 0px 12.8041px; left: 59.264vw; top: 66.9241vh; animation-duration: 25.2201s; animation-delay: 4.0169s;"></div><div class="particle" style="width: 4.81485px; height: 4.81485px; background-color: rgba(247, 147, 26, 0.557); box-shadow: rgba(247, 147, 26, 0.557) 0px 0px 9.6297px; left: 89.4945vw; top: 61.9101vh; animation-duration: 18.3093s; animation-delay: 9.85624s;"></div><div class="particle" style="width: 3.34809px; height: 3.34809px; background-color: rgba(98, 126, 234, 0.52); box-shadow: rgba(98, 126, 234, 0.52) 0px 0px 6.69618px; left: 89.7899vw; top: 158.104vh; animation-duration: 16.892s; animation-delay: 8.95443s;"></div><div class="particle" style="width: 3.02464px; height: 3.02464px; background-color: rgba(98, 126, 234, 0.443); box-shadow: rgba(98, 126, 234, 0.443) 0px 0px 6.04928px; left: 78.639vw; top: 104.482vh; animation-duration: 22.7586s; animation-delay: 0.624427s;"></div><div class="particle" style="width: 2.25153px; height: 2.25153px; background-color: rgba(247, 147, 26, 0.525); box-shadow: rgba(247, 147, 26, 0.525) 0px 0px 4.50305px; left: 17.9202vw; top: 110.083vh; animation-duration: 16.5898s; animation-delay: 1.63805s;"></div><div class="particle" style="width: 2.54042px; height: 2.54042px; background-color: rgba(98, 126, 234, 0.545); box-shadow: rgba(98, 126, 234, 0.545) 0px 0px 5.08083px; left: 69.3723vw; top: 168.69vh; animation-duration: 26.4953s; animation-delay: 1.44076s;"></div><div class="particle" style="width: 3.94423px; height: 3.94423px; background-color: rgba(247, 147, 26, 0.455); box-shadow: rgba(247, 147, 26, 0.455) 0px 0px 7.88845px; left: 48.1519vw; top: 165.542vh; animation-duration: 18.2566s; animation-delay: 2.28725s;"></div><div class="particle" style="width: 5.5339px; height: 5.5339px; background-color: rgba(247, 147, 26, 0.49); box-shadow: rgba(247, 147, 26, 0.49) 0px 0px 11.0678px; left: 21.5361vw; top: 51.1208vh; animation-duration: 18.041s; animation-delay: 5.2667s;"></div><div class="particle" style="width: 3.21858px; height: 3.21858px; background-color: rgba(247, 147, 26, 0.373); box-shadow: rgba(247, 147, 26, 0.373) 0px 0px 6.43715px; left: 14.0196vw; top: 157.575vh; animation-duration: 12.4148s; animation-delay: 8.12192s;"></div><div class="particle" style="width: 3.35495px; height: 3.35495px; background-color: rgba(98, 126, 234, 0.44); box-shadow: rgba(98, 126, 234, 0.44) 0px 0px 6.70989px; left: 42.9103vw; top: 100.315vh; animation-duration: 29.5669s; animation-delay: 3.39736s;"></div><div class="particle" style="width: 3.57431px; height: 3.57431px; background-color: rgba(98, 126, 234, 0.66); box-shadow: rgba(98, 126, 234, 0.66) 0px 0px 7.14863px; left: 19.2628vw; top: 38.7149vh; animation-duration: 28.855s; animation-delay: 5.17859s;"></div><div class="particle" style="width: 4.01746px; height: 4.01746px; background-color: rgba(98, 126, 234, 0.3); box-shadow: rgba(98, 126, 234, 0.3) 0px 0px 8.03493px; left: 48.9262vw; top: 30.986vh; animation-duration: 24.7222s; animation-delay: 8.07954s;"></div><div class="particle" style="width: 6.19529px; height: 6.19529px; background-color: rgba(98, 126, 234, 0.52); box-shadow: rgba(98, 126, 234, 0.52) 0px 0px 12.3906px; left: 41.8935vw; top: 199.441vh; animation-duration: 20.3882s; animation-delay: 0.79024s;"></div><div class="particle" style="width: 6.40752px; height: 6.40752px; background-color: rgba(98, 126, 234, 0.404); box-shadow: rgba(98, 126, 234, 0.404) 0px 0px 12.815px; left: 82.8598vw; top: 178.113vh; animation-duration: 11.2328s; animation-delay: 2.15319s;"></div><div class="particle" style="width: 5.82595px; height: 5.82595px; background-color: rgba(98, 126, 234, 0.482); box-shadow: rgba(98, 126, 234, 0.482) 0px 0px 11.6519px; left: 73.6393vw; top: 60.41vh; animation-duration: 10.8467s; animation-delay: 3.4123s;"></div><div class="particle" style="width: 2.08061px; height: 2.08061px; background-color: rgba(247, 147, 26, 0.647); box-shadow: rgba(247, 147, 26, 0.647) 0px 0px 4.16123px; left: 56.4725vw; top: 133.369vh; animation-duration: 26.5347s; animation-delay: 9.64995s;"></div><div class="particle" style="width: 5.55727px; height: 5.55727px; background-color: rgba(98, 126, 234, 0.596); box-shadow: rgba(98, 126, 234, 0.596) 0px 0px 11.1145px; left: 93.0935vw; top: 58.1723vh; animation-duration: 12.7466s; animation-delay: 8.03574s;"></div><div class="particle" style="width: 3.63457px; height: 3.63457px; background-color: rgba(247, 147, 26, 0.243); box-shadow: rgba(247, 147, 26, 0.243) 0px 0px 7.26913px; left: 89.9791vw; top: 190.112vh; animation-duration: 13.347s; animation-delay: 1.72956s;"></div><div class="particle" style="width: 4.60453px; height: 4.60453px; background-color: rgba(247, 147, 26, 0.482); box-shadow: rgba(247, 147, 26, 0.482) 0px 0px 9.20906px; left: 11.8297vw; top: 121.65vh; animation-duration: 21.7897s; animation-delay: 1.55421s;"></div><div class="particle" style="width: 3.68206px; height: 3.68206px; background-color: rgba(247, 147, 26, 0.275); box-shadow: rgba(247, 147, 26, 0.275) 0px 0px 7.36412px; left: 96.8421vw; top: 46.1643vh; animation-duration: 23.0356s; animation-delay: 1.36387s;"></div><div class="particle" style="width: 6.63517px; height: 6.63517px; background-color: rgba(98, 126, 234, 0.455); box-shadow: rgba(98, 126, 234, 0.455) 0px 0px 13.2703px; left: 16.916vw; top: 132.44vh; animation-duration: 16.4932s; animation-delay: 5.87702s;"></div><div class="particle" style="width: 5.47074px; height: 5.47074px; background-color: rgba(98, 126, 234, 0.36); box-shadow: rgba(98, 126, 234, 0.36) 0px 0px 10.9415px; left: 24.0233vw; top: 177.716vh; animation-duration: 13.1547s; animation-delay: 0.477683s;"></div><div class="particle" style="width: 6.48017px; height: 6.48017px; background-color: rgba(247, 147, 26, 0.357); box-shadow: rgba(247, 147, 26, 0.357) 0px 0px 12.9603px; left: 65.1828vw; top: 72.4327vh; animation-duration: 24.3727s; animation-delay: 2.69066s;"></div><div class="particle" style="width: 5.22084px; height: 5.22084px; background-color: rgba(98, 126, 234, 0.533); box-shadow: rgba(98, 126, 234, 0.533) 0px 0px 10.4417px; left: 87.2036vw; top: 8.77525vh; animation-duration: 28.9542s; animation-delay: 3.13102s;"></div><div class="particle" style="width: 6.98813px; height: 6.98813px; background-color: rgba(247, 147, 26, 0.424); box-shadow: rgba(247, 147, 26, 0.424) 0px 0px 13.9763px; left: 74.1222vw; top: 165.981vh; animation-duration: 16.0242s; animation-delay: 7.80852s;"></div><div class="particle" style="width: 4.18345px; height: 4.18345px; background-color: rgba(247, 147, 26, 0.353); box-shadow: rgba(247, 147, 26, 0.353) 0px 0px 8.3669px; left: 57.525vw; top: 0.153181vh; animation-duration: 22.3788s; animation-delay: 6.67794s;"></div><div class="particle" style="width: 5.74866px; height: 5.74866px; background-color: rgba(98, 126, 234, 0.29); box-shadow: rgba(98, 126, 234, 0.29) 0px 0px 11.4973px; left: 25.3907vw; top: 14.8483vh; animation-duration: 23.3309s; animation-delay: 8.57341s;"></div><div class="particle" style="width: 2.36603px; height: 2.36603px; background-color: rgba(98, 126, 234, 0.32); box-shadow: rgba(98, 126, 234, 0.32) 0px 0px 4.73205px; left: 6.01548vw; top: 192.018vh; animation-duration: 18.3278s; animation-delay: 8.21503s;"></div><div class="particle" style="width: 2.59019px; height: 2.59019px; background-color: rgba(98, 126, 234, 0.4); box-shadow: rgba(98, 126, 234, 0.4) 0px 0px 5.18038px; left: 85.8608vw; top: 87.4019vh; animation-duration: 14.6264s; animation-delay: 6.68967s;"></div><div class="particle" style="width: 2.5133px; height: 2.5133px; background-color: rgba(98, 126, 234, 0.333); box-shadow: rgba(98, 126, 234, 0.333) 0px 0px 5.0266px; left: 47.0526vw; top: 71.7109vh; animation-duration: 14.1486s; animation-delay: 1.3127s;"></div><div class="particle" style="width: 2.67534px; height: 2.67534px; background-color: rgba(247, 147, 26, 0.553); box-shadow: rgba(247, 147, 26, 0.553) 0px 0px 5.35068px; left: 57.7561vw; top: 55.4797vh; animation-duration: 25.47s; animation-delay: 3.3344s;"></div><div class="particle" style="width: 5.79872px; height: 5.79872px; background-color: rgba(247, 147, 26, 0.396); box-shadow: rgba(247, 147, 26, 0.396) 0px 0px 11.5974px; left: 89.4284vw; top: 28.1301vh; animation-duration: 21.7936s; animation-delay: 7.07646s;"></div><div class="particle" style="width: 3.03165px; height: 3.03165px; background-color: rgba(247, 147, 26, 0.33); box-shadow: rgba(247, 147, 26, 0.33) 0px 0px 6.06329px; left: 9.6235vw; top: 159.265vh; animation-duration: 10.2673s; animation-delay: 1.63476s;"></div><div class="particle" style="width: 4.25617px; height: 4.25617px; background-color: rgba(98, 126, 234, 0.56); box-shadow: rgba(98, 126, 234, 0.56) 0px 0px 8.51234px; left: 35.6604vw; top: 95.9644vh; animation-duration: 11.3991s; animation-delay: 2.86978s;"></div><div class="particle" style="width: 2.3203px; height: 2.3203px; background-color: rgba(247, 147, 26, 0.576); box-shadow: rgba(247, 147, 26, 0.576) 0px 0px 4.64061px; left: 66.8948vw; top: 110.568vh; animation-duration: 24.9451s; animation-delay: 2.19754s;"></div><div class="particle" style="width: 2.21522px; height: 2.21522px; background-color: rgba(98, 126, 234, 0.6); box-shadow: rgba(98, 126, 234, 0.6) 0px 0px 4.43043px; left: 16.9081vw; top: 51.7658vh; animation-duration: 25.6653s; animation-delay: 4.78166s;"></div><div class="particle" style="width: 4.04227px; height: 4.04227px; background-color: rgba(98, 126, 234, 0.66); box-shadow: rgba(98, 126, 234, 0.66) 0px 0px 8.08454px; left: 1.36603vw; top: 169.831vh; animation-duration: 14.8839s; animation-delay: 7.87516s;"></div><div class="star" style="width: 1.91852px; height: 1.91852px; left: 2.1701vw; top: 173.858vh; animation-duration: 2.52286s; animation-delay: 2.17429s;"></div><div class="star" style="width: 2.04537px; height: 2.04537px; left: 28.3913vw; top: 170.058vh; animation-duration: 4.0848s; animation-delay: 1.49404s;"></div><div class="star" style="width: 2.25019px; height: 2.25019px; left: 79.1337vw; top: 127.035vh; animation-duration: 4.86492s; animation-delay: 1.47355s;"></div><div class="star" style="width: 1.62793px; height: 1.62793px; left: 11.286vw; top: 38.4015vh; animation-duration: 3.69954s; animation-delay: 2.49645s;"></div><div class="star" style="width: 1.13115px; height: 1.13115px; left: 85.3286vw; top: 30.8615vh; animation-duration: 2.83458s; animation-delay: 1.00872s;"></div><div class="star" style="width: 1.98261px; height: 1.98261px; left: 26.7619vw; top: 162.755vh; animation-duration: 2.13897s; animation-delay: 0.211851s;"></div><div class="star" style="width: 1.84769px; height: 1.84769px; left: 73.4713vw; top: 56.9644vh; animation-duration: 2.49205s; animation-delay: 0.043924s;"></div><div class="star" style="width: 1.96824px; height: 1.96824px; left: 50.8758vw; top: 135.333vh; animation-duration: 3.62528s; animation-delay: 2.11558s;"></div><div class="star" style="width: 1.22037px; height: 1.22037px; left: 76.3009vw; top: 35.9837vh; animation-duration: 4.38654s; animation-delay: 1.36281s;"></div><div class="star" style="width: 0.841417px; height: 0.841417px; left: 51.1714vw; top: 23.5205vh; animation-duration: 4.50658s; animation-delay: 1.9669s;"></div><div class="star" style="width: 2.00714px; height: 2.00714px; left: 16.6789vw; top: 12.879vh; animation-duration: 5.58174s; animation-delay: 0.168595s;"></div><div class="star" style="width: 2.30302px; height: 2.30302px; left: 76.817vw; top: 29.4094vh; animation-duration: 5.95104s; animation-delay: 0.577455s;"></div><div class="star" style="width: 1.2704px; height: 1.2704px; left: 82.5077vw; top: 130.519vh; animation-duration: 5.18435s; animation-delay: 3.7502s;"></div><div class="star" style="width: 0.760704px; height: 0.760704px; left: 68.4097vw; top: 116.701vh; animation-duration: 3.33187s; animation-delay: 3.25663s;"></div><div class="star" style="width: 0.869206px; height: 0.869206px; left: 0.636697vw; top: 188.866vh; animation-duration: 2.93192s; animation-delay: 1.85712s;"></div><div class="star" style="width: 0.916971px; height: 0.916971px; left: 80.4419vw; top: 187.792vh; animation-duration: 3.29873s; animation-delay: 0.779262s;"></div><div class="star" style="width: 2.24496px; height: 2.24496px; left: 6.36818vw; top: 150.59vh; animation-duration: 2.46997s; animation-delay: 0.766956s;"></div><div class="star" style="width: 0.9123px; height: 0.9123px; left: 48.0475vw; top: 101.758vh; animation-duration: 5.41536s; animation-delay: 1.20374s;"></div><div class="star" style="width: 0.627971px; height: 0.627971px; left: 45.0351vw; top: 81.3003vh; animation-duration: 2.07393s; animation-delay: 2.29673s;"></div><div class="star" style="width: 1.48501px; height: 1.48501px; left: 21.9645vw; top: 43.4283vh; animation-duration: 5.41927s; animation-delay: 1.39282s;"></div><div class="star" style="width: 0.536184px; height: 0.536184px; left: 60.3863vw; top: 134.78vh; animation-duration: 3.00642s; animation-delay: 2.03811s;"></div><div class="star" style="width: 1.91983px; height: 1.91983px; left: 56.0489vw; top: 109.735vh; animation-duration: 5.66504s; animation-delay: 1.72305s;"></div><div class="star" style="width: 0.922114px; height: 0.922114px; left: 40.2869vw; top: 140.165vh; animation-duration: 3.79351s; animation-delay: 2.61026s;"></div><div class="star" style="width: 2.29891px; height: 2.29891px; left: 85.8155vw; top: 148.082vh; animation-duration: 2.53219s; animation-delay: 1.40947s;"></div><div class="star" style="width: 1.07938px; height: 1.07938px; left: 35.5525vw; top: 113.733vh; animation-duration: 3.32323s; animation-delay: 3.13442s;"></div><div class="star" style="width: 1.62702px; height: 1.62702px; left: 94.9124vw; top: 120.57vh; animation-duration: 3.1568s; animation-delay: 3.68453s;"></div><div class="star" style="width: 1.42979px; height: 1.42979px; left: 76.4686vw; top: 156.595vh; animation-duration: 2.42947s; animation-delay: 0.786431s;"></div><div class="star" style="width: 1.23035px; height: 1.23035px; left: 96.1045vw; top: 131.665vh; animation-duration: 4.75143s; animation-delay: 3.88451s;"></div><div class="star" style="width: 0.651699px; height: 0.651699px; left: 26.913vw; top: 89.0316vh; animation-duration: 5.77063s; animation-delay: 3.28698s;"></div><div class="star" style="width: 1.70197px; height: 1.70197px; left: 31.1981vw; top: 138.476vh; animation-duration: 3.37651s; animation-delay: 2.09584s;"></div><div class="star" style="width: 0.786902px; height: 0.786902px; left: 49.217vw; top: 67.6268vh; animation-duration: 2.95187s; animation-delay: 1.94424s;"></div><div class="star" style="width: 1.67885px; height: 1.67885px; left: 92.4313vw; top: 56.7253vh; animation-duration: 3.78257s; animation-delay: 0.18833s;"></div><div class="star" style="width: 2.34824px; height: 2.34824px; left: 92.6935vw; top: 79.103vh; animation-duration: 3.55487s; animation-delay: 0.926663s;"></div><div class="star" style="width: 1.64027px; height: 1.64027px; left: 72.6834vw; top: 101.541vh; animation-duration: 5.33662s; animation-delay: 3.41485s;"></div><div class="star" style="width: 0.944278px; height: 0.944278px; left: 28.2614vw; top: 24.6539vh; animation-duration: 3.79655s; animation-delay: 1.73721s;"></div><div class="star" style="width: 1.82483px; height: 1.82483px; left: 29.0392vw; top: 35.5581vh; animation-duration: 4.42531s; animation-delay: 3.75614s;"></div><div class="star" style="width: 1.39438px; height: 1.39438px; left: 77.6644vw; top: 63.5023vh; animation-duration: 4.98147s; animation-delay: 1.54145s;"></div><div class="star" style="width: 0.663252px; height: 0.663252px; left: 61.2359vw; top: 53.1891vh; animation-duration: 2.72596s; animation-delay: 1.25853s;"></div><div class="star" style="width: 0.937622px; height: 0.937622px; left: 24.5767vw; top: 168.139vh; animation-duration: 4.63938s; animation-delay: 1.23644s;"></div><div class="star" style="width: 1.82901px; height: 1.82901px; left: 86.7431vw; top: 128.464vh; animation-duration: 2.94463s; animation-delay: 3.9389s;"></div><div class="star" style="width: 2.19478px; height: 2.19478px; left: 74.6407vw; top: 59.8855vh; animation-duration: 5.28689s; animation-delay: 2.64941s;"></div><div class="star" style="width: 1.93257px; height: 1.93257px; left: 25.3954vw; top: 100.175vh; animation-duration: 3.66222s; animation-delay: 3.74869s;"></div><div class="star" style="width: 1.13268px; height: 1.13268px; left: 45.7718vw; top: 199.991vh; animation-duration: 2.96975s; animation-delay: 0.694274s;"></div><div class="star" style="width: 0.784656px; height: 0.784656px; left: 54.2225vw; top: 39.6481vh; animation-duration: 3.20835s; animation-delay: 2.40948s;"></div><div class="star" style="width: 1.25038px; height: 1.25038px; left: 42.285vw; top: 191.702vh; animation-duration: 5.82758s; animation-delay: 2.83476s;"></div><div class="star" style="width: 1.31777px; height: 1.31777px; left: 82.4871vw; top: 29.4055vh; animation-duration: 4.30446s; animation-delay: 2.03237s;"></div><div class="star" style="width: 1.06457px; height: 1.06457px; left: 48.5867vw; top: 56.6874vh; animation-duration: 2.41115s; animation-delay: 0.862039s;"></div><div class="star" style="width: 2.39794px; height: 2.39794px; left: 42.1417vw; top: 87.6939vh; animation-duration: 2.7857s; animation-delay: 0.315839s;"></div><div class="star" style="width: 1.22824px; height: 1.22824px; left: 93.4448vw; top: 111.411vh; animation-duration: 3.83496s; animation-delay: 2.95623s;"></div><div class="star" style="width: 1.54139px; height: 1.54139px; left: 64.2255vw; top: 140.699vh; animation-duration: 5.09202s; animation-delay: 1.94552s;"></div><div class="star" style="width: 2.49688px; height: 2.49688px; left: 53.3961vw; top: 55.3261vh; animation-duration: 5.84702s; animation-delay: 2.97435s;"></div><div class="star" style="width: 1.86133px; height: 1.86133px; left: 87.8918vw; top: 168.015vh; animation-duration: 5.72329s; animation-delay: 1.51277s;"></div><div class="star" style="width: 2.18735px; height: 2.18735px; left: 91.3176vw; top: 24.418vh; animation-duration: 4.10254s; animation-delay: 2.0642s;"></div><div class="star" style="width: 2.40394px; height: 2.40394px; left: 18.0994vw; top: 140.646vh; animation-duration: 5.3066s; animation-delay: 0.590625s;"></div><div class="star" style="width: 0.927233px; height: 0.927233px; left: 97.1254vw; top: 147.43vh; animation-duration: 3.37243s; animation-delay: 2.54334s;"></div><div class="star" style="width: 1.27048px; height: 1.27048px; left: 22.1576vw; top: 120.949vh; animation-duration: 3.9283s; animation-delay: 0.757389s;"></div><div class="star" style="width: 2.32544px; height: 2.32544px; left: 57.6171vw; top: 130.536vh; animation-duration: 2.14466s; animation-delay: 3.94384s;"></div><div class="star" style="width: 2.20238px; height: 2.20238px; left: 0.74779vw; top: 44.6744vh; animation-duration: 4.64766s; animation-delay: 1.63249s;"></div><div class="star" style="width: 0.822225px; height: 0.822225px; left: 20.8341vw; top: 94.4049vh; animation-duration: 4.77975s; animation-delay: 0.289169s;"></div><div class="star" style="width: 0.672522px; height: 0.672522px; left: 13.9546vw; top: 130.201vh; animation-duration: 2.88294s; animation-delay: 0.955713s;"></div><div class="star" style="width: 1.63218px; height: 1.63218px; left: 29.595vw; top: 14.7606vh; animation-duration: 5.29877s; animation-delay: 2.7282s;"></div><div class="star" style="width: 1.70484px; height: 1.70484px; left: 55.2436vw; top: 38.0354vh; animation-duration: 4.43736s; animation-delay: 2.91942s;"></div><div class="star" style="width: 1.11568px; height: 1.11568px; left: 76.0782vw; top: 191.196vh; animation-duration: 2.24228s; animation-delay: 0.946032s;"></div><div class="star" style="width: 2.22921px; height: 2.22921px; left: 13.9062vw; top: 130.797vh; animation-duration: 3.46657s; animation-delay: 0.460311s;"></div><div class="star" style="width: 2.33118px; height: 2.33118px; left: 52.6295vw; top: 20.9686vh; animation-duration: 2.43046s; animation-delay: 1.9248s;"></div><div class="star" style="width: 0.696342px; height: 0.696342px; left: 50.2987vw; top: 52.0122vh; animation-duration: 4.02729s; animation-delay: 2.23188s;"></div><div class="star" style="width: 1.96321px; height: 1.96321px; left: 55.9357vw; top: 48.9358vh; animation-duration: 5.03438s; animation-delay: 0.797359s;"></div><div class="star" style="width: 0.829298px; height: 0.829298px; left: 45.9808vw; top: 73.8798vh; animation-duration: 5.29989s; animation-delay: 3.27501s;"></div><div class="star" style="width: 1.64761px; height: 1.64761px; left: 47.3789vw; top: 179.357vh; animation-duration: 5.24185s; animation-delay: 1.76086s;"></div><div class="star" style="width: 1.86211px; height: 1.86211px; left: 10.3631vw; top: 3.7878vh; animation-duration: 4.6953s; animation-delay: 1.50195s;"></div><div class="star" style="width: 1.48453px; height: 1.48453px; left: 85.6693vw; top: 8.89694vh; animation-duration: 2.85819s; animation-delay: 1.14035s;"></div><div class="star" style="width: 1.33261px; height: 1.33261px; left: 48.3988vw; top: 121.275vh; animation-duration: 2.13852s; animation-delay: 2.17421s;"></div><div class="star" style="width: 1.47137px; height: 1.47137px; left: 10.1233vw; top: 4.30177vh; animation-duration: 5.39354s; animation-delay: 1.62556s;"></div><div class="star" style="width: 1.62508px; height: 1.62508px; left: 24.8676vw; top: 130.353vh; animation-duration: 5.14023s; animation-delay: 3.65762s;"></div><div class="star" style="width: 1.25493px; height: 1.25493px; left: 49.7638vw; top: 14.0739vh; animation-duration: 3.60578s; animation-delay: 0.563397s;"></div><div class="star" style="width: 0.536932px; height: 0.536932px; left: 19.3018vw; top: 81.59vh; animation-duration: 5.85569s; animation-delay: 3.42822s;"></div><div class="star" style="width: 0.600258px; height: 0.600258px; left: 38.7315vw; top: 18.9423vh; animation-duration: 4.13974s; animation-delay: 2.04488s;"></div><div class="star" style="width: 2.43966px; height: 2.43966px; left: 15.4648vw; top: 119.605vh; animation-duration: 5.24729s; animation-delay: 3.57124s;"></div><div class="star" style="width: 2.37454px; height: 2.37454px; left: 9.86868vw; top: 21.2354vh; animation-duration: 3.57878s; animation-delay: 2.3563s;"></div><div class="star" style="width: 1.01376px; height: 1.01376px; left: 42.3915vw; top: 182.932vh; animation-duration: 5.167s; animation-delay: 3.78913s;"></div><div class="star" style="width: 2.06615px; height: 2.06615px; left: 2.50699vw; top: 40.4725vh; animation-duration: 3.17272s; animation-delay: 1.29493s;"></div><div class="star" style="width: 0.635727px; height: 0.635727px; left: 64.7992vw; top: 23.037vh; animation-duration: 2.43143s; animation-delay: 3.99422s;"></div><div class="star" style="width: 1.30657px; height: 1.30657px; left: 60.316vw; top: 194.499vh; animation-duration: 5.24216s; animation-delay: 3.68324s;"></div><div class="star" style="width: 1.84807px; height: 1.84807px; left: 62.8718vw; top: 12.3193vh; animation-duration: 2.90562s; animation-delay: 1.58469s;"></div><div class="star" style="width: 1.30233px; height: 1.30233px; left: 45.6031vw; top: 93.4929vh; animation-duration: 5.5145s; animation-delay: 1.0135s;"></div><div class="star" style="width: 0.645163px; height: 0.645163px; left: 80.9635vw; top: 19.2344vh; animation-duration: 2.86268s; animation-delay: 1.62984s;"></div><div class="star" style="width: 0.511926px; height: 0.511926px; left: 51.3004vw; top: 147.114vh; animation-duration: 5.24242s; animation-delay: 0.279537s;"></div><div class="star" style="width: 1.09871px; height: 1.09871px; left: 45.3014vw; top: 128.075vh; animation-duration: 3.3449s; animation-delay: 0.916892s;"></div><div class="star" style="width: 0.698838px; height: 0.698838px; left: 90.5928vw; top: 75.5734vh; animation-duration: 5.4733s; animation-delay: 2.843s;"></div><div class="star" style="width: 0.574723px; height: 0.574723px; left: 7.32206vw; top: 15.7566vh; animation-duration: 3.89574s; animation-delay: 2.61546s;"></div><div class="star" style="width: 1.16627px; height: 1.16627px; left: 15.455vw; top: 142.926vh; animation-duration: 3.6577s; animation-delay: 3.51466s;"></div><div class="star" style="width: 1.23603px; height: 1.23603px; left: 45.1494vw; top: 160.176vh; animation-duration: 5.91453s; animation-delay: 3.5726s;"></div><div class="star" style="width: 1.24454px; height: 1.24454px; left: 81.7305vw; top: 168.943vh; animation-duration: 5.2036s; animation-delay: 0.072021s;"></div><div class="star" style="width: 1.30359px; height: 1.30359px; left: 92.6347vw; top: 149.203vh; animation-duration: 4.10404s; animation-delay: 0.272358s;"></div><div class="star" style="width: 2.11189px; height: 2.11189px; left: 45.9471vw; top: 104.511vh; animation-duration: 2.58368s; animation-delay: 1.9292s;"></div><div class="star" style="width: 2.42409px; height: 2.42409px; left: 41.5744vw; top: 24.4496vh; animation-duration: 4.13722s; animation-delay: 3.00071s;"></div><div class="star" style="width: 1.11216px; height: 1.11216px; left: 88.6351vw; top: 137.037vh; animation-duration: 3.80051s; animation-delay: 2.30248s;"></div><div class="star" style="width: 1.03267px; height: 1.03267px; left: 89.8556vw; top: 18.3401vh; animation-duration: 2.32889s; animation-delay: 2.63421s;"></div><div class="star" style="width: 1.60633px; height: 1.60633px; left: 9.96868vw; top: 45.4797vh; animation-duration: 5.88885s; animation-delay: 0.495823s;"></div><div class="star" style="width: 1.38172px; height: 1.38172px; left: 96.9462vw; top: 139.199vh; animation-duration: 3.93661s; animation-delay: 1.11137s;"></div><div class="star" style="width: 1.48905px; height: 1.48905px; left: 64.8473vw; top: 34.9273vh; animation-duration: 2.76164s; animation-delay: 3.68275s;"></div><div class="star" style="width: 2.09495px; height: 2.09495px; left: 82.2258vw; top: 159.989vh; animation-duration: 5.29674s; animation-delay: 1.51873s;"></div><div class="star" style="width: 1.40645px; height: 1.40645px; left: 36.0043vw; top: 140.641vh; animation-duration: 3.75156s; animation-delay: 0.82865s;"></div><div class="star" style="width: 1.86087px; height: 1.86087px; left: 39.3196vw; top: 90.2447vh; animation-duration: 2.31683s; animation-delay: 3.20002s;"></div><div class="star" style="width: 2.44404px; height: 2.44404px; left: 71.069vw; top: 95.1206vh; animation-duration: 3.55016s; animation-delay: 1.91758s;"></div><div class="star" style="width: 1.30543px; height: 1.30543px; left: 17.2775vw; top: 114.171vh; animation-duration: 2.05542s; animation-delay: 2.39704s;"></div><div class="star" style="width: 1.32676px; height: 1.32676px; left: 54.9847vw; top: 64.2691vh; animation-duration: 2.14781s; animation-delay: 1.86338s;"></div><div class="star" style="width: 1.34636px; height: 1.34636px; left: 13.0867vw; top: 168.477vh; animation-duration: 3.92245s; animation-delay: 3.61168s;"></div><div class="star" style="width: 2.20859px; height: 2.20859px; left: 45.018vw; top: 100.84vh; animation-duration: 3.5462s; animation-delay: 0.606701s;"></div><div class="star" style="width: 1.77404px; height: 1.77404px; left: 43.2345vw; top: 64.4129vh; animation-duration: 4.72449s; animation-delay: 0.439306s;"></div><div class="star" style="width: 1.17719px; height: 1.17719px; left: 48.3899vw; top: 182.09vh; animation-duration: 4.77444s; animation-delay: 1.03718s;"></div><div class="star" style="width: 2.00732px; height: 2.00732px; left: 45.1858vw; top: 109.022vh; animation-duration: 2.73816s; animation-delay: 0.491819s;"></div><div class="star" style="width: 1.67801px; height: 1.67801px; left: 7.95151vw; top: 102.071vh; animation-duration: 5.17251s; animation-delay: 3.41276s;"></div><div class="star" style="width: 1.37094px; height: 1.37094px; left: 1.45368vw; top: 108.765vh; animation-duration: 5.38597s; animation-delay: 3.79823s;"></div><div class="star" style="width: 0.833346px; height: 0.833346px; left: 36.7704vw; top: 21.2005vh; animation-duration: 3.68215s; animation-delay: 1.18249s;"></div><div class="star" style="width: 2.11506px; height: 2.11506px; left: 72.3788vw; top: 196.083vh; animation-duration: 2.85048s; animation-delay: 3.45425s;"></div><div class="star" style="width: 1.3214px; height: 1.3214px; left: 97.028vw; top: 149.611vh; animation-duration: 2.60813s; animation-delay: 2.4042s;"></div><div class="star" style="width: 2.04386px; height: 2.04386px; left: 41.7924vw; top: 103.251vh; animation-duration: 2.45682s; animation-delay: 2.76123s;"></div><div class="star" style="width: 0.879957px; height: 0.879957px; left: 72.8208vw; top: 131.958vh; animation-duration: 2.5679s; animation-delay: 3.03972s;"></div><div class="star" style="width: 2.21998px; height: 2.21998px; left: 35.8898vw; top: 73.9371vh; animation-duration: 4.6866s; animation-delay: 1.10464s;"></div><div class="star" style="width: 2.26237px; height: 2.26237px; left: 8.00495vw; top: 128.595vh; animation-duration: 4.22843s; animation-delay: 3.34067s;"></div><div class="star" style="width: 0.828776px; height: 0.828776px; left: 54.0442vw; top: 84.0569vh; animation-duration: 4.16406s; animation-delay: 2.69997s;"></div><div class="star" style="width: 1.79073px; height: 1.79073px; left: 41.9067vw; top: 110.59vh; animation-duration: 2.46559s; animation-delay: 2.90421s;"></div><div class="star" style="width: 1.48397px; height: 1.48397px; left: 77.3881vw; top: 166.366vh; animation-duration: 2.57107s; animation-delay: 3.17916s;"></div><div class="star" style="width: 1.15876px; height: 1.15876px; left: 11.7569vw; top: 52.5578vh; animation-duration: 2.65056s; animation-delay: 3.17234s;"></div><div class="star" style="width: 0.887335px; height: 0.887335px; left: 23.3343vw; top: 29.7815vh; animation-duration: 4.61986s; animation-delay: 2.85167s;"></div><div class="star" style="width: 2.44316px; height: 2.44316px; left: 24.685vw; top: 178.544vh; animation-duration: 4.83618s; animation-delay: 3.9052s;"></div><div class="star" style="width: 1.85818px; height: 1.85818px; left: 6.47719vw; top: 39.1014vh; animation-duration: 2.90737s; animation-delay: 2.42257s;"></div><div class="star" style="width: 1.1427px; height: 1.1427px; left: 8.25823vw; top: 155.279vh; animation-duration: 3.77103s; animation-delay: 1.98724s;"></div><div class="star" style="width: 1.86162px; height: 1.86162px; left: 73.3448vw; top: 177.359vh; animation-duration: 5.48337s; animation-delay: 0.648667s;"></div><div class="star" style="width: 2.16434px; height: 2.16434px; left: 99.4078vw; top: 188.263vh; animation-duration: 4.47225s; animation-delay: 2.22389s;"></div><div class="star" style="width: 1.30993px; height: 1.30993px; left: 44.4775vw; top: 132.428vh; animation-duration: 4.89224s; animation-delay: 2.61529s;"></div><div class="star" style="width: 0.699717px; height: 0.699717px; left: 21.743vw; top: 154.963vh; animation-duration: 2.72451s; animation-delay: 2.81669s;"></div><div class="star" style="width: 2.29475px; height: 2.29475px; left: 77.8513vw; top: 190.88vh; animation-duration: 4.66831s; animation-delay: 1.01242s;"></div><div class="star" style="width: 1.08304px; height: 1.08304px; left: 19.3821vw; top: 174.704vh; animation-duration: 4.4592s; animation-delay: 3.38921s;"></div><div class="star" style="width: 1.71973px; height: 1.71973px; left: 18.9853vw; top: 175.898vh; animation-duration: 3.84534s; animation-delay: 1.30938s;"></div><div class="star" style="width: 1.81159px; height: 1.81159px; left: 42.0043vw; top: 35.6956vh; animation-duration: 4.11896s; animation-delay: 1.66642s;"></div><div class="star" style="width: 2.45001px; height: 2.45001px; left: 24.3209vw; top: 188.686vh; animation-duration: 4.42646s; animation-delay: 2.20944s;"></div><div class="star" style="width: 1.32018px; height: 1.32018px; left: 89.997vw; top: 132.763vh; animation-duration: 2.96038s; animation-delay: 3.76691s;"></div><div class="star" style="width: 0.601247px; height: 0.601247px; left: 33.1387vw; top: 131.455vh; animation-duration: 3.41241s; animation-delay: 1.67487s;"></div><div class="star" style="width: 0.941906px; height: 0.941906px; left: 79.2756vw; top: 159.063vh; animation-duration: 5.01931s; animation-delay: 0.163159s;"></div><div class="star" style="width: 0.889506px; height: 0.889506px; left: 29.6298vw; top: 158.199vh; animation-duration: 5.62796s; animation-delay: 0.559211s;"></div><div class="star" style="width: 1.59392px; height: 1.59392px; left: 29.831vw; top: 22.0211vh; animation-duration: 4.19462s; animation-delay: 1.43208s;"></div><div class="star" style="width: 1.33769px; height: 1.33769px; left: 60.2303vw; top: 169.497vh; animation-duration: 4.56632s; animation-delay: 0.183233s;"></div><div class="star" style="width: 1.62878px; height: 1.62878px; left: 11.8961vw; top: 123.723vh; animation-duration: 3.25821s; animation-delay: 1.45242s;"></div><div class="star" style="width: 1.38088px; height: 1.38088px; left: 26.9353vw; top: 38.9158vh; animation-duration: 4.90243s; animation-delay: 1.30511s;"></div><div class="star" style="width: 2.10078px; height: 2.10078px; left: 41.7797vw; top: 115.001vh; animation-duration: 5.41871s; animation-delay: 2.86674s;"></div><div class="star" style="width: 2.34345px; height: 2.34345px; left: 63.8116vw; top: 110.431vh; animation-duration: 5.06147s; animation-delay: 0.465045s;"></div><div class="star" style="width: 0.768158px; height: 0.768158px; left: 74.4746vw; top: 67.7819vh; animation-duration: 4.95944s; animation-delay: 3.16054s;"></div><div class="star" style="width: 1.50282px; height: 1.50282px; left: 89.0336vw; top: 108.689vh; animation-duration: 3.9998s; animation-delay: 3.21012s;"></div><div class="shooting-star" style="left: 18.0608vw; top: 52.3128vh; animation-duration: 7.00434s; animation-delay: 3.87018s; width: 30.6332px;"></div><div class="shooting-star" style="left: 52.0314vw; top: 37.9341vh; animation-duration: 9.26987s; animation-delay: 10.1267s; width: 46.4553px;"></div><div class="shooting-star" style="left: 73.3977vw; top: 21.8397vh; animation-duration: 7.15817s; animation-delay: 9.71614s; width: 25.1808px;"></div><div class="shooting-star" style="left: 70.1492vw; top: 96.1379vh; animation-duration: 5.67944s; animation-delay: 5.49346s; width: 27.4847px;"></div><div class="shooting-star" style="left: 22.9983vw; top: 73.2428vh; animation-duration: 6.1955s; animation-delay: 2.46599s; width: 56.7531px;"></div><div class="shooting-star" style="left: 97.3413vw; top: 89.8959vh; animation-duration: 5.64694s; animation-delay: 1.48869s; width: 47.1664px;"></div><div class="shooting-star" style="left: 75.7209vw; top: 23.3674vh; animation-duration: 6.55591s; animation-delay: 14.0686s; width: 31.6057px;"></div><div class="shooting-star" style="left: 47.6904vw; top: 3.55152vh; animation-duration: 5.03661s; animation-delay: 6.5356s; width: 28.915px;"></div><div class="shooting-star" style="left: 12.9568vw; top: 40.084vh; animation-duration: 5.63759s; animation-delay: 12.175s; width: 40.4705px;"></div><div class="shooting-star" style="left: 60.4079vw; top: 52.9416vh; animation-duration: 9.62667s; animation-delay: 0.668125s; width: 41.2118px;"></div></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        <nav class="mobile-menu-nav">
+            <a href="#home" class="mobile-nav-link">HOME</a>
+            <a href="#features" class="mobile-nav-link">FEATURES</a>
+            <a href="#pricing" class="mobile-nav-link">PRICING</a>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-container">
+                    <!-- Logo using the provided image source -->
+                    <img src="logo.png" alt="AI Agent Cryptocurrency Logo" class="logo-image">
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-yellow-400 font-medium hover:text-yellow-300 transition-colors orbitron">HOME</a>
+                <a href="#features" class="text-white font-medium hover:text-yellow-300 transition-colors orbitron">FEATURES</a>
+                <a href="#pricing" class="text-white font-medium hover:text-yellow-300 transition-colors orbitron">PRICING</a>
+            </nav>
+            <button id="mobileMenuToggle" class="md:hidden text-white text-2xl">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section - IMPROVED FOR MOBILE -->
+    <section class="hero-section relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 md:pt-16" id="home">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 relative z-10">
+            <div class="flex flex-col items-center justify-center text-center">
+                <h1 class="hero-title orbitron text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
+                    <span class="crypto-gradient-text glow">AI Agent Cryptocurrency</span>
+                </h1>
+                
+                <!-- COMPLETELY REDESIGNED DESCRIPTION WITH TYPING EFFECT -->
+                <div class="description-container mb-10">
+                    <p class="typing-text typing-complete">Bayangkan karakter seperti doge atau shiba inu yang bisa bicara seperti mimpi yang menjadi nyata. Dengan AI agent Cryptocurrency, anda bisa membuat AI Agent yang mewakili koin anda yang dapat meningkatkan keterlibatan komunitas dan memperkuat brand koin tersebut.</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <a href="#pricing" class="primary-button orbitron">View Pricing</a>
+                </div>
+                
+                <!-- Free Website Builder text below the button -->
+                <div class="free-website-builder">FREE WEBSITE BUILDER!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 relative z-10" id="features">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="orbitron text-xl font-bold mb-4">Berinteraksi dengan Karakter Crypto</h3>
+                    <p class="text-gray-300 text-sm">
+                        Developer bisa mendesain kepribadian, sifat, gaya bahasa, suara dan emosi AI Agent agar sesuai dengan konsep koinnya.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-smile-beam"></i>
+                    </div>
+                    <h3 class="orbitron text-xl font-bold mb-4">Ciptakan Emosi pada AI Anda</h3>
+                    <p class="text-gray-300 text-sm">
+                        Pilih satu atau lebih emosi yang mencerminkan karakter coin anda. Ada ceria, ramah, happy, lucu, pemarah, dingin, pemalas, dan lainnya.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="orbitron text-xl font-bold mb-4">Setting Otak AI</h3>
+                    <p class="text-gray-300 text-sm">
+                        AI dapat dilatih untuk menjawab pertanyaan tentang proyek koin, teknologi blockchain, roadmap, dan visi jangka panjang.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="orbitron text-xl font-bold mb-4">Integrasi pada Platform</h3>
+                    <p class="text-gray-300 text-sm">
+                        Hubungkan ke Instagram, x twitter, telegram, dan platform lain serta live chat website proyek Anda.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-16 relative z-10" id="pricing">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="orbitron text-3xl md:text-4xl font-bold mb-16 text-center">
+                <span class="crypto-gradient-text">Pricing</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Gold Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header text-center">
+                        <!-- Ethereum icon with gold color -->
+                        <svg class="w-12 h-12 mx-auto mb-2 ethereum-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                            <path fill="currentColor" d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"></path>
+                        </svg>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-yellow-500">Gold</h3>
+                        <p class="text-gray-300 mb-4">Cocok untuk developer baru</p>
+                        <p class="text-2xl font-bold mb-0">Rp2000K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Respons</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited Active User</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Website Cryptocurrency</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Onboarding</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Embed Code</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Web &amp; Socmed Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Telegram Integration</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>AI Group Conversation</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Voice Labs</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Twitter X AI Posting</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-purple" id="goldPlanButton">Choose Plan</div>
+                </div>
+                
+                <!-- Diamond Plan -->
+                <div class="pricing-card popular">
+                    <div class="pricing-header text-center">
+                        <!-- Ethereum icon with blue color -->
+                        <svg class="w-12 h-12 mx-auto mb-2 ethereum-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                            <path fill="currentColor" d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"></path>
+                        </svg>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-blue-500">Diamond</h3>
+                        <p class="text-gray-300 mb-4">Fokus pada skalabilitas</p>
+                        <p class="text-2xl font-bold mb-0">Rp5000K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Respons</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited Active User</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Onboarding</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Embed Code</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Web &amp; Socmed Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Telegram Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Website AI Builder</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>AI Group Conversation</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Voice Labs</span>
+                        </div>
+                        <div class="pricing-feature excluded">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Twitter X AI Posting</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-popular" id="diamondPlanButton">Choose Plan</div>
+                </div>
+                
+                <!-- Emerald Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header text-center">
+                        <!-- Ethereum icon with emerald color -->
+                        <svg class="w-12 h-12 mx-auto mb-2 ethereum-emerald" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                            <path fill="currentColor" d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"></path>
+                        </svg>
+                        <h3 class="orbitron text-2xl font-bold mb-2 text-emerald-500">Emerald</h3>
+                        <p class="text-gray-300 mb-4">Go to billion marketcap</p>
+                        <p class="text-2xl font-bold mb-0">Rp7000K<span class="text-gray-400 text-sm">/bln</span></p>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited AI Respons</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited Active User</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced KnowledgeBase</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Onboarding</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Embed Code</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Web &amp; Socmed Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Whatsapp Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Telegram Integration</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Website AI Builder</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>AI Group Conversation</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Voice Labs</span>
+                        </div>
+                        <div class="pricing-feature included">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Twitter X AI Posting</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button pricing-button-purple" id="emeraldPlanButton">Consult Now</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gold Plan Modal -->
+    <div class="modal" id="goldPlanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeGoldModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-yellow-500">Gold Plan</h3>
+                <p class="text-gray-300">Cocok untuk developer baru</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp2,000,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp220,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp2,220,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/yhh1yx1R7Do2BnyYpASZ" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-yhh1yx1R7Do2BnyYpASZ" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="AI Agent Crypto Gold" data-height="729" data-layout-iframe-id="inline-yhh1yx1R7Do2BnyYpASZ" data-form-id="yhh1yx1R7Do2BnyYpASZ" title="AI Agent Crypto Gold" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diamond Plan Modal -->
+    <div class="modal" id="diamondPlanModal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-modal" id="closeDiamondModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-blue-500">Diamond Plan</h3>
+                <p class="text-gray-300">Fokus pada skalabilitas</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp5,000,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp550,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp5,550,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container" style="height: 703px;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/mVl0omMQyWykMUHlmtuS" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-mVl0omMQyWykMUHlmtuS" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="AI Agent Crypto Diamond" data-height="703" data-layout-iframe-id="inline-mVl0omMQyWykMUHlmtuS" data-form-id="mVl0omMQyWykMUHlmtuS" title="AI Agent Crypto Diamond" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Emerald Plan Modal -->
+    <div class="modal" id="emeraldPlanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeEmeraldModal">✕</button>
+            <div class="modal-header">
+                <h3 class="orbitron text-2xl font-bold text-emerald-500">Emerald Plan</h3>
+                <p class="text-gray-300">Go to billion marketcap</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Harga</span>
+                    <span>Rp7,000,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>PPN 11%</span>
+                    <span>Rp770,000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>Rp7,770,000</span>
+                </div>
+            </div>
+            
+            <div class="form-container" style="height: 703px;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading form...</p>
+                </div>
+                <iframe src="https://api.leadconnectorhq.com/widget/form/vwuSagSJvPBAgVAUqUwH" style="width: 100%; height: 100%; border: none; border-radius: 3px; overflow: auto;" id="inline-vwuSagSJvPBAgVAUqUwH" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="AI Agent Crypto emerald" data-height="703" data-layout-iframe-id="inline-vwuSagSJvPBAgVAUqUwH" data-form-id="vwuSagSJvPBAgVAUqUwH" title="AI Agent Crypto emerald" scrolling="yes">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-80 border-t border-purple-900 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="logo-container h-10">
+                        <img src="logo.png" alt="AI Agent Cryptocurrency Logo" class="logo-image">
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400">© 2023 AGENCY AI. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9500a61b33e3ce77',t:'MTc0OTk3NTYzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+
+</body><chatgpt-sidebar data-gpts-theme="light"></chatgpt-sidebar></html>
