@@ -281,22 +281,27 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 12px;
-        }
-        
-        .comment-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(123, 58, 237, 0.4);
+            margin: 0;
         }
         
         .cancel-btn {
-            background: rgba(60, 60, 80, 0.6);
-        }
-        
-        .cancel-btn:hover {
-            background: rgba(80, 80, 100, 0.8);
-            box-shadow: 0 3px 10px rgba(60, 60, 80, 0.4);
-        }
-        
+    background: rgba(60, 60, 80, 0.6);
+    border-radius: 6px 0 0 6px; /* Sudut kiri membulat, kanan lurus */
+}
+
+#submit-comment {
+    border-radius: 0 6px 6px 0; /* Sudut kanan membulat, kiri lurus */
+}
+
+.comment-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(123, 58, 237, 0.4);
+}
+
+.cancel-btn:hover {
+    background: rgba(80, 80, 100, 0.8);
+    box-shadow: 0 3px 10px rgba(60, 60, 80, 0.4);
+}
         .code-editor {
             display: flex;
             width: 100%;
@@ -399,8 +404,8 @@
         <div id="comment-form">
             <textarea id="comment-input" placeholder="type prompt here"></textarea>
             <div class="comment-buttons">
-                <button class="comment-btn" id="submit-comment">Kirim</button>
                 <button class="comment-btn cancel-btn" id="cancel-comment">Batal</button>
+                <button class="comment-btn" id="submit-comment">Kirim</button>
             </div>
         </div>
     </div>
