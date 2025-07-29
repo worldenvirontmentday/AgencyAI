@@ -187,48 +187,49 @@
             box-shadow: 0 5px 15px rgba(123, 58, 237, 0.4);
         }
         
-        .small-buttons {
-            display: flex;
-            justify-content: flex-start;
-            gap: 0px;
-            flex-wrap: nowrap;
-        }
-        
-        .small-btn {
-            background: rgba(30, 30, 60, 0.4);
-            border: 1px solid rgba(138, 75, 255, 0.3);
-            color: #8b5cf6;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        
-        .small-btn:hover {
-            background: rgba(138, 75, 255, 0.2);
-            border-color: rgba(138, 75, 255, 0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 75, 255, 0.3);
-        }
-        
-        .small-btn.active {
-            background: rgba(138, 75, 255, 0.4);
-            border-color: rgba(138, 75, 255, 0.8);
-            color: #a855f7;
-        }
-        
-        .small-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
+.small-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0px; /* Ini sudah benar, tidak perlu diubah */
+    flex-wrap: nowrap;
+}
+
+.small-btn {
+    background: rgba(30, 30, 60, 0.4);
+    border: none; /* Ganti dari border: 1px solid rgba(138, 75, 255, 0.3) */
+    color: #8b5cf6;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    margin: 0; /* Tambahkan ini untuk memastikan tidak ada margin bawaan */
+}
+
+.small-btn:hover {
+    background: rgba(138, 75, 255, 0.2);
+    border: none; /* Ganti dari border-color: rgba(138, 75, 255, 0.6) */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 75, 255, 0.3);
+}
+
+.small-btn.active {
+    background: rgba(138, 75, 255, 0.4);
+    border: none; /* Ganti dari border-color: rgba(138, 75, 255, 0.8) */
+    color: #a855f7;
+}
+
+.small-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
         
         /* Comment form styling */
         #comment-form {
