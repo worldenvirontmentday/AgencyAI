@@ -548,6 +548,42 @@
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
+
+                        // Mobile menu functionality
+        function initMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            // Open mobile menu
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                mobileMenuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            });
+
+            // Close mobile menu
+            function closeMenu() {
+                mobileMenu.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+
+            mobileMenuClose.addEventListener('click', closeMenu);
+            mobileMenuOverlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking on a link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        }
+
+        // Initialize mobile menu when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initMobileMenu();
+        });
                 
                 // Random size between 1-3px
                 const size = Math.random() * 2 + 1;
