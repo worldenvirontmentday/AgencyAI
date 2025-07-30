@@ -1,0 +1,1202 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Your Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Orbitron:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Root Variables */
+        :root {
+            --primary: #8A2BE2;
+            --secondary: #4B0082;
+            --accent: #00BFFF;
+            --dark: #0A0A0A;
+            --light: #E0E0E0;
+            --purple-900: rgb(88, 28, 135);
+            --bitcoin: #f7931a;
+            --ethereum: #627eea;
+            --gold: #FFD700;
+            --diamond-blue: #3b82f6;
+            --emerald: #10b981;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #050505;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.7), 0 0 20px rgba(147, 51, 234, 0.5);
+        }
+
+        .purple-glow {
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.5), 0 0 30px rgba(147, 51, 234, 0.3);
+        }
+
+        .blue-glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .yellow-glow {
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.5), 0 0 30px rgba(234, 179, 8, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .crypto-gradient-text {
+            background: linear-gradient(90deg, #f7931a, #627eea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .purple-gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+        }
+
+        .grid-bg {
+            background-image: 
+            linear-gradient(rgba(147, 51, 234, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(147, 51, 234, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-slow {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-fast {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse {
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Glowing particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particle-animation 15s infinite linear;
+        }
+
+        @keyframes particle-animation {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0.3;
+            }
+        }
+
+        /* Star particles */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Shooting star */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff);
+            border-radius: 50%;
+            animation: shooting 10s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes shooting {
+            0% {
+                transform: translateX(0) translateY(0) rotate(315deg);
+                opacity: 0;
+            }
+            1% {
+                opacity: 1;
+            }
+            5% {
+                transform: translateX(-100px) translateY(100px) rotate(315deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(-100px) translateY(100px) rotate(315deg);
+                opacity: 0;
+            }
+        }
+
+        /* Logo Container */
+        .logo-container {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            height: 100%;
+            width: auto;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(147, 51, 234, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(147, 51, 234, 0.8);
+        }
+
+        /* Holographic Pill Input */
+        .holographic-pill-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .holographic-pill {
+            position: relative;
+            flex-grow: 1;
+            border-radius: 50px;
+            overflow: hidden;
+            background: rgba(15, 15, 20, 0.3);
+            padding: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .holographic-pill::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, 
+                rgba(139, 92, 246, 0.7), 
+                rgba(59, 130, 246, 0.7), 
+                rgba(0, 191, 255, 0.7), 
+                rgba(139, 92, 246, 0.7));
+            z-index: -1;
+            animation: border-animation 6s linear infinite;
+            border-radius: 50px;
+            opacity: 0.5;
+            filter: blur(1px);
+        }
+
+        @keyframes border-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .holographic-pill-inner {
+            position: relative;
+            background: rgba(15, 15, 20, 0.6);
+            border-radius: 48px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(147, 51, 234, 0.2);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .holographic-pill-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 50%, rgba(147, 51, 234, 0.05) 50%),
+                linear-gradient(rgba(147, 51, 234, 0.05) 50%, transparent 50%);
+            background-size: 4px 4px;
+            border-radius: 48px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .holographic-input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            font-family: 'Roboto', sans-serif;
+            width: 100%;
+            min-height: 24px;
+            resize: none;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .holographic-input:focus {
+            outline: none;
+        }
+
+        .holographic-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .holographic-scan {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(147, 51, 234, 0), 
+                rgba(147, 51, 234, 0.8), 
+                rgba(59, 130, 246, 0.8), 
+                rgba(59, 130, 246, 0),
+                transparent);
+            animation: scan 3s ease-in-out infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .generate-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.8), rgba(59, 130, 246, 0.8));
+            border-radius: 50px;
+            padding: 12px 24px;
+            margin-left: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.9), rgba(59, 130, 246, 0.9));
+        }
+
+        .coin-icon {
+            width: 16px;
+            height: 16px;
+            margin: 0 4px;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        /* Center content vertically */
+        .hero-content {
+            min-height: calc(100vh - 76px); /* Subtract header height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 450px;
+            background: linear-gradient(135deg, rgba(25, 25, 35, 0.9), rgba(15, 15, 25, 0.95));
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 0 30px rgba(147, 51, 234, 0.3);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            overflow: hidden;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-header {
+            position: relative;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+            background: rgba(20, 20, 30, 0.8);
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.7), rgba(59, 130, 246, 0.7));
+        }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: white;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button.active {
+            color: white;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.7), rgba(59, 130, 246, 0.7));
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(30, 30, 40, 0.6);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(147, 51, 234, 0.7);
+            box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-error {
+            color: #f87171;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-error.visible {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.8), rgba(59, 130, 246, 0.8));
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.9), rgba(59, 130, 246, 0.9));
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.4);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Success Animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            position: relative;
+            display: none;
+        }
+
+        .success-checkmark.show {
+            display: block;
+        }
+
+        .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #4CAF50;
+        }
+
+        .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+
+        .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+
+        .check-icon::before, .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: transparent;
+            transform: rotate(-45deg);
+        }
+
+        .icon-line {
+            height: 5px;
+            background-color: #4CAF50;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+
+        .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+
+        .icon-circle {
+            top: -4px;
+            left: -4px;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            box-sizing: content-box;
+            border: 4px solid rgba(76, 175, 80, 0.5);
+        }
+
+        .icon-fix {
+            top: 8px;
+            width: 5px;
+            left: 26px;
+            z-index: 1;
+            height: 85px;
+            position: absolute;
+            transform: rotate(-45deg);
+            background-color: transparent;
+        }
+
+        @keyframes rotate-circle {
+            0% {
+                transform: rotate(-45deg);
+            }
+            5% {
+                transform: rotate(-45deg);
+            }
+            12% {
+                transform: rotate(-405deg);
+            }
+            100% {
+                transform: rotate(-405deg);
+            }
+        }
+
+        @keyframes icon-line-tip {
+            0% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+            54% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+            70% {
+                width: 50px;
+                left: -8px;
+                top: 37px;
+            }
+            84% {
+                width: 17px;
+                left: 21px;
+                top: 48px;
+            }
+            100% {
+                width: 25px;
+                left: 14px;
+                top: 45px;
+            }
+        }
+
+        @keyframes icon-line-long {
+            0% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+            65% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+            84% {
+                width: 55px;
+                right: 0px;
+                top: 35px;
+            }
+            100% {
+                width: 47px;
+                right: 8px;
+                top: 38px;
+            }
+        }
+
+        /* Error Animation */
+        .error-mark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            position: relative;
+            display: none;
+        }
+
+        .error-mark.show {
+            display: block;
+        }
+
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #F44336;
+        }
+
+        .error-icon::before, .error-icon::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 50px;
+            background-color: #F44336;
+            border-radius: 2px;
+            top: 15px;
+            left: 37px;
+        }
+
+        .error-icon::before {
+            transform: rotate(45deg);
+            animation: error-icon-before 0.75s;
+        }
+
+        .error-icon::after {
+            transform: rotate(-45deg);
+            animation: error-icon-after 0.75s;
+        }
+
+        @keyframes error-icon-before {
+            0% {
+                transform: rotate(45deg) scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes error-icon-after {
+            0% {
+                transform: rotate(-45deg) scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(-45deg) scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-bottom-10{bottom:-2.5rem}.-left-10{left:-2.5rem}.-right-10{right:-2.5rem}.-top-10{top:-2.5rem}.left-0{left:0px}.top-0{top:0px}.z-50{z-index:50}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-6{margin-bottom:1.5rem}.mt-12{margin-top:3rem}.mt-4{margin-top:1rem}.flex{display:flex}.hidden{display:none}.h-10{height:2.5rem}.h-40{height:10rem}.min-h-screen{min-height:100vh}.w-40{width:10rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.items-center{align-items:center}.justify-between{justify-content:space-between}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.rounded-full{border-radius:9999px}.border-b{border-bottom-width:1px}.border-purple-900{--tw-border-opacity:1;border-color:rgb(88 28 135 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-blue-600\/20{background-color:rgb(37 99 235 / 0.2)}.bg-purple-600\/20{background-color:rgb(147 51 234 / 0.2)}.bg-opacity-80{--tw-bg-opacity:0.8}.px-4{padding-left:1rem;padding-right:1rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.blur-3xl{--tw-blur:blur(64px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:text-purple-300:hover{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.md\:flex{display:flex}.md\:hidden{display:none}.md\:text-5xl{font-size:3rem;line-height:1}}</style></head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles">
+        <!-- Stars will be added by JS -->
+    <div class="star" style="width: 1.13373px; height: 1.13373px; left: 17.7569%; top: 72.5108%; animation-delay: 1.10772s;"></div><div class="star" style="width: 1.9085px; height: 1.9085px; left: 56.8926%; top: 78.4046%; animation-delay: 1.14259s;"></div><div class="star" style="width: 1.7078px; height: 1.7078px; left: 89.2807%; top: 57.1607%; animation-delay: 2.0386s;"></div><div class="star" style="width: 1.98707px; height: 1.98707px; left: 3.45958%; top: 0.206726%; animation-delay: 1.74299s;"></div><div class="star" style="width: 2.86342px; height: 2.86342px; left: 8.45863%; top: 71.7134%; animation-delay: 0.470866s;"></div><div class="star" style="width: 1.71668px; height: 1.71668px; left: 47.3864%; top: 51.9473%; animation-delay: 1.69652s;"></div><div class="star" style="width: 2.55703px; height: 2.55703px; left: 18.396%; top: 42.4356%; animation-delay: 3.6112s;"></div><div class="star" style="width: 2.83794px; height: 2.83794px; left: 57.9744%; top: 52.2311%; animation-delay: 3.52061s;"></div><div class="star" style="width: 2.61915px; height: 2.61915px; left: 38.9981%; top: 74.2875%; animation-delay: 2.41627s;"></div><div class="star" style="width: 2.70409px; height: 2.70409px; left: 1.52365%; top: 11.1819%; animation-delay: 3.31734s;"></div><div class="star" style="width: 2.50118px; height: 2.50118px; left: 75.4201%; top: 47.2877%; animation-delay: 0.384663s;"></div><div class="star" style="width: 2.9066px; height: 2.9066px; left: 55.68%; top: 32.796%; animation-delay: 1.79803s;"></div><div class="star" style="width: 2.03617px; height: 2.03617px; left: 14.8121%; top: 35.3938%; animation-delay: 2.4386s;"></div><div class="star" style="width: 1.86051px; height: 1.86051px; left: 45.1666%; top: 63.1108%; animation-delay: 2.38728s;"></div><div class="star" style="width: 2.72634px; height: 2.72634px; left: 56.5984%; top: 48.8889%; animation-delay: 1.56836s;"></div><div class="star" style="width: 2.10069px; height: 2.10069px; left: 37.1442%; top: 31.8904%; animation-delay: 1.68634s;"></div><div class="star" style="width: 2.44152px; height: 2.44152px; left: 5.9048%; top: 41.4714%; animation-delay: 3.8934s;"></div><div class="star" style="width: 1.98109px; height: 1.98109px; left: 59.5385%; top: 76.4379%; animation-delay: 2.3056s;"></div><div class="star" style="width: 2.60748px; height: 2.60748px; left: 21.7914%; top: 20.4102%; animation-delay: 3.80351s;"></div><div class="star" style="width: 1.77361px; height: 1.77361px; left: 13.9628%; top: 26.2696%; animation-delay: 0.262702s;"></div><div class="star" style="width: 2.38557px; height: 2.38557px; left: 16.8095%; top: 26.8757%; animation-delay: 1.11865s;"></div><div class="star" style="width: 1.87711px; height: 1.87711px; left: 89.2969%; top: 19.9169%; animation-delay: 0.222581s;"></div><div class="star" style="width: 2.98664px; height: 2.98664px; left: 52.7894%; top: 76.5477%; animation-delay: 2.2988s;"></div><div class="star" style="width: 2.11253px; height: 2.11253px; left: 52.086%; top: 90.4971%; animation-delay: 3.52431s;"></div><div class="star" style="width: 1.99503px; height: 1.99503px; left: 93.4973%; top: 5.09032%; animation-delay: 1.59845s;"></div><div class="star" style="width: 1.38209px; height: 1.38209px; left: 81.3903%; top: 22.9731%; animation-delay: 1.96715s;"></div><div class="star" style="width: 1.59483px; height: 1.59483px; left: 2.02595%; top: 81.5475%; animation-delay: 1.5333s;"></div><div class="star" style="width: 2.02677px; height: 2.02677px; left: 45.0313%; top: 92.0366%; animation-delay: 2.24138s;"></div><div class="star" style="width: 2.4337px; height: 2.4337px; left: 36.0433%; top: 62.1205%; animation-delay: 2.50816s;"></div><div class="star" style="width: 1.59804px; height: 1.59804px; left: 26.6685%; top: 69.9477%; animation-delay: 0.910019s;"></div><div class="star" style="width: 2.2608px; height: 2.2608px; left: 58.1552%; top: 21.5762%; animation-delay: 3.34391s;"></div><div class="star" style="width: 2.1798px; height: 2.1798px; left: 45.1601%; top: 19.5038%; animation-delay: 3.65274s;"></div><div class="star" style="width: 2.46699px; height: 2.46699px; left: 10.0034%; top: 65.1361%; animation-delay: 1.68668s;"></div><div class="star" style="width: 1.52044px; height: 1.52044px; left: 96.5951%; top: 8.37781%; animation-delay: 1.17542s;"></div><div class="star" style="width: 2.10615px; height: 2.10615px; left: 84.7566%; top: 38.2792%; animation-delay: 0.241998s;"></div><div class="star" style="width: 2.16602px; height: 2.16602px; left: 7.75641%; top: 63.1718%; animation-delay: 3.78397s;"></div><div class="star" style="width: 1.38797px; height: 1.38797px; left: 15.593%; top: 19.9773%; animation-delay: 3.43855s;"></div><div class="star" style="width: 1.23921px; height: 1.23921px; left: 17.9785%; top: 71.3007%; animation-delay: 1.81172s;"></div><div class="star" style="width: 1.26778px; height: 1.26778px; left: 36.7135%; top: 94.7228%; animation-delay: 3.22735s;"></div><div class="star" style="width: 1.41106px; height: 1.41106px; left: 64.0561%; top: 80.3014%; animation-delay: 3.00987s;"></div><div class="star" style="width: 1.78672px; height: 1.78672px; left: 48.6925%; top: 92.1088%; animation-delay: 0.712542s;"></div><div class="star" style="width: 2.91795px; height: 2.91795px; left: 26.6432%; top: 92.4155%; animation-delay: 3.34772s;"></div><div class="star" style="width: 1.5097px; height: 1.5097px; left: 83.8057%; top: 81.5375%; animation-delay: 3.81946s;"></div><div class="star" style="width: 1.52805px; height: 1.52805px; left: 69.4153%; top: 4.66815%; animation-delay: 1.52263s;"></div><div class="star" style="width: 1.04813px; height: 1.04813px; left: 16.1473%; top: 50.2887%; animation-delay: 2.89285s;"></div><div class="star" style="width: 1.6732px; height: 1.6732px; left: 49.0813%; top: 88.1198%; animation-delay: 2.18343s;"></div><div class="star" style="width: 2.55025px; height: 2.55025px; left: 2.27172%; top: 78.169%; animation-delay: 2.3435s;"></div><div class="star" style="width: 2.03965px; height: 2.03965px; left: 26.3932%; top: 91.8951%; animation-delay: 3.15844s;"></div><div class="star" style="width: 1.72312px; height: 1.72312px; left: 53.948%; top: 83.7893%; animation-delay: 0.0518114s;"></div><div class="star" style="width: 2.43899px; height: 2.43899px; left: 48.8576%; top: 74.1834%; animation-delay: 3.14156s;"></div><div class="star" style="width: 1.89024px; height: 1.89024px; left: 49.3437%; top: 40.6597%; animation-delay: 3.63754s;"></div><div class="star" style="width: 2.20772px; height: 2.20772px; left: 92.5995%; top: 47.1873%; animation-delay: 3.05614s;"></div><div class="star" style="width: 2.04961px; height: 2.04961px; left: 49.4312%; top: 7.87016%; animation-delay: 3.2081s;"></div><div class="star" style="width: 1.75854px; height: 1.75854px; left: 97.2044%; top: 17.8353%; animation-delay: 0.927264s;"></div><div class="star" style="width: 1.84886px; height: 1.84886px; left: 10.5793%; top: 89.1862%; animation-delay: 3.43341s;"></div><div class="star" style="width: 2.42052px; height: 2.42052px; left: 24.8199%; top: 5.93385%; animation-delay: 1.22803s;"></div><div class="star" style="width: 2.91038px; height: 2.91038px; left: 25.3904%; top: 80.9555%; animation-delay: 0.0651825s;"></div><div class="star" style="width: 1.64248px; height: 1.64248px; left: 87.9906%; top: 26.3464%; animation-delay: 0.288149s;"></div><div class="star" style="width: 2.97581px; height: 2.97581px; left: 91.4837%; top: 27.1647%; animation-delay: 1.32082s;"></div><div class="star" style="width: 1.80874px; height: 1.80874px; left: 86.2607%; top: 4.36562%; animation-delay: 2.76706s;"></div><div class="star" style="width: 2.78823px; height: 2.78823px; left: 74.8027%; top: 89.698%; animation-delay: 2.9016s;"></div><div class="star" style="width: 2.01651px; height: 2.01651px; left: 53.0477%; top: 63.7428%; animation-delay: 1.77329s;"></div><div class="star" style="width: 1.20291px; height: 1.20291px; left: 72.3721%; top: 57.5066%; animation-delay: 3.28668s;"></div><div class="star" style="width: 2.99563px; height: 2.99563px; left: 85.4017%; top: 98.1503%; animation-delay: 1.5695s;"></div><div class="star" style="width: 2.62062px; height: 2.62062px; left: 16.293%; top: 60.5614%; animation-delay: 2.05175s;"></div><div class="star" style="width: 2.28514px; height: 2.28514px; left: 70.03%; top: 22.1296%; animation-delay: 1.7409s;"></div><div class="star" style="width: 1.49467px; height: 1.49467px; left: 87.9246%; top: 77.2079%; animation-delay: 2.8569s;"></div><div class="star" style="width: 2.10891px; height: 2.10891px; left: 80.021%; top: 2.04751%; animation-delay: 1.34494s;"></div><div class="star" style="width: 2.13412px; height: 2.13412px; left: 23.4101%; top: 60.2585%; animation-delay: 1.08131s;"></div><div class="star" style="width: 2.38227px; height: 2.38227px; left: 17.7343%; top: 53.927%; animation-delay: 2.28652s;"></div><div class="star" style="width: 1.60803px; height: 1.60803px; left: 88.8934%; top: 84.8873%; animation-delay: 0.36441s;"></div><div class="star" style="width: 1.84013px; height: 1.84013px; left: 63.3564%; top: 28.1512%; animation-delay: 3.49665s;"></div><div class="star" style="width: 2.32779px; height: 2.32779px; left: 57.7331%; top: 58.5122%; animation-delay: 1.71976s;"></div><div class="star" style="width: 1.22656px; height: 1.22656px; left: 67.4292%; top: 38.8465%; animation-delay: 0.610925s;"></div><div class="star" style="width: 2.70393px; height: 2.70393px; left: 78.6817%; top: 10.7383%; animation-delay: 0.631675s;"></div><div class="star" style="width: 1.53712px; height: 1.53712px; left: 96.7847%; top: 37.368%; animation-delay: 3.56334s;"></div><div class="star" style="width: 2.43381px; height: 2.43381px; left: 1.10571%; top: 13.2753%; animation-delay: 0.22473s;"></div><div class="star" style="width: 2.62047px; height: 2.62047px; left: 34.8576%; top: 44.3908%; animation-delay: 3.16704s;"></div><div class="star" style="width: 2.73815px; height: 2.73815px; left: 53.9436%; top: 59.7779%; animation-delay: 2.01943s;"></div><div class="star" style="width: 1.97304px; height: 1.97304px; left: 81.8383%; top: 19.5922%; animation-delay: 2.70236s;"></div><div class="star" style="width: 1.01092px; height: 1.01092px; left: 25.8274%; top: 68.626%; animation-delay: 3.88929s;"></div><div class="star" style="width: 1.06827px; height: 1.06827px; left: 22.4022%; top: 13.5731%; animation-delay: 2.47749s;"></div><div class="star" style="width: 2.80313px; height: 2.80313px; left: 51.5024%; top: 91.1707%; animation-delay: 2.24552s;"></div><div class="star" style="width: 1.72263px; height: 1.72263px; left: 19.97%; top: 78.5851%; animation-delay: 3.7758s;"></div><div class="star" style="width: 1.2142px; height: 1.2142px; left: 47.4479%; top: 58.9868%; animation-delay: 0.124343s;"></div><div class="star" style="width: 2.18136px; height: 2.18136px; left: 16.074%; top: 41.084%; animation-delay: 2.29778s;"></div><div class="star" style="width: 2.4309px; height: 2.4309px; left: 26.859%; top: 19.2554%; animation-delay: 2.90293s;"></div><div class="star" style="width: 2.28182px; height: 2.28182px; left: 51.159%; top: 80.7137%; animation-delay: 2.90197s;"></div><div class="star" style="width: 2.0895px; height: 2.0895px; left: 56.2904%; top: 76.8141%; animation-delay: 2.21703s;"></div><div class="star" style="width: 2.65918px; height: 2.65918px; left: 87.5075%; top: 52.7066%; animation-delay: 3.00747s;"></div><div class="star" style="width: 1.38742px; height: 1.38742px; left: 18.1085%; top: 24.8267%; animation-delay: 2.67489s;"></div><div class="star" style="width: 1.62159px; height: 1.62159px; left: 18.2246%; top: 58.0586%; animation-delay: 2.08863s;"></div><div class="star" style="width: 1.77055px; height: 1.77055px; left: 27.1663%; top: 4.25551%; animation-delay: 2.23686s;"></div><div class="star" style="width: 2.22691px; height: 2.22691px; left: 48.3442%; top: 82.5988%; animation-delay: 1.19243s;"></div><div class="star" style="width: 2.01203px; height: 2.01203px; left: 51.9083%; top: 14.6672%; animation-delay: 0.135241s;"></div><div class="star" style="width: 1.61932px; height: 1.61932px; left: 62.4311%; top: 10.6942%; animation-delay: 2.74761s;"></div><div class="star" style="width: 1.27474px; height: 1.27474px; left: 90.6208%; top: 86.6623%; animation-delay: 0.72745s;"></div><div class="star" style="width: 2.82307px; height: 2.82307px; left: 34.6752%; top: 99.492%; animation-delay: 2.11187s;"></div><div class="star" style="width: 1.58554px; height: 1.58554px; left: 25.132%; top: 70.0534%; animation-delay: 0.632842s;"></div><div class="star" style="width: 2.41356px; height: 2.41356px; left: 82.8892%; top: 66.7501%; animation-delay: 3.13374s;"></div><div class="shooting-star" style="left: 12.9922%; top: 27.7674%; animation-delay: 5.30895s;"></div><div class="shooting-star" style="left: 83.1709%; top: 33.2422%; animation-delay: 12.5068s;"></div><div class="shooting-star" style="left: 15.1208%; top: 69.109%; animation-delay: 13.0081s;"></div><div class="shooting-star" style="left: 93.7134%; top: 43.1639%; animation-delay: 5.47341s;"></div><div class="shooting-star" style="left: 75.3343%; top: 29.2721%; animation-delay: 11.1329s;"></div><div class="particle" style="width: 2.32477px; height: 2.32477px; left: 12.1622%; bottom: -2.32477px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 11.8143s; animation-delay: 0.422123s;"></div><div class="particle" style="width: 5.74051px; height: 5.74051px; left: 49.0587%; bottom: -5.74051px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 7.43674s; animation-delay: 1.57328s;"></div><div class="particle" style="width: 2.36033px; height: 2.36033px; left: 91.1239%; bottom: -2.36033px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 9.23258s; animation-delay: 1.25121s;"></div><div class="particle" style="width: 7.8013px; height: 7.8013px; left: 9.46464%; bottom: -7.8013px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 8.7163s; animation-delay: 0.437349s;"></div><div class="particle" style="width: 2.97542px; height: 2.97542px; left: 71.1332%; bottom: -2.97542px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 11.9439s; animation-delay: 2.15034s;"></div><div class="particle" style="width: 3.685px; height: 3.685px; left: 72.4122%; bottom: -3.685px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 14.6892s; animation-delay: 2.58882s;"></div><div class="particle" style="width: 3.43302px; height: 3.43302px; left: 15.1942%; bottom: -3.43302px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 10.469s; animation-delay: 0.325856s;"></div><div class="particle" style="width: 5.09654px; height: 5.09654px; left: 70.8087%; bottom: -5.09654px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 8.03062s; animation-delay: 1.39208s;"></div><div class="particle" style="width: 5.64688px; height: 5.64688px; left: 55.809%; bottom: -5.64688px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 10.7075s; animation-delay: 1.12547s;"></div><div class="particle" style="width: 2.70998px; height: 2.70998px; left: 2.13945%; bottom: -2.70998px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 11.2077s; animation-delay: 1.08482s;"></div><div class="particle" style="width: 3.97204px; height: 3.97204px; left: 33.5378%; bottom: -3.97204px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 14.647s; animation-delay: 0.14935s;"></div><div class="particle" style="width: 4.62084px; height: 4.62084px; left: 52.7606%; bottom: -4.62084px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 13.7078s; animation-delay: 2.29279s;"></div><div class="particle" style="width: 5.26754px; height: 5.26754px; left: 1.73096%; bottom: -5.26754px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 14.048s; animation-delay: 2.93157s;"></div><div class="particle" style="width: 2.17299px; height: 2.17299px; left: 36.2598%; bottom: -2.17299px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 10.6664s; animation-delay: 2.98222s;"></div><div class="particle" style="width: 7.54178px; height: 7.54178px; left: 15.8941%; bottom: -7.54178px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 14.6735s; animation-delay: 1.6123s;"></div><div class="particle" style="width: 3.13991px; height: 3.13991px; left: 97.4241%; bottom: -3.13991px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 8.53825s; animation-delay: 0.633714s;"></div><div class="particle" style="width: 5.72334px; height: 5.72334px; left: 34.8638%; bottom: -5.72334px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 10.5018s; animation-delay: 2.25512s;"></div><div class="particle" style="width: 2.19742px; height: 2.19742px; left: 45.1374%; bottom: -2.19742px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 13.9149s; animation-delay: 2.13521s;"></div><div class="particle" style="width: 6.0501px; height: 6.0501px; left: 9.36016%; bottom: -6.0501px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 12.3122s; animation-delay: 0.0299623s;"></div><div class="particle" style="width: 5.05727px; height: 5.05727px; left: 34.2176%; bottom: -5.05727px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 8.60243s; animation-delay: 0.626115s;"></div><div class="particle" style="width: 4.50354px; height: 4.50354px; left: 71.7593%; bottom: -4.50354px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 12.5533s; animation-delay: 2.00229s;"></div><div class="particle" style="width: 4.8841px; height: 4.8841px; left: 26.9726%; bottom: -4.8841px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 7.0961s; animation-delay: 2.1871s;"></div><div class="particle" style="width: 3.78738px; height: 3.78738px; left: 77.5604%; bottom: -3.78738px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 8.84698s; animation-delay: 0.473929s;"></div><div class="particle" style="width: 7.63457px; height: 7.63457px; left: 56.8974%; bottom: -7.63457px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 8.93419s; animation-delay: 2.42839s;"></div><div class="particle" style="width: 5.81312px; height: 5.81312px; left: 81.7213%; bottom: -5.81312px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 10.7803s; animation-delay: 2.43171s;"></div><div class="particle" style="width: 4.73783px; height: 4.73783px; left: 13.7433%; bottom: -4.73783px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 13.2741s; animation-delay: 0.823862s;"></div><div class="particle" style="width: 4.8816px; height: 4.8816px; left: 37.7489%; bottom: -4.8816px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 10.5542s; animation-delay: 2.6018s;"></div><div class="particle" style="width: 3.514px; height: 3.514px; left: 9.34716%; bottom: -3.514px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 11.29s; animation-delay: 0.544843s;"></div><div class="particle" style="width: 7.96976px; height: 7.96976px; left: 42.508%; bottom: -7.96976px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 11.1845s; animation-delay: 2.67089s;"></div><div class="particle" style="width: 3.95317px; height: 3.95317px; left: 16.3937%; bottom: -3.95317px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 11.7965s; animation-delay: 2.92358s;"></div><div class="particle" style="width: 3.04176px; height: 3.04176px; left: 79.5013%; bottom: -3.04176px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 14.7s; animation-delay: 1.35472s;"></div><div class="particle" style="width: 3.39756px; height: 3.39756px; left: 26.1705%; bottom: -3.39756px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 12.4343s; animation-delay: 0.0486147s;"></div><div class="particle" style="width: 4.17359px; height: 4.17359px; left: 47.4757%; bottom: -4.17359px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 9.0408s; animation-delay: 1.37086s;"></div><div class="particle" style="width: 5.45308px; height: 5.45308px; left: 66.1839%; bottom: -5.45308px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 12.0243s; animation-delay: 0.0817881s;"></div><div class="particle" style="width: 6.38273px; height: 6.38273px; left: 28.88%; bottom: -6.38273px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 8.26254s; animation-delay: 0.917829s;"></div><div class="particle" style="width: 7.56359px; height: 7.56359px; left: 68.6102%; bottom: -7.56359px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 13.2173s; animation-delay: 2.25787s;"></div><div class="particle" style="width: 2.67578px; height: 2.67578px; left: 18.9104%; bottom: -2.67578px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 12.799s; animation-delay: 0.263197s;"></div><div class="particle" style="width: 2.19555px; height: 2.19555px; left: 59.639%; bottom: -2.19555px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 11.5773s; animation-delay: 1.54654s;"></div><div class="particle" style="width: 7.04542px; height: 7.04542px; left: 94.8402%; bottom: -7.04542px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 11.06s; animation-delay: 1.29714s;"></div><div class="particle" style="width: 3.32762px; height: 3.32762px; left: 17.8553%; bottom: -3.32762px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 8.26441s; animation-delay: 2.2846s;"></div><div class="particle" style="width: 2.19158px; height: 2.19158px; left: 14.1768%; bottom: -2.19158px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 12.353s; animation-delay: 0.197775s;"></div><div class="particle" style="width: 2.81288px; height: 2.81288px; left: 97.9397%; bottom: -2.81288px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 7.39515s; animation-delay: 2.54226s;"></div><div class="particle" style="width: 5.76px; height: 5.76px; left: 7.65633%; bottom: -5.76px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 10.3004s; animation-delay: 1.20419s;"></div><div class="particle" style="width: 6.02432px; height: 6.02432px; left: 44.0032%; bottom: -6.02432px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 14.7507s; animation-delay: 2.54862s;"></div><div class="particle" style="width: 4.91619px; height: 4.91619px; left: 52.7526%; bottom: -4.91619px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 14.3763s; animation-delay: 2.44335s;"></div><div class="particle" style="width: 7.36942px; height: 7.36942px; left: 63.2164%; bottom: -7.36942px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 13.0404s; animation-delay: 1.46158s;"></div><div class="particle" style="width: 7.95201px; height: 7.95201px; left: 89.3982%; bottom: -7.95201px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 8.9476s; animation-delay: 0.0935312s;"></div><div class="particle" style="width: 6.10231px; height: 6.10231px; left: 26.7341%; bottom: -6.10231px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 11.0728s; animation-delay: 2.62001s;"></div><div class="particle" style="width: 2.55722px; height: 2.55722px; left: 95.2521%; bottom: -2.55722px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 10.5871s; animation-delay: 0.322856s;"></div><div class="particle" style="width: 5.08262px; height: 5.08262px; left: 14.1054%; bottom: -5.08262px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 14.649s; animation-delay: 2.1858s;"></div><div class="particle" style="width: 3.46838px; height: 3.46838px; left: 14.2051%; bottom: -3.46838px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 10.6406s;"></div><div class="particle" style="width: 4.58266px; height: 4.58266px; left: 95.2393%; bottom: -4.58266px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 9.67309s;"></div><div class="particle" style="width: 4.71814px; height: 4.71814px; left: 69.1489%; bottom: -4.71814px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 10.6837s;"></div><div class="particle" style="width: 1.9139px; height: 1.9139px; left: 82.5607%; bottom: -1.9139px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 10.9108s;"></div><div class="particle" style="width: 4.34335px; height: 4.34335px; left: 67.8801%; bottom: -4.34335px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 9.86112s;"></div><div class="particle" style="width: 2.98885px; height: 2.98885px; left: 91.165%; bottom: -2.98885px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 9.05048s;"></div><div class="particle" style="width: 1.25429px; height: 1.25429px; left: 5.87623%; bottom: -1.25429px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 9.01623s;"></div><div class="particle" style="width: 2.96076px; height: 2.96076px; left: 2.85002%; bottom: -2.96076px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 7.84573s;"></div><div class="particle" style="width: 3.54818px; height: 3.54818px; left: 90.384%; bottom: -3.54818px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 9.14028s;"></div><div class="particle" style="width: 4.27445px; height: 4.27445px; left: 66.491%; bottom: -4.27445px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 8.65727s;"></div><div class="particle" style="width: 2.26838px; height: 2.26838px; left: 63.2665%; bottom: -2.26838px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 8.84624s;"></div><div class="particle" style="width: 1.08569px; height: 1.08569px; left: 69.6975%; bottom: -1.08569px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 10.8301s;"></div><div class="particle" style="width: 2.19555px; height: 2.19555px; left: 65.8934%; bottom: -2.19555px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 9.70298s;"></div><div class="particle" style="width: 1.13526px; height: 1.13526px; left: 79.2282%; bottom: -1.13526px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 8.02049s;"></div><div class="particle" style="width: 3.64984px; height: 3.64984px; left: 29.7192%; bottom: -3.64984px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 8.71104s;"></div><div class="particle" style="width: 4.15035px; height: 4.15035px; left: 78.6136%; bottom: -4.15035px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 5.92027s;"></div><div class="particle" style="width: 4.09134px; height: 4.09134px; left: 25.3745%; bottom: -4.09134px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 6.02978s;"></div><div class="particle" style="width: 3.47652px; height: 3.47652px; left: 72.971%; bottom: -3.47652px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 5.45498s;"></div><div class="particle" style="width: 3.52425px; height: 3.52425px; left: 25.0772%; bottom: -3.52425px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 10.608s;"></div><div class="particle" style="width: 3.87483px; height: 3.87483px; left: 13.0525%; bottom: -3.87483px; background-color: rgb(247, 147, 26); box-shadow: rgb(247, 147, 26) 0px 0px 10px; animation-duration: 9.15018s;"></div><div class="particle" style="width: 2.83289px; height: 2.83289px; left: 61.0544%; bottom: -2.83289px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 7.16833s;"></div><div class="particle" style="width: 2.28032px; height: 2.28032px; left: 73.8743%; bottom: -2.28032px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 8.19s;"></div><div class="particle" style="width: 4.80168px; height: 4.80168px; left: 17.341%; bottom: -4.80168px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 6.46442s;"></div><div class="particle" style="width: 4.98763px; height: 4.98763px; left: 73.7706%; bottom: -4.98763px; background-color: rgb(139, 92, 246); box-shadow: rgb(139, 92, 246) 0px 0px 10px; animation-duration: 8.13167s;"></div><div class="particle" style="width: 2.10596px; height: 2.10596px; left: 7.40785%; bottom: -2.10596px; background-color: rgb(59, 130, 246); box-shadow: rgb(59, 130, 246) 0px 0px 10px; animation-duration: 10.0608s;"></div><div class="particle" style="width: 3.00914px; height: 3.00914px; left: 79.3325%; bottom: -3.00914px; background-color: rgb(153, 69, 255); box-shadow: rgb(153, 69, 255) 0px 0px 10px; animation-duration: 10.6279s;"></div><div class="particle" style="width: 2.3291px; height: 2.3291px; left: 73.2397%; bottom: -2.3291px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 10.5259s;"></div><div class="particle" style="width: 2.29246px; height: 2.29246px; left: 90.0125%; bottom: -2.29246px; background-color: rgb(98, 126, 234); box-shadow: rgb(98, 126, 234) 0px 0px 10px; animation-duration: 8.87405s;"></div></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-md z-50 border-b border-purple-900">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-container h-10">
+                    <img src="logo.png" alt="logo agency ai" class="logo-image">
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-purple-400 font-medium hover:text-purple-300 transition-colors orbitron">HOME</a>
+                <a href="about-us" class="text-white font-medium hover:text-purple-300 transition-colors orbitron">ABOUT US</a>
+                <a href="#services" class="text-white font-medium hover:text-purple-300 transition-colors orbitron">SERVICES</a>
+                <a href="#contact" class="text-white font-medium hover:text-purple-300 transition-colors orbitron">CONTACT</a>
+            </nav>
+            <button id="mobileMenuToggle" class="md:hidden text-white text-2xl">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg grid-bg min-h-screen relative">
+        <div class="container mx-auto px-4">
+            <div class="hero-content">
+                <h1 class="text-3xl md:text-5xl font-bold mb-6 orbitron">
+                    <span class="purple-gradient-text">Custom AI</span> 
+                    <span class="mx-2">by</span>
+                    <span class="crypto-gradient-text">Agency AI</span>
+                </h1>
+                <p class="text-gray-300 text-lg mb-12 max-w-2xl text-center">
+                    Make miracles just by prompting!
+                </p>
+                
+                <!-- Holographic Pill Input -->
+                <div class="w-full max-w-3xl relative">
+                    <div class="holographic-pill-container">
+                        <div class="holographic-pill">
+                            <div class="holographic-scan"></div>
+                            <div class="holographic-pill-inner">
+                                <textarea class="holographic-input" placeholder="Type your prompt here..." rows="1" id="expandingInput" style="height: 48px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="generate-button" id="generateBtn">
+                            Generate
+                            <svg class="coin-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" fill="none"></circle>
+                                <path d="M12 6V18M8 10H16M8 14H16" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                            24
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 w-full max-w-4xl relative">
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-600/20 rounded-full filter blur-3xl"></div>
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-600/20 rounded-full filter blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Popup -->
+    <div class="modal-overlay" id="creditModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-xl font-bold orbitron purple-gradient-text">Anda tidak memiliki Credit</h3>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-nav">
+                    <button class="tab-button active" data-tab="register">Register</button>
+                    <button class="tab-button" data-tab="login">Login</button>
+                </div>
+                
+                <!-- Register Tab -->
+                <div class="tab-content active" id="register-tab">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-input" placeholder="Masukkan nama lengkap" required="">
+                            <div class="form-error">Nama lengkap wajib diisi</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" placeholder="Masukkan username" required="">
+                            <div class="form-error">Username wajib diisi</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="Masukkan email" required="">
+                            <div class="form-error">Email wajib diisi dengan format yang benar</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">No Telepon</label>
+                            <input type="tel" class="form-input" placeholder="Masukkan no telepon" required="">
+                            <div class="form-error">No telepon wajib diisi</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Invitation Code</label>
+                            <input type="text" class="form-input" id="invitationCode" placeholder="Masukkan invitation code" required="">
+                            <div class="form-error" id="invitationError">Invitation code wajib diisi</div>
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                    
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="registerSuccess" style="display: none; text-align: center; padding: 20px;">
+                        <div class="success-checkmark">
+                            <div class="check-icon">
+                                <span class="icon-line line-tip"></span>
+                                <span class="icon-line line-long"></span>
+                                <div class="icon-circle"></div>
+                                <div class="icon-fix"></div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mt-4 mb-2 orbitron purple-gradient-text">Registrasi Berhasil!</h3>
+                        <p class="text-gray-300">Akun Anda telah berhasil dibuat.</p>
+                    </div>
+                </div>
+                
+                <!-- Login Tab -->
+                <div class="tab-content" id="login-tab">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" placeholder="Masukkan username" required="">
+                            <div class="form-error">Username wajib diisi</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" placeholder="Masukkan password" required="">
+                            <div class="form-error">Password wajib diisi</div>
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                    
+                    <!-- Error Message (Hidden by default) -->
+                    <div id="loginError" style="display: none; text-align: center; padding: 20px;">
+                        <div class="error-mark">
+                            <div class="error-icon"></div>
+                        </div>
+                        <h3 class="text-xl font-bold mt-4 mb-2 orbitron" style="color: #F44336;">Login Gagal!</h3>
+                        <p class="text-gray-300">Username atau password tidak valid.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.querySelector('.particles');
+            
+            // Create stars
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                
+                particlesContainer.appendChild(star);
+            }
+            
+            // Create shooting stars
+            for (let i = 0; i < 5; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                
+                // Random position
+                shootingStar.style.left = `${Math.random() * 100}%`;
+                shootingStar.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                shootingStar.style.animationDelay = `${Math.random() * 10 + 5}s`;
+                
+                particlesContainer.appendChild(shootingStar);
+            }
+            
+            // Create glowing particles
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                
+                // Random color
+                const colors = ['#8b5cf6', '#3b82f6', '#f7931a', '#627eea', '#9945FF'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 10px ${color}`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 8 + 7;
+                const delay = Math.random() * 3;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Create additional particles that appear more frequently
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                
+                // Random color
+                const colors = ['#8b5cf6', '#3b82f6', '#f7931a', '#627eea', '#9945FF'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 10px ${color}`;
+                
+                // Animation duration
+                const duration = Math.random() * 6 + 5;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+                
+                // Remove particle after animation completes
+                setTimeout(() => {
+                    particle.remove();
+                }, duration * 1000);
+                
+            }, 300); // Create new particles every 300ms
+
+            // Auto-expanding textarea
+            const textarea = document.getElementById('expandingInput');
+            const pill = document.querySelector('.holographic-pill');
+            const pillInner = document.querySelector('.holographic-pill-inner');
+            
+            textarea.addEventListener('input', function() {
+                // Reset height to auto to get the correct scrollHeight
+                this.style.height = 'auto';
+                
+                // Set new height based on scrollHeight
+                const newHeight = this.scrollHeight;
+                this.style.height = newHeight + 'px';
+                
+                // Adjust pill shape if text exceeds single line
+                if (newHeight > 48) {
+                    pill.style.borderRadius = '24px';
+                    pillInner.style.borderRadius = '22px';
+                } else {
+                    pill.style.borderRadius = '50px';
+                    pillInner.style.borderRadius = '48px';
+                }
+            });
+            
+            // Initialize height on page load
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+
+            // Modal functionality
+            const modal = document.getElementById('creditModal');
+            const closeModal = document.getElementById('closeModal');
+            const generateBtn = document.getElementById('generateBtn');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const registerForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+            const registerSuccess = document.getElementById('registerSuccess');
+            const loginError = document.getElementById('loginError');
+            const invitationCode = document.getElementById('invitationCode');
+            const invitationError = document.getElementById('invitationError');
+            
+            // Open modal when Generate button is clicked
+            generateBtn.addEventListener('click', function() {
+                modal.classList.add('active');
+            });
+            
+            // Close modal when close button is clicked
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
+                
+                // Reset forms and hide success/error messages
+                registerForm.style.display = 'block';
+                loginForm.style.display = 'block';
+                registerSuccess.style.display = 'none';
+                loginError.style.display = 'none';
+                
+                // Reset form fields
+                registerForm.reset();
+                loginForm.reset();
+            });
+            
+            // Tab switching
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
+                    
+                    // Reset forms and hide success/error messages
+                    registerForm.style.display = 'block';
+                    loginForm.style.display = 'block';
+                    registerSuccess.style.display = 'none';
+                    loginError.style.display = 'none';
+                    
+                    // Reset form fields
+                    registerForm.reset();
+                    loginForm.reset();
+                });
+            });
+            
+            // Register form submission
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Check if invitation code is valid
+                const validCode = "L3YV14N4$H@R4P0V";
+                if (invitationCode.value !== validCode) {
+                    invitationError.textContent = "Invitation code tidak valid";
+                    invitationError.classList.add('visible');
+                    return;
+                }
+                
+                // Hide form and show success message
+                registerForm.style.display = 'none';
+                registerSuccess.style.display = 'block';
+                
+                // Show success checkmark animation
+                document.querySelector('.success-checkmark').classList.add('show');
+            });
+            
+            // Login form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Hide form and show error message (always show error as per requirement)
+                loginForm.style.display = 'none';
+                loginError.style.display = 'block';
+                
+                // Show error animation
+                document.querySelector('.error-mark').classList.add('show');
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    
+                    // Reset forms and hide success/error messages
+                    registerForm.style.display = 'block';
+                    loginForm.style.display = 'block';
+                    registerSuccess.style.display = 'none';
+                    loginError.style.display = 'none';
+                    
+                    // Reset form fields
+                    registerForm.reset();
+                    loginForm.reset();
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'950163bb309789a4',t:'MTc0OTk4MzQwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+
+</body><chatgpt-sidebar data-gpts-theme="light"></chatgpt-sidebar></html>
