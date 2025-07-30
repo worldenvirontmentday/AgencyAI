@@ -807,23 +807,16 @@
                 output.textContent += " ";
               }
               
-              // Scroll window to bottom to see new content
-              window.scrollTo(0, document.body.scrollHeight);
-              
               await sleep(50 + Math.random() * 50);
             }
             
             output.textContent += "\n";
-            
-            // Scroll window to bottom to see new content
-            window.scrollTo(0, document.body.scrollHeight);
             
             await sleep(20);
           }
           
           // Show action buttons after typing is complete
           document.getElementById("action-buttons").style.display = "block";
-          window.scrollTo(0, document.body.scrollHeight);
         }
         
         // Button functionality
@@ -926,7 +919,6 @@
                 commentForm.style.display = 'block';
                 this.classList.add('active');
                 commentForm.querySelector('.comment-input').focus();
-                window.scrollTo(0, document.body.scrollHeight);
             } else {
                 commentForm.style.display = 'none';
                 this.classList.remove('active');
@@ -1361,7 +1353,6 @@
                             this.style.background = 'rgba(138, 75, 255, 0.4)';
                             this.style.color = '#a855f7';
                             commentForm.querySelector('.comment-input').focus();
-                            window.scrollTo(0, document.body.scrollHeight);
                         } else {
                             commentForm.style.display = 'none';
                             this.classList.remove('active');
@@ -1406,16 +1397,10 @@
                         output.textContent += " ";
                     }
                     
-                    // Scroll window to bottom to see new content
-                    window.scrollTo(0, document.body.scrollHeight);
-                    
                     await sleep(50 + Math.random() * 50);
                 }
                 
                 output.textContent += "\n";
-                
-                // Scroll window to bottom to see new content
-                window.scrollTo(0, document.body.scrollHeight);
                 
                 await sleep(20);
             }
@@ -1423,7 +1408,6 @@
             // Show action buttons after typing is complete
             if (actionButtons) {
                 actionButtons.style.display = 'block';
-                window.scrollTo(0, document.body.scrollHeight);
             }
         }
 
@@ -1431,11 +1415,17 @@
           const code = document.getElementById("input").value;
           if (!code.trim()) return;
 
+          // Store current scroll position
+          const currentScrollY = window.scrollY;
+          
           document.getElementById("input-container").style.display = "none";
           document.getElementById("code-container").style.display = "block";
+          
+          // Restore scroll position to prevent jumping
+          window.scrollTo(0, currentScrollY);
           
           await typeCode(code);
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96704ff671e21a58',t:'MTc1MzgzMDg2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9670f2074212f8ef',t:'MTc1MzgzNzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
