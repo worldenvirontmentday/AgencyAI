@@ -740,11 +740,16 @@
             lineSpan.style.transition = 'opacity 0.3s ease-in';
             output.appendChild(lineSpan);
 
-            // Trigger fade-in immediately (no delay between lines)
+            // Show text very faintly first, then fade in after 1000ms (1 second)
+            setTimeout(() => {
+              lineNumSpan.style.opacity = '0.01';
+              lineSpan.style.opacity = '0.01';
+            }, 10);
+            
             setTimeout(() => {
               lineNumSpan.style.opacity = '1';
               lineSpan.style.opacity = '1';
-            }, 10);
+            }, 1000);
 
             // Auto-scroll every 1 second during generation
             const currentTime = Date.now();
@@ -1075,10 +1080,7 @@
                 }
                 
                 // Smooth scroll to show the new response
-                newCodeContainer.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start'
-                });
+                newCodeContainer.scrollIntoView({ behavior: 'smooth' });
                 
                 // Type the comment prompt directly
                 await typeCodeInContainer(commentText, newLineNumbers, newOutput, newActionButtons);
@@ -1380,11 +1382,16 @@
                 lineSpan.style.transition = 'opacity 0.3s ease-in';
                 output.appendChild(lineSpan);
 
-                // Trigger fade-in immediately (no delay between lines)
+                // Show text very faintly first, then fade in after 1000ms (1 second)
+                setTimeout(() => {
+                    lineNumSpan.style.opacity = '0.01';
+                    lineSpan.style.opacity = '0.01';
+                }, 10);
+                
                 setTimeout(() => {
                     lineNumSpan.style.opacity = '1';
                     lineSpan.style.opacity = '1';
-                }, 10);
+                }, 1000);
 
                 // Auto-scroll every 1 second during generation
                 const currentTime = Date.now();
@@ -1427,13 +1434,10 @@
           
           // Smooth scroll to show the code container
           const codeContainer = document.getElementById("code-container");
-          codeContainer.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start'
-          });
+          codeContainer.scrollIntoView({ behavior: 'smooth' });
           
           await typeCode(code);
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9674f8a01659fe10',t:'MTc1Mzg3OTcxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96760267860c8856',t:'MTc1Mzg5MDYwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
