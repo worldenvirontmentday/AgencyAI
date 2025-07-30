@@ -1106,7 +1106,7 @@
             
             // Open modal when Generate button is clicked
             generateBtn.addEventListener('click', function() {
-                modal.classList.add('active');
+            window.location.href = '/code-generator';
             });
             
             // Close modal when close button is clicked
