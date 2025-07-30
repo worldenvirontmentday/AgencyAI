@@ -70,13 +70,7 @@
             z-index: 1;
         }
         
-        .dot {
-            position: fixed;
-            border-radius: 50%;
-            opacity: 0.6;
-            transition: top 15s linear;
-            z-index: 2;
-        }
+
         
         .star {
             position: fixed;
@@ -590,8 +584,7 @@
         <!-- Stars container -->
         <div id="stars-container"></div>
         
-        <!-- Moving dots container -->
-        <div id="dots-container"></div>
+
     </div>
     
     <!-- Content container -->
@@ -710,68 +703,7 @@
                 starsContainer.appendChild(star);
             }
             
-            // Generate moving dots
-            const dotsContainer = document.getElementById('dots-container');
-            const colors = ['#FF9800', '#3b82f6', '#8b5cf6', '#a855f7']; // Orange, Blue, Blue-Purple, Purple
-            const dotCount = 150;
-            
-            function createDot() {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                
-                // Size between 2-6px
-                const size = Math.random() * 4 + 2;
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
-                
-                // Position with higher concentration in top-left and middle-right
-                let x, y;
-                if (Math.random() < 0.5) {
-                    // Top-left concentration
-                    x = Math.random() * 40;
-                } else {
-                    // Middle-right concentration
-                    x = 50 + Math.random() * 40;
-                }
-                
-                // Add some random dots elsewhere too
-                if (Math.random() < 0.3) {
-                    x = Math.random() * 100;
-                }
-                
-                // Start from bottom or random position
-                y = Math.random() < 0.7 ? 100 + Math.random() * 20 : Math.random() * 100;
-                
-                dot.style.left = `${x}%`;
-                dot.style.top = `${y}%`;
-                
-                // Random color from our new color palette
-                dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                // Random opacity
-                dot.style.opacity = Math.random() * 0.5 + 0.2;
-                
-                dotsContainer.appendChild(dot);
-                
-                // Animate upward
-                setTimeout(() => {
-                    const newY = -10 - Math.random() * 10; // Move beyond the top
-                    dot.style.top = `${newY}%`;
-                }, 50);
-                
-                // Remove dot after animation completes and create a new one
-                setTimeout(() => {
-                    dot.remove();
-                    createDot();
-                }, 15000 + Math.random() * 5000);
-            }
-            
-            // Initial creation of dots
-            for (let i = 0; i < dotCount; i++) {
-                setTimeout(() => {
-                    createDot();
-                }, i * 100);
-            }
+
         });
 
         // Text generation script
@@ -1503,5 +1435,5 @@
           await typeCode(code);
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96728cfb513b1dad',t:'MTc1Mzg1NDMzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9674f8a01659fe10',t:'MTc1Mzg3OTcxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
