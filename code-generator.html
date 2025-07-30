@@ -541,7 +541,6 @@
             padding: 10px;
             color: #e5e7eb;
             white-space: pre;
-            overflow-wrap: normal;
             min-width: max-content;
         }
     </style>
@@ -783,40 +782,67 @@
         async function typeCode(text) {
           const output = document.getElementById("output");
           const lineNumberContainer = document.getElementById("line-numbers");
+          const codeContainer = document.getElementById("code-container");
 
-          output.textContent = "";
-          lineNumberContainer.textContent = "";
+          output.innerHTML = "";
+          lineNumberContainer.innerHTML = "";
 
           const lines = text.split("\n");
+          let lastScrollTime = 0;
+          const scrollInterval = 1000; // 1 second
+          
           for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
             const line = lines[lineIndex];
 
-            // Tambah nomor baris saat mulai mengetik baris baru
-            lineNumberContainer.textContent += (lineIndex + 1) + "\n";
+            // Add line number with fade animation
+            const lineNumSpan = document.createElement('span');
+            lineNumSpan.textContent = (lineIndex + 1) + "\n";
+            lineNumSpan.style.opacity = '0';
+            lineNumSpan.style.transition = 'opacity 0.3s ease-in';
+            lineNumberContainer.appendChild(lineNumSpan);
 
-            // Split line into words
-            const words = line.split(" ");
-            for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
-              const word = words[wordIndex];
-              
-              // Add the word
-              output.textContent += word;
-              
-              // Add space after word (except for last word in line)
-              if (wordIndex < words.length - 1) {
-                output.textContent += " ";
-              }
-              
-              await sleep(50 + Math.random() * 50);
+            // Add line with fade animation
+            const lineSpan = document.createElement('span');
+            lineSpan.textContent = line + "\n";
+            lineSpan.style.opacity = '0';
+            lineSpan.style.transition = 'opacity 0.3s ease-in';
+            output.appendChild(lineSpan);
+
+            // Trigger fade-in immediately (no delay between lines)
+            setTimeout(() => {
+              lineNumSpan.style.opacity = '1';
+              lineSpan.style.opacity = '1';
+            }, 10);
+
+            // Auto-scroll every 1 second during generation
+            const currentTime = Date.now();
+            if (currentTime - lastScrollTime >= scrollInterval && lineIndex > 5) {
+              setTimeout(() => {
+                const codeEditor = document.getElementById("code-editor");
+                codeEditor.scrollTo({
+                  top: codeEditor.scrollHeight,
+                  left: 0,
+                  behavior: 'smooth'
+                });
+              }, 100);
+              lastScrollTime = currentTime;
             }
-            
-            output.textContent += "\n";
-            
-            await sleep(20);
+
+            // Super minimal delay just for smooth visual flow
+            await sleep(50);
           }
           
-          // Show action buttons after typing is complete
-          document.getElementById("action-buttons").style.display = "block";
+          // Final scroll to show action buttons
+          setTimeout(() => {
+            const actionButtons = document.getElementById("action-buttons");
+            actionButtons.style.display = "block";
+            const codeEditor = document.getElementById("code-editor");
+            codeEditor.scrollTo({
+              top: codeEditor.scrollHeight,
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 200);
         }
         
         // Button functionality
@@ -1096,7 +1122,6 @@
                     padding: 10px;
                     color: #e5e7eb;
                     white-space: pre;
-                    overflow-wrap: normal;
                     min-width: max-content;
                 `;
                 
@@ -1116,6 +1141,12 @@
                 } else {
                     contentContainer.appendChild(newCodeContainer);
                 }
+                
+                // Smooth scroll to show the new response
+                newCodeContainer.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start'
+                });
                 
                 // Type the comment prompt directly
                 await typeCodeInContainer(commentText, newLineNumbers, newOutput, newActionButtons);
@@ -1328,36 +1359,55 @@
                     });
                 } else if (buttonData.id === 'comment') {
                     btn.addEventListener('click', function() {
-                        const codeContainer = this.closest('div').closest('div').closest('div');
+                        // Find the parent code container more reliably
+                        let codeContainer = this.closest('[style*="background-color: rgba(15, 15, 30, 0.7)"]');
+                        if (!codeContainer) {
+                            // Fallback: traverse up to find the container with code-editor
+                            let parent = this.parentElement;
+                            while (parent && !parent.querySelector('.code-editor')) {
+                                parent = parent.parentElement;
+                            }
+                            codeContainer = parent;
+                        }
+                        
                         const contentContainer = document.querySelector('.content-container');
                         
-                        // Use a unique identifier based on the container position
-                        const responseId = 'response-' + Array.from(contentContainer.children).indexOf(codeContainer);
-                        let commentForm = contentContainer.querySelector(`.comment-form[data-response="${responseId}"]`);
+                        // Create a more unique identifier using timestamp and random number
+                        const responseId = 'response-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                        let commentForm = codeContainer.nextElementSibling;
                         
-                        if (!commentForm) {
+                        // Check if the next element is already a comment form
+                        if (commentForm && commentForm.classList.contains('comment-form')) {
+                            // Toggle existing form
+                            if (commentForm.style.display === 'none' || commentForm.style.display === '') {
+                                commentForm.style.display = 'block';
+                                this.classList.add('active');
+                                this.style.background = 'rgba(138, 75, 255, 0.4)';
+                                this.style.color = '#a855f7';
+                                commentForm.querySelector('.comment-input').focus();
+                            } else {
+                                commentForm.style.display = 'none';
+                                this.classList.remove('active');
+                                this.style.background = 'rgba(30, 30, 60, 0.4)';
+                                this.style.color = '#8b5cf6';
+                            }
+                        } else {
+                            // Create new comment form
                             commentForm = createCommentForm();
                             commentForm.setAttribute('data-response', responseId);
-                            // Insert after the current code container in content-container
-                            const nextElement = codeContainer.nextSibling;
-                            if (nextElement) {
-                                contentContainer.insertBefore(commentForm, nextElement);
+                            
+                            // Insert after the current code container
+                            if (codeContainer.nextSibling) {
+                                contentContainer.insertBefore(commentForm, codeContainer.nextSibling);
                             } else {
                                 contentContainer.appendChild(commentForm);
                             }
-                        }
-                        
-                        if (commentForm.style.display === 'none' || commentForm.style.display === '') {
+                            
                             commentForm.style.display = 'block';
                             this.classList.add('active');
                             this.style.background = 'rgba(138, 75, 255, 0.4)';
                             this.style.color = '#a855f7';
                             commentForm.querySelector('.comment-input').focus();
-                        } else {
-                            commentForm.style.display = 'none';
-                            this.classList.remove('active');
-                            this.style.background = 'rgba(30, 30, 60, 0.4)';
-                            this.style.color = '#8b5cf6';
                         }
                     });
                 }
@@ -1374,58 +1424,84 @@
         
         // Helper function to type code in specific container
         async function typeCodeInContainer(text, lineNumberContainer, output, actionButtons) {
-            output.textContent = "";
-            lineNumberContainer.textContent = "";
+            output.innerHTML = "";
+            lineNumberContainer.innerHTML = "";
 
             const lines = text.split("\n");
+            let lastScrollTime = 0;
+            const scrollInterval = 1000; // 1 second
+            
             for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
                 const line = lines[lineIndex];
 
-                // Add line number
-                lineNumberContainer.textContent += (lineIndex + 1) + "\n";
+                // Add line number with fade animation
+                const lineNumSpan = document.createElement('span');
+                lineNumSpan.textContent = (lineIndex + 1) + "\n";
+                lineNumSpan.style.opacity = '0';
+                lineNumSpan.style.transition = 'opacity 0.3s ease-in';
+                lineNumberContainer.appendChild(lineNumSpan);
 
-                // Split line into words
-                const words = line.split(" ");
-                for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
-                    const word = words[wordIndex];
-                    
-                    // Add the word
-                    output.textContent += word;
-                    
-                    // Add space after word (except for last word in line)
-                    if (wordIndex < words.length - 1) {
-                        output.textContent += " ";
-                    }
-                    
-                    await sleep(50 + Math.random() * 50);
+                // Add line with fade animation
+                const lineSpan = document.createElement('span');
+                lineSpan.textContent = line + "\n";
+                lineSpan.style.opacity = '0';
+                lineSpan.style.transition = 'opacity 0.3s ease-in';
+                output.appendChild(lineSpan);
+
+                // Trigger fade-in immediately (no delay between lines)
+                setTimeout(() => {
+                    lineNumSpan.style.opacity = '1';
+                    lineSpan.style.opacity = '1';
+                }, 10);
+
+                // Auto-scroll every 1 second during generation
+                const currentTime = Date.now();
+                if (currentTime - lastScrollTime >= scrollInterval && lineIndex > 5) {
+                    setTimeout(() => {
+                        const codeEditor = output.closest('.code-editor');
+                        codeEditor.scrollTo({
+                            top: codeEditor.scrollHeight,
+                            left: 0,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                    lastScrollTime = currentTime;
                 }
-                
-                output.textContent += "\n";
-                
-                await sleep(20);
+
+                // Super minimal delay just for smooth visual flow
+                await sleep(50);
             }
             
-            // Show action buttons after typing is complete
-            if (actionButtons) {
-                actionButtons.style.display = 'block';
-            }
+            // Final scroll to show action buttons
+            setTimeout(() => {
+                if (actionButtons) {
+                    actionButtons.style.display = 'block';
+                    const codeEditor = output.closest('.code-editor');
+                    codeEditor.scrollTo({
+                        top: codeEditor.scrollHeight,
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 200);
         }
 
         document.getElementById("submit").addEventListener("click", async function () {
           const code = document.getElementById("input").value;
           if (!code.trim()) return;
 
-          // Store current scroll position
-          const currentScrollY = window.scrollY;
-          
           document.getElementById("input-container").style.display = "none";
           document.getElementById("code-container").style.display = "block";
           
-          // Restore scroll position to prevent jumping
-          window.scrollTo(0, currentScrollY);
+          // Smooth scroll to show the code container
+          const codeContainer = document.getElementById("code-container");
+          codeContainer.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start'
+          });
           
           await typeCode(code);
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9670f2074212f8ef',t:'MTc1MzgzNzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96728cfb513b1dad',t:'MTc1Mzg1NDMzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
