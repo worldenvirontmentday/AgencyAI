@@ -46,7 +46,6 @@
             height: 32px;
             width: 160px;
             object-fit: contain;
-            filter: brightness(0) saturate(100%) invert(69%) sepia(25%) saturate(1847%) hue-rotate(202deg) brightness(103%) contrast(96%);
         }
 
         .code-editor {
@@ -115,13 +114,92 @@
             filter: drop-shadow(0 0 5px rgba(125, 211, 252, 0.5));
         }
 
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
         .prompt-label {
             color: #60a5fa;
             font-size: 12px;
             font-weight: 600;
-            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .prompt-stats {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .line-counter {
+            color: #60a5fa;
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.8;
+            display: none;
+        }
+
+        .line-counter.visible {
+            display: block;
+        }
+
+        .typing-timer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .typing-timer.active {
+            opacity: 1;
+        }
+
+        .typing-timer.completed {
+            opacity: 1;
+        }
+
+        .timer-circle {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .progress-circle {
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        .progress-circle.loading {
+            animation: rotate 1.5s linear infinite;
+            stroke-dasharray: 12.57;
+            stroke-dashoffset: 0;
+            transform-origin: 10px 10px;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(-90deg);
+                stroke-dashoffset: 12.57;
+            }
+            50% {
+                transform: rotate(90deg);
+                stroke-dashoffset: 0;
+            }
+            100% {
+                transform: rotate(270deg);
+                stroke-dashoffset: 12.57;
+            }
+        }
+
+        .timer-text {
+            color: #60a5fa;
+            font-size: 11px;
+            font-weight: 600;
+            min-width: 35px;
         }
 
         .prompt-input {
@@ -451,7 +529,23 @@
                     ></textarea>
                 </div>
                 <div class="prompt-section">
-                    <div class="prompt-label">Code Agentic</div>
+                    <div class="prompt-header">
+                        <div class="prompt-label">Code Agentic</div>
+                        <div class="prompt-stats">
+                            <div class="line-counter" id="lineCounter">0 baris</div>
+                            <div class="typing-timer" id="typingTimer">
+                                <div class="timer-circle" id="timerCircle">
+                                    <svg width="20" height="20" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="8" fill="none" stroke="rgba(96, 165, 250, 0.2)" stroke-width="2"/>
+                                        <circle cx="10" cy="10" r="8" fill="none" stroke="#60a5fa" stroke-width="2" 
+                                                stroke-dasharray="50.27" stroke-dashoffset="50.27" 
+                                                transform="rotate(-90 10 10)" class="progress-circle"/>
+                                    </svg>
+                                </div>
+                                <span class="timer-text" id="timerText">0.00s</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="prompt-input-container">
                         <button class="prompt-btn" id="sparkBtn">
                             <svg viewBox="0 0 24 24">
@@ -560,11 +654,18 @@
         const suggestCodeInput = document.getElementById('suggestCodeInput');
         const cancelBtn = document.getElementById('cancelBtn');
         const saveBtn = document.getElementById('saveBtn');
+        const lineCounter = document.getElementById('lineCounter');
+        const typingTimer = document.getElementById('typingTimer');
+        const timerText = document.getElementById('timerText');
+        const progressCircle = document.querySelector('.progress-circle');
         
         let currentDevice = 'desktop';
         let zoomLevel = 100;
         let savedSuggestPrompt = '';
         let savedSuggestCode = '';
+        let typingStartTime = 0;
+        let typingInterval = null;
+        let isTyping = false;
 
         // Update preview in real-time
         function updatePreview() {
@@ -573,6 +674,50 @@
             iframeDoc.open();
             iframeDoc.write(code);
             iframeDoc.close();
+        }
+
+        // Timer and counter functions
+        function startTypingTimer() {
+            if (!isTyping) {
+                isTyping = true;
+                typingStartTime = Date.now();
+                typingTimer.classList.add('active');
+                typingTimer.classList.remove('completed');
+                progressCircle.classList.add('loading');
+                lineCounter.classList.add('visible');
+                
+                typingInterval = setInterval(() => {
+                    const elapsed = (Date.now() - typingStartTime) / 1000;
+                    timerText.textContent = elapsed.toFixed(2) + 's';
+                }, 10);
+            }
+        }
+
+        function stopTypingTimer() {
+            if (isTyping) {
+                isTyping = false;
+                clearInterval(typingInterval);
+                progressCircle.classList.remove('loading');
+                typingTimer.classList.remove('active');
+                typingTimer.classList.add('completed');
+                
+                // Update progress circle to show completion (full circle)
+                const circumference = 50.27; // 2 * π * 8
+                progressCircle.style.strokeDashoffset = '0';
+            }
+        }
+
+        function resetTimer() {
+            typingTimer.classList.remove('active', 'completed');
+            progressCircle.classList.remove('loading');
+            progressCircle.style.strokeDashoffset = '50.27';
+            timerText.textContent = '0.00s';
+            lineCounter.classList.remove('visible');
+        }
+
+        function updateLineCounter() {
+            const lines = codeInput.value.split('\n').length;
+            lineCounter.textContent = lines + ' baris';
         }
 
         // Zoom functions
@@ -621,10 +766,14 @@
         }
 
         // Listen for code changes
-        codeInput.addEventListener('input', updatePreview);
+        codeInput.addEventListener('input', function() {
+            updatePreview();
+            updateLineCounter();
+        });
 
         // Initialize with empty code editor
         codeInput.value = '';
+        updateLineCounter();
 
         // Initial preview update
         updatePreview();
@@ -670,34 +819,157 @@
         // Send button functionality
         const sendBtn = document.getElementById('sendBtn');
         
+        // Loading messages arrays
+        const loadingMessages = {
+            klasik: [
+                'Loading...',
+                'Please wait...',
+                'Sedang diproses...',
+                'Memuat data...',
+                'Tunggu sebentar...',
+                'Menyiapkan hasil...',
+                'Processing...',
+                'Harap tunggu...'
+            ],
+            analitis: [
+                'Thinking...',
+                'Analyzing request...',
+                'Menganalisis permintaan...',
+                'Menyusun jawaban...',
+                'Mencocokkan data...',
+                'Menghubungkan ke knowledge base...',
+                'Memproses model AI...',
+                'Merangkai respon terbaik...',
+                'Evaluating input...',
+                'Menilai konteks...'
+            ],
+            teknis: [
+                'Generating response...',
+                'Parsing request...',
+                'Running inference...',
+                'Fetching context...',
+                'Compiling output...',
+                'Optimizing response...',
+                'Executing query...',
+                'Decoding prompt...',
+                'Initializing model...'
+            ]
+        };
+        
+        function getRandomMessages() {
+            const categories = ['klasik', 'analitis', 'teknis'];
+            const selectedMessages = [];
+            
+            // Pick one from each category
+            categories.forEach(category => {
+                const messages = loadingMessages[category];
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                selectedMessages.push(messages[randomIndex]);
+            });
+            
+            // Pick 2 more random messages from any category
+            for (let i = 0; i < 2; i++) {
+                const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+                const messages = loadingMessages[randomCategory];
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                const message = messages[randomIndex];
+                
+                // Avoid duplicates
+                if (!selectedMessages.includes(message)) {
+                    selectedMessages.push(message);
+                }
+            }
+            
+            // Shuffle the array
+            return selectedMessages.sort(() => Math.random() - 0.5);
+        }
+        
+        function typeAndEraseMessage(message, callback) {
+            let charIndex = 0;
+            const typeSpeed = 17; // milliseconds per character (3x faster)
+            const eraseSpeed = 10; // milliseconds per character when erasing (3x faster)
+            
+            // Type the message
+            function typeChar() {
+                if (charIndex < message.length) {
+                    codeInput.value += message.charAt(charIndex);
+                    updateLineCounter();
+                    charIndex++;
+                    setTimeout(typeChar, typeSpeed);
+                } else {
+                    // No pause, immediately erase
+                    eraseMessage();
+                }
+            }
+            
+            // Erase the message
+            function eraseMessage() {
+                if (codeInput.value.length > 0) {
+                    codeInput.value = codeInput.value.slice(0, -1);
+                    updateLineCounter();
+                    setTimeout(eraseMessage, eraseSpeed);
+                } else {
+                    // Message fully erased, call callback
+                    if (callback) callback();
+                }
+            }
+            
+            typeChar();
+        }
+        
+        function showLoadingAnimation(callback) {
+            const messages = getRandomMessages();
+            let messageIndex = 0;
+            
+            function processNextMessage() {
+                if (messageIndex < messages.length) {
+                    typeAndEraseMessage(messages[messageIndex], () => {
+                        messageIndex++;
+                        processNextMessage(); // No pause between messages
+                    });
+                } else {
+                    // All loading messages done, proceed to actual code
+                    if (callback) callback();
+                }
+            }
+            
+            processNextMessage();
+        }
+        
         function typeCode(text, callback) {
-            codeInput.value = '';
             const words = text.split(/(\s+)/); // Split by whitespace but keep the spaces
             let wordIndex = 0;
-            const typingSpeed = 80; // milliseconds per word
+            const typingSpeed = 80; // milliseconds per 3 words
             
-            function typeNextWord() {
+            function typeNext3Words() {
                 if (wordIndex < words.length) {
-                    codeInput.value += words[wordIndex];
-                    wordIndex++;
+                    // Type 3 words at once
+                    let wordsToAdd = '';
+                    for (let i = 0; i < 3 && wordIndex < words.length; i++) {
+                        wordsToAdd += words[wordIndex];
+                        wordIndex++;
+                    }
+                    codeInput.value += wordsToAdd;
+                    updateLineCounter();
                     
-                    // Update preview every few words during typing
-                    if (wordIndex % 10 === 0 || wordIndex === words.length) {
+                    // Update preview every few chunks during typing
+                    if (wordIndex % 15 === 0 || wordIndex >= words.length) {
                         updatePreview();
                     }
                     
                     // Scroll to bottom of textarea
                     codeInput.scrollTop = codeInput.scrollHeight;
                     
-                    setTimeout(typeNextWord, typingSpeed);
+                    setTimeout(typeNext3Words, typingSpeed);
                 } else {
                     // Final preview update when typing is complete
                     updatePreview();
+                    stopTypingTimer();
                     if (callback) callback();
                 }
             }
             
-            typeNextWord();
+            typeNext3Words();
         }
         
         sendBtn.addEventListener('click', function() {
@@ -705,10 +977,20 @@
             promptInput.value = '';
             autoResize();
             
-            // Type saved code into code editor if available
-            if (savedSuggestCode) {
-                typeCode(savedSuggestCode);
-            }
+            // Reset timer and counter
+            resetTimer();
+            
+            // Clear code editor and start loading animation
+            codeInput.value = '';
+            updateLineCounter();
+            startTypingTimer();
+            
+            // Show loading animation first, then type the actual code
+            showLoadingAnimation(() => {
+                if (savedSuggestCode) {
+                    typeCode(savedSuggestCode);
+                }
+            });
         });
 
         // Auto-resize prompt textarea
@@ -724,5 +1006,5 @@
 
 
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'970e5e39031ace73',t:'MTc1NTQ4ODE5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'970ea25036ac8349',t:'MTc1NTQ5MDk4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
